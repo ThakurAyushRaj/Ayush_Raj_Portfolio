@@ -1,109 +1,158 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+
+const bootLogs = [
+  "[0.001] SYSTEM BIOS v3.84 (C) 1989-2026 CYBERDINE SYSTEMS",
+  "[0.012] INITIALIZING VIBE-CODING KERNEL...",
+  "[0.038] LOADING RETRO-ANIME GRAPHICS MATRIX... OK",
+  "[0.065] CHROMATIC DISSOLVE ENGINE ACTIVE...",
+  "[0.092] VERIFYING SUBJECT: SERGIO AYALA // AYUSH RAJ",
+  "[0.120] SYSTEM BOOT COMPLETE. ACCESS GRANTED [100%]"
+];
 
 export default function InvestigativeIntro() {
   const [isVisible, setIsVisible] = useState(true);
-  const [pos, setPos] = useState({ x: 0, y: 0 });
-  const [hasMoved, setHasMoved] = useState(false);
+  const [percent, setPercent] = useState(0);
+  const [logs, setLogs] = useState<string[]>([bootLogs[0]]);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    // Check if intro was already seen in session
     if (sessionStorage.getItem("intro_seen") === "true") {
       setIsVisible(false);
       return;
     }
 
-    setPos({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+    // Lock body scroll
+    document.body.style.overflow = "hidden";
 
-    const handleMove = (e: MouseEvent | TouchEvent) => {
-      let clientX = 0;
-      let clientY = 0;
-      if ("touches" in e && e.touches.length > 0) {
-        clientX = e.touches[0].clientX;
-        clientY = e.touches[0].clientY;
-      } else if ("clientX" in e) {
-        clientX = e.clientX;
-        clientY = e.clientY;
+    let currentProgress = 0;
+    const interval = setInterval(() => {
+      currentProgress += Math.floor(Math.random() * 14) + 6;
+      if (currentProgress > 100) currentProgress = 100;
+
+      setPercent(currentProgress);
+
+      if (currentProgress > 20 && bootLogs[1]) {
+        setLogs(prev => prev.includes(bootLogs[1]) ? prev : [...prev, bootLogs[1]]);
       }
-      setPos({ x: clientX, y: clientY });
-      setHasMoved(true);
-    };
-
-    window.addEventListener("mousemove", handleMove);
-    window.addEventListener("touchmove", handleMove);
+      if (currentProgress > 45 && bootLogs[2]) {
+        setLogs(prev => prev.includes(bootLogs[2]) ? prev : [...prev, bootLogs[2]]);
+      }
+      if (currentProgress > 70 && bootLogs[4]) {
+        setLogs(prev => prev.includes(bootLogs[4]) ? prev : [...prev, bootLogs[4]]);
+      }
+      if (currentProgress >= 100) {
+        setLogs(prev => prev.includes(bootLogs[5]) ? prev : [...prev, bootLogs[5]]);
+        clearInterval(interval);
+        setTimeout(dismiss, 500);
+      }
+    }, 85);
 
     return () => {
-      window.removeEventListener("mousemove", handleMove);
-      window.removeEventListener("touchmove", handleMove);
+      clearInterval(interval);
+      document.body.style.overflow = "";
     };
   }, []);
 
+  const triggerGlitchCanvas = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let frames = 0;
+    const render = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < 20; i++) {
+        ctx.fillStyle = Math.random() > 0.5 ? "rgba(228, 0, 43, 0.3)" : "rgba(0, 240, 255, 0.3)";
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const w = Math.random() * 400 + 50;
+        const h = Math.random() * 12 + 2;
+        ctx.fillRect(x, y, w, h);
+      }
+      frames++;
+      if (frames < 14) {
+        requestAnimationFrame(render);
+      } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+    };
+    render();
+  };
+
   const dismiss = () => {
+    triggerGlitchCanvas();
     sessionStorage.setItem("intro_seen", "true");
+    document.body.style.overflow = "";
     setIsVisible(false);
   };
 
   return (
     <AnimatePresence>
       {isVisible && (
-        <motion.div
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0, y: "-100%" }}
-          transition={{ duration: 0.8, ease: [0.77, 0, 0.175, 1] }}
-          className="fixed inset-0 z-[100] bg-[#1A1918] text-[#F5F2EB] select-none overflow-hidden"
-        >
-          {/* Background obscure layer */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-20">
-            <h1 className="font-serif text-6xl md:text-9xl tracking-tight text-center">
-              AYUSH RAJ
-            </h1>
-            <p className="font-mono text-xs uppercase tracking-[0.3em] mt-4">
-              THE INVESTIGATION EDITION · VOL. III
-            </p>
-          </div>
-
-          {/* Spotlight Lens Layer */}
-          <div
-            className="absolute inset-0 pointer-events-none transition-all duration-75"
-            style={{
-              clipPath: `circle(140px at ${pos.x}px ${pos.y}px)`,
-              background: "#F5F2EB",
-              color: "#1A1918",
-            }}
+        <>
+          <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-[250]" />
+          
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0, scale: 1.05 }}
+            transition={{ duration: 0.5, ease: [0.77, 0, 0.175, 1] }}
+            className="fixed inset-0 bg-[#050507] text-white z-[200] flex flex-col items-center justify-center p-6 select-none font-mono"
           >
-            <div className="w-full h-full flex flex-col items-center justify-center relative p-6">
-              {/* Central Visual revealed inside Lens */}
-              <div className="w-64 h-64 md:w-80 md:h-80 border-4 border-[#1A1918] p-2 bg-[#EFECE6] shadow-xl flex items-center justify-center">
-                <img
-                  src="/api/profile-photo"
-                  alt="Subject Under Investigation"
-                  className="w-full h-full object-cover grayscale contrast-125"
-                />
+            {/* HUD Box Container */}
+            <div class="w-full max-w-xl bg-[#0E0E12]/90 border border-[#2A2A38] p-6 md:p-8 flex flex-col justify-between min-h-[320px] shadow-[0_0_50px_rgba(228,0,43,0.15)] relative">
+              <div class="absolute top-[-1px] left-[-1px] w-2.5 h-2.5 border-t-2 border-l-2 border-[#E4002B]"></div>
+              <div class="absolute bottom-[-1px] right-[-1px] w-2.5 h-2.5 border-b-2 border-r-2 border-[#E4002B]"></div>
+
+              {/* Preloader Header */}
+              <div className="flex items-center justify-between border-b border-[#2A2A38] pb-3">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#E4002B] animate-pulse"></span>
+                  <span className="text-xs tracking-widest text-[#E4002B] font-bold">CYBERDINE VIBE-BOOT v3.84</span>
+                </div>
+                <span className="text-[10px] text-[#A0A0B0]">80S_ANIME_HUD</span>
               </div>
 
-              <span className="font-mono text-xs font-bold tracking-widest uppercase bg-[#1A1918] text-[#F5F2EB] px-3 py-1 mt-4">
-                SUBJECT IDENTIFIED: AYUSH RAJ
-              </span>
+              {/* Boot Logs Terminal */}
+              <div className="my-6 space-y-1.5 text-xs text-slate-300 overflow-hidden max-h-[160px]">
+                {logs.map((log, idx) => (
+                  <div key={idx} className={idx === logs.length - 1 && percent === 100 ? "text-[#00FF66] font-bold" : "text-slate-300"}>
+                    {log}
+                  </div>
+                ))}
+              </div>
+
+              {/* Progress Meter */}
+              <div className="space-y-2 border-t border-[#2A2A38] pt-4">
+                <div className="flex justify-between items-center text-xs">
+                  <span className="text-slate-400">
+                    {percent === 100 ? "SYSTEM READY · ACCESS GRANTED" : "LOADING RETRO-ANIME GRAPHICS..."}
+                  </span>
+                  <span className="text-[#E4002B] font-bold">{percent}%</span>
+                </div>
+                <div className="w-full h-1.5 bg-[#1F1F28] overflow-hidden">
+                  <div
+                    className="h-full bg-[#E4002B] transition-all duration-75"
+                    style={{ width: `${percent}%` }}
+                  ></div>
+                </div>
+              </div>
             </div>
-          </div>
 
-          {/* Interactive Instruction Banner */}
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-center pointer-events-none">
-            <span className="font-mono text-xs uppercase tracking-widest px-4 py-2 border border-[#F5F2EB]/30 bg-[#1A1918]/80 text-[#F5F2EB]">
-              {hasMoved ? "lens focused — subject detected" : "drag the glass — find the subject"}
-            </span>
-          </div>
-
-          {/* Skip Intro Floating CTA Button */}
-          <button
-            onClick={dismiss}
-            className="absolute top-8 right-8 font-mono text-xs font-bold uppercase tracking-widest px-5 py-2.5 bg-[#F5F2EB] text-[#1A1918] hover:bg-[#A8382A] hover:text-[#F5F2EB] transition-colors shadow-lg z-[110]"
-          >
-            Skip intro →
-          </button>
-        </motion.div>
+            <button
+              onClick={dismiss}
+              className="mt-6 text-xs text-[#A0A0B0] hover:text-white tracking-widest uppercase border border-[#2A2A38] px-5 py-2.5 hover:border-[#E4002B] transition-all"
+            >
+              [ SKIP INITIALIZATION → ]
+            </button>
+          </motion.div>
+        </>
       )}
     </AnimatePresence>
   );

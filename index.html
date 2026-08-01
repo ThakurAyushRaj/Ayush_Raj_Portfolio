@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SERGIO AYALA // ART DIRECTOR & CREATIVE DEVELOPER — 80s Retro Anime HUD</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@300;400;500;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            obsidian: '#070709',
+            'obsidian-card': '#0E0E12',
+            crimson: '#E4002B',
+            'crimson-bright': '#FF003C',
+            'neon-cyan': '#00F0FF',
+            'toxic-green': '#00FF66',
+            'hud-gray': '#1F1F28',
+            'hud-border': '#2A2A38',
+            'hud-text': '#A0A0B0',
+          },
+          fontFamily: {
+            syne: ['Syne', 'sans-serif'],
+            anton: ['Anton', 'sans-serif'],
+            mono: ['Space Mono', 'JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #070709; }
+    ::-webkit-scrollbar-thumb { background: #E4002B; }
+
+    /* Scanline Overlay */
+    .scanlines {
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0, 0, 0, 0.4) 50%,
+        rgba(0, 0, 0, 0.4)
+      );
+      background-size: 100% 4px;
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    /* Screen Flicker Effect */
+    @keyframes crtFlicker {
+      0% { opacity: 0.98; }
+      50% { opacity: 1; }
+      52% { opacity: 0.94; }
+      54% { opacity: 1; }
+      80% { opacity: 0.97; }
+      100% { opacity: 0.99; }
+    }
+    .crt-flicker {
+      animation: crtFlicker 0.15s infinite;
+    }
+
+    /* Geometric Grid Background */
+    .cyber-grid {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(228, 0, 43, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(228, 0, 43, 0.08) 1px, transparent 1px);
+      perspective: 1000px;
+    }
+
+    /* Chromatic Aberration Text Glitch */
+    .glitch-hover {
+      position: relative;
+      display: inline-block;
+      transition: color 0.1s ease;
+    }
+    .glitch-hover:hover {
+      text-shadow: 
+        -2px 0 #FF003C,
+        2px 0 #00F0FF;
+    }
+
+    /* HUD Framing & Corner Brackets */
+    .hud-box {
+      position: relative;
+      background: rgba(14, 14, 18, 0.85);
+      border: 1px solid #2A2A38;
+      backdrop-filter: blur(8px);
+    }
+    .hud-box::before, .hud-box::after {
+      content: '';
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-color: #E4002B;
+      pointer-events: none;
+    }
+    .hud-box::before {
+      top: -1px; left: -1px;
+      border-top: 2px solid #E4002B;
+      border-left: 2px solid #E4002B;
+    }
+    .hud-box::after {
+      bottom: -1px; right: -1px;
+      border-bottom: 2px solid #E4002B;
+      border-right: 2px solid #E4002B;
+    }
+
+    /* Corner Crosshairs */
+    .hud-corner-tl { position: absolute; top: 12px; left: 12px; color: #E4002B; font-family: monospace; font-size: 10px; z-index: 80; }
+    .hud-corner-tr { position: absolute; top: 12px; right: 12px; color: #E4002B; font-family: monospace; font-size: 10px; z-index: 80; }
+    .hud-corner-bl { position: absolute; bottom: 12px; left: 12px; color: #E4002B; font-family: monospace; font-size: 10px; z-index: 80; }
+    .hud-corner-br { position: absolute; bottom: 12px; right: 12px; color: #E4002B; font-family: monospace; font-size: 10px; z-index: 80; }
+
+    /* Animated Cyber Line Bar */
+    @keyframes scanLineMove {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(1000%); }
+    }
+    .laser-scan {
+      animation: scanLineMove 4s linear infinite;
+    }
+
+    /* Noise Canvas Overlay for Image Hover */
+    .img-glitch-container {
+      position: relative;
+      overflow: hidden;
+    }
+    .img-glitch-container img {
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+    }
+    .img-glitch-container:hover img {
+      transform: scale(1.05);
+      filter: contrast(130%) brightness(110%);
+    }
+  </style>
+</head>
+<body class="bg-obsidian text-white font-mono selection:bg-crimson selection:text-white relative overflow-x-hidden crt-flicker">
+
+  <!-- Scanlines & Noise Canvas -->
+  <div class="scanlines"></div>
+  <canvas id="glitch-canvas" class="fixed inset-0 pointer-events-none z-[100]"></canvas>
+
+  <!-- HUD Corner Crosshairs -->
+  <div class="hud-corner-tl pointer-events-none">+[SYS.01]</div>
+  <div class="hud-corner-tr pointer-events-none">[LAT 28.4744 N]+</div>
+  <div class="hud-corner-bl pointer-events-none">+[LON 77.5040 E]</div>
+  <div class="hud-corner-br pointer-events-none">[MODE: RETRO_HUD]+</div>
+
+  <!-- FULLSCREEN INTERACTIVE GLITCH PRELOADER -->
+  <div id="preloader" class="fixed inset-0 bg-[#050507] z-[200] flex flex-col items-center justify-center p-6 select-none">
+    <div class="w-full max-w-xl hud-box p-6 md:p-8 flex flex-col justify-between min-h-[320px] shadow-[0_0_50px_rgba(228,0,43,0.15)]">
+      <!-- Preloader Header -->
+      <div class="flex items-center justify-between border-b border-hud-border pb-3">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-crimson animate-pulse"></span>
+          <span class="text-xs tracking-widest text-crimson font-bold">CYBERDINE VIBE-BOOT v3.84</span>
+        </div>
+        <span class="text-[10px] text-hud-text">ARCH_80S_ANIME</span>
+      </div>
+
+      <!-- Boot Logs Output -->
+      <div id="boot-terminal" class="my-6 space-y-1.5 text-xs text-slate-300 font-mono overflow-hidden max-h-[160px]">
+        <div class="text-crimson">[0.001] INITIALIZING KERNEL MATRIX...</div>
+      </div>
+
+      <!-- Progress Meter -->
+      <div class="space-y-2 border-t border-hud-border pt-4">
+        <div class="flex justify-between items-center text-xs">
+          <span id="boot-status-text" class="text-slate-400">LOADING RETRO-ANIME SHADERS...</span>
+          <span id="boot-percent" class="text-crimson font-bold">0%</span>
+        </div>
+        <div class="w-full h-1.5 bg-hud-gray overflow-hidden">
+          <div id="boot-bar" class="h-full bg-crimson w-0 transition-all duration-75"></div>
+        </div>
+      </div>
+    </div>
+    
+    <button id="skip-loader-btn" class="mt-6 text-xs text-hud-text hover:text-white tracking-widest uppercase border border-hud-border px-4 py-2 hover:border-crimson transition-all">
+      [ SKIP INITIALIZATION → ]
+    </button>
+  </div>
+
+  <!-- FIXED HUD NAVIGATION SYSTEM STATUS BAR -->
+  <header class="fixed top-0 left-0 right-0 z-[80] bg-obsidian/90 backdrop-blur-md border-b border-hud-border px-4 md:px-8 py-3 flex items-center justify-between text-xs">
+    <!-- Brand / Title -->
+    <div class="flex items-center gap-3">
+      <a href="#hero" class="font-syne font-extrabold text-sm tracking-wider text-white hover:text-crimson transition-colors flex items-center gap-2">
+        <span class="w-2 h-2 bg-crimson"></span>
+        SERGIO AYALA <span class="text-hud-text font-mono font-normal text-xs">// AYUSH RAJ</span>
+      </a>
+      <span class="hidden md:inline-block text-[10px] bg-crimson/10 text-crimson px-2 py-0.5 border border-crimson/30">
+        80s ANIME HUD
+      </span>
+    </div>
+
+    <!-- Navigation Anchors -->
+    <nav class="hidden md:flex items-center gap-6 text-[11px] uppercase tracking-widest text-slate-400">
+      <a href="#hero" class="hover:text-crimson transition-colors font-bold text-white">// 01.HERO</a>
+      <a href="#work" class="hover:text-crimson transition-colors">// 02.WORKS</a>
+      <a href="#specs" class="hover:text-crimson transition-colors">// 03.SPECS</a>
+      <a href="#contact" class="hover:text-crimson transition-colors">// 04.CONTACT</a>
+    </nav>
+
+    <!-- Telemetry Status & Sound Synth Toggle -->
+    <div class="flex items-center gap-4">
+      <div id="hud-clock" class="hidden sm:block text-[11px] text-hud-text font-mono">00:00:00 UTC</div>
+      
+      <button id="audio-toggle" class="flex items-center gap-1.5 text-[10px] uppercase border border-hud-border px-2.5 py-1 text-slate-300 hover:border-crimson hover:text-crimson transition-all">
+        <span class="w-1.5 h-1.5 rounded-full bg-toxic-green"></span>
+        <span id="audio-status">SFX: ON</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="relative pt-16">
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative min-h-[92vh] flex flex-col justify-center px-4 md:px-12 py-16 cyber-grid overflow-hidden border-b border-hud-border">
+      <!-- Background Ambient Grid Glow -->
+      <div class="absolute inset-0 bg-radial-at-c from-crimson/10 via-transparent to-transparent pointer-events-none"></div>
+
+      <div class="max-w-6xl mx-auto w-full z-10 space-y-6">
+        <!-- Subtitle & Japanese Graphic Text -->
+        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-hud-border/60 pb-3">
+          <div class="flex items-center gap-2 text-xs text-crimson font-mono tracking-widest uppercase">
+            <span class="w-2 h-2 bg-crimson animate-ping"></span>
+            <span>// ARCHIVAL IDENTIFIER: ART DIRECTOR & CREATIVE DEVELOPER</span>
+          </div>
+          <div class="text-xs text-slate-500 font-mono tracking-widest">
+            「 セルヒオ・アヤラ // サイバーパンク GUI 」
+          </div>
+        </div>
+
+        <!-- Main High-Impact Typography Header with Hover Glitch -->
+        <div class="space-y-1">
+          <h1 class="font-syne font-black text-5xl sm:text-7xl md:text-9xl tracking-tighter uppercase leading-none glitch-hover cursor-default select-none text-white" data-value="SERGIO AYALA">
+            SERGIO AYALA
+          </h1>
+          <h2 class="font-syne font-extrabold text-3xl sm:text-5xl md:text-7xl tracking-tight text-crimson uppercase leading-none glitch-hover cursor-default select-none" data-value="// ART DIRECTOR">
+            // ART DIRECTOR
+          </h2>
+        </div>
+
+        <!-- Descriptive Terminal Paragraph & Telemetry Info -->
+        <div class="grid md:grid-cols-3 gap-6 pt-4 items-start">
+          <div class="md:col-span-2 space-y-4">
+            <p class="text-sm md:text-base text-slate-300 font-mono leading-relaxed max-w-2xl border-l-2 border-crimson pl-4">
+              Building 80s/90s retro-anime, industrial cyberpunk, and high-impact digital experiences. Merging aggressive typography, GPU-accelerated motion shaders, and full-stack system architecture into award-winning web products.
+            </p>
+            
+            <!-- Quick Action CTA Buttons -->
+            <div class="flex flex-wrap items-center gap-4 pt-2">
+              <a href="#work" class="hud-box px-6 py-3 text-xs uppercase font-bold tracking-widest text-white hover:bg-crimson hover:text-white transition-all flex items-center gap-2 group">
+                <span>[ EXPLORE EXHIBITS ]</span>
+                <span class="group-hover:translate-x-1 transition-transform">→</span>
+              </a>
+              <a href="#contact" class="px-6 py-3 text-xs uppercase font-bold tracking-widest text-slate-400 border border-hud-border hover:border-white hover:text-white transition-all">
+                [ TRANSMIT MESSAGE ]
+              </a>
+            </div>
+          </div>
+
+          <!-- Hero HUD Status Panel -->
+          <div class="hud-box p-4 space-y-3 text-xs font-mono text-slate-300">
+            <div class="flex justify-between border-b border-hud-border pb-1">
+              <span class="text-hud-text">SUBJECT:</span>
+              <span class="text-white font-bold">AYUSH RAJ / SERGIO</span>
+            </div>
+            <div class="flex justify-between border-b border-hud-border pb-1">
+              <span class="text-hud-text">FRAMEWORK:</span>
+              <span class="text-neon-cyan font-bold">NEXT.JS / GSAP / TAILWIND</span>
+            </div>
+            <div class="flex justify-between border-b border-hud-border pb-1">
+              <span class="text-hud-text">GRAPHICS CORE:</span>
+              <span class="text-toxic-green font-bold">CANVAS / CHROMATIC 60FPS</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-hud-text">DEPLOYMENT:</span>
+              <span class="text-crimson font-bold">VERIFIED OPERATIONAL</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- WORK SHOWCASE SECTION (CYBERPUNK HORIZONTAL/GRID CASE FILES) -->
+    <section id="work" class="py-20 px-4 md:px-12 border-b border-hud-border bg-[#09090D]">
+      <div class="max-w-7xl mx-auto space-y-10">
+        
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-hud-border pb-6">
+          <div>
+            <div class="text-xs text-crimson font-mono tracking-widest uppercase mb-1">// EXHIBIT CATALOGUE [05]</div>
+            <h2 class="font-syne font-extrabold text-3xl md:text-5xl uppercase tracking-tight text-white">
+              SELECTED WORKS & ARCHIVES
+            </h2>
+          </div>
+          <div class="text-xs text-hud-text font-mono max-w-xs">
+            [ FILTER: ALL PRODUCTION APPS ] // CLICK CARD TO LOAD COMPLETE EXHIBIT DATA
+          </div>
+        </div>
+
+        <!-- Project Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <!-- PROJECT CARD 1 -->
+          <article class="hud-box img-glitch-container group cursor-pointer p-4 flex flex-col justify-between space-y-4" onclick="openProjectModal('ERP Enterprise Suite', 'Full-stack enterprise resource planning platform unifying Finance, HR, Inventory, and Sales into one high-density command center.', ['React 18', 'TypeScript', 'Node.js', 'Express', 'MongoDB'], 'https://github.com/ThakurAyushRaj/ERP-Website')">
+            <div class="relative aspect-video bg-obsidian overflow-hidden border border-hud-border">
+              <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="ERP System" class="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500" />
+              <div class="absolute top-2 left-2 bg-obsidian/90 text-crimson font-mono text-[10px] px-2 py-0.5 border border-crimson/40">
+                [PRJ_01 // ENTERPRISE]
+              </div>
+              <div class="absolute bottom-2 right-2 bg-obsidian/90 text-toxic-green font-mono text-[10px] px-2 py-0.5 border border-toxic-green/40">
+                LIVE PRODUCTION
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <h3 class="font-syne font-bold text-xl text-white group-hover:text-crimson transition-colors flex items-center justify-between">
+                <span>ERP SYSTEM SUITE</span>
+                <span class="text-xs font-mono text-hud-text">©2026</span>
+              </h3>
+              <p class="text-xs text-slate-300 font-mono line-clamp-2">
+                Unified ERP platform integrating Finance, HR, Inventory, and Sales to eliminate fragmented spreadsheet operations.
+              </p>
+            </div>
+
+            <div class="flex flex-wrap gap-1.5 pt-2 border-t border-hud-border/60 text-[10px] text-hud-text font-mono">
+              <span class="bg-hud-gray px-2 py-0.5 border border-hud-border">React</span>
+              <span class="bg-hud-gray px-2 py-0.5 border border-hud-border">TypeScript</span>
+              <span class="bg-hud-gray px-2 py-0.5 border border-hud-border">Node.js</span>
+              <span class="bg-hud-gray px-2 py-0.5 border border-hud-border">MongoDB</span>
+            </div>
+          </article>
+
+          <!-- PROJECT CARD 2 -->
+          <article class="hud-box img-glitch-container group cursor-pointer p-4 flex flex-col justify-between space-y-4" onclick="openProjectModal('Slack Workforce Bot', 'Automated surveillance & workforce attendance engine computing shift metrics, break logs, and Google Sheets sync.', ['Node.js', 'Express', 'Slack Bolt API', 'Google Sheets API'], 'https://github.com/ThakurAyushRaj/SLACK-ATTENDANCE')">
+            <div class="relative aspect-video bg-obsidian overflow-hidden border border-hud-border">
+              <img src="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=800&q=80" alt="Slack Bot" class="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500" />
+              <div class="absolute top-2 left-2 bg-obsidian/90 text-crimson font-mono text-[10px] px-2 py-0.5 border border-crimson/40">
+                [PRJ_02 // BOT_ENGINE]
+              </div>
+              <div class="absolute bottom-2 right-2 bg-obsidian/90 text-neon-cyan font-mono text-[10px] px-2 py-0.5 border border-neon-cyan/40">
+                BOT AUTOMATION
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <h3 class="font-syne font-bold text-xl text-white group-hover:text-crimson transition-colors flex items-center justify-between">
+                <span>SLACK ATTENDANCE BOT</span>
+                <span class="text-xs font-mono text-hud-text">©2025</span>
+              </h3>
+              <p class="text-xs text-slate-300 font-mono line-clamp-2">
+                Slack bot automating check-ins, shift duration calculation, break management, and daily Google Sheets synchronization.
+              </p>
+            </div>
+
+            <div class="flex flex-wrap gap-1.5 pt-2 border-t border-hud-border/60 text-[10px] text-hud-text font-mono">
+              <span class="bg-hud-gray px-2 py-0.5 border border-hud-border">Node.js</span>
+              <span class="bg-hud-gray px-2 py-0.5 border border-hud-border">Slack API</span>
+              <span class="bg-hud-gray px-2 py-0.5 border border-hud-border">Google OAuth</span>
+            </div>
+          </article>
+
+          <!-- PROJECT CARD 3 -->
+          <article class="hud-box img-glitch-container group cursor-pointer p-4 flex flex-col justify-between space-y-4" onclick="openProjectModal('Mobile Attendance Tracker', 'Cross-platform mobile verification app with Google Sign-In OAuth 2.0, FCM real-time push alerts, and manager dashboards.', ['React Native', 'TypeScript', 'Firebase Auth', 'FCM Push'], 'https://github.com/ThakurAyushRaj/Google-Auth_FCM-Notification_Admin-Pannel_Attendence-Tracker_App-React-Native-')">
+            <div class="relative aspect-video bg-obsidian overflow-hidden border border-hud-border">
+              <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=800&q=80" alt="Mobile Attendance App" class="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500" />
+              <div class="absolute top-2 left-2 bg-obsidian/90 text-crimson font-mono text-[10px] px-2 py-0.5 border border-crimson/40">
+                [PRJ_03 // MOBILE_HUD]
+              </div>
+              <div class="absolute bottom-2 right-2 bg-obsidian/90 text-toxic-green font-mono text-[10px] px-2 py-0.5 border border-toxic-green/40">
+                REACT NATIVE
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <h3 class="font-syne font-bold text-xl text-white group-hover:text-crimson transition-colors flex items-center justify-between">
+                <span>ATTENDANCE TRACKER APP</span>
+                <span class="text-xs font-mono text-hud-text">©2025</span>
+              </h3>
+              <p class="text-xs text-slate-300 font-mono line-clamp-2">
+                Cross-platform mobile attendance app featuring Google auth, FCM notifications, and admin reporting panel.
+              </p>
+            </div>
+
+            <div class="flex flex-wrap gap-1.5 pt-2 border-t border-hud-border/60 text-[10px] text-hud-text font-mono">
+              <span class="bg-hud-gray px-2 py-0.5 border border-hud-border">React Native</span>
+              <span class="bg-hud-gray px-2 py-0.5 border border-hud-border">Firebase</span>
+              <span class="bg-hud-gray px-2 py-0.5 border border-hud-border">FCM Push</span>
+            </div>
+          </article>
+
+          <!-- PROJECT CARD 4 -->
+          <article class="hud-box img-glitch-container group cursor-pointer p-4 flex flex-col justify-between space-y-4" onclick="openProjectModal('Google Calendar Task Sync', 'Mobile task management tool with bidirectional Google Calendar API synchronization, local alarms, and offline persistence.', ['React Native', 'Google Calendar API', 'AsyncStorage'], 'https://github.com/ThakurAyushRaj/Google-Calender-Intregeted-To-Do-App-React-Native-')">
+            <div class="relative aspect-video bg-obsidian overflow-hidden border border-hud-border">
+              <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=800&q=80" alt="Calendar To-Do App" class="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500" />
+              <div class="absolute top-2 left-2 bg-obsidian/90 text-crimson font-mono text-[10px] px-2 py-0.5 border border-crimson/40">
+                [PRJ_04 // UTILITY]
+              </div>
+              <div class="absolute bottom-2 right-2 bg-obsidian/90 text-neon-cyan font-mono text-[10px] px-2 py-0.5 border border-neon-cyan/40">
+                CALENDAR SYNC
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <h3 class="font-syne font-bold text-xl text-white group-hover:text-crimson transition-colors flex items-center justify-between">
+                <span>GOOGLE CALENDAR TO-DO</span>
+                <span class="text-xs font-mono text-hud-text">©2025</span>
+              </h3>
+              <p class="text-xs text-slate-300 font-mono line-clamp-2">
+                Task management app for mobile devices with Google Calendar API sync, reminders, and offline state persistence.
+              </p>
+            </div>
+
+            <div class="flex flex-wrap gap-1.5 pt-2 border-t border-hud-border/60 text-[10px] text-hud-text font-mono">
+              <span class="bg-hud-gray px-2 py-0.5 border border-hud-border">React Native</span>
+              <span class="bg-hud-gray px-2 py-0.5 border border-hud-border">Calendar API</span>
+            </div>
+          </article>
+
+          <!-- PROJECT CARD 5 -->
+          <article class="hud-box img-glitch-container group cursor-pointer p-4 flex flex-col justify-between space-y-4" onclick="openProjectModal('Tactile Editorial Blog', 'Experimental editorial publishing engine featuring Framer Motion layout transitions, custom typography tokens, and fluid dark paper aesthetic.', ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'], 'https://github.com/ThakurAyushRaj/Blog-Website')">
+            <div class="relative aspect-video bg-obsidian overflow-hidden border border-hud-border">
+              <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80" alt="Blog Website" class="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500" />
+              <div class="absolute top-2 left-2 bg-obsidian/90 text-crimson font-mono text-[10px] px-2 py-0.5 border border-crimson/40">
+                [PRJ_05 // EDITORIAL]
+              </div>
+              <div class="absolute bottom-2 right-2 bg-obsidian/90 text-toxic-green font-mono text-[10px] px-2 py-0.5 border border-toxic-green/40">
+                SMOOTH MOTION
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <h3 class="font-syne font-bold text-xl text-white group-hover:text-crimson transition-colors flex items-center justify-between">
+                <span>EDITORIAL BLOG ENGINE</span>
+                <span class="text-xs font-mono text-hud-text">©2025</span>
+              </h3>
+              <p class="text-xs text-slate-300 font-mono line-clamp-2">
+                Animated blog site with Framer Motion transitions, custom typography tokens, and tactile reading views.
+              </p>
+            </div>
+
+            <div class="flex flex-wrap gap-1.5 pt-2 border-t border-hud-border/60 text-[10px] text-hud-text font-mono">
+              <span class="bg-hud-gray px-2 py-0.5 border border-hud-border">React</span>
+              <span class="bg-hud-gray px-2 py-0.5 border border-hud-border">Tailwind CSS</span>
+              <span class="bg-hud-gray px-2 py-0.5 border border-hud-border">Framer Motion</span>
+            </div>
+          </article>
+
+          <!-- PROJECT CARD 6 (SERGIO AYALA CYBER-ANIME HUD TEMPLATE) -->
+          <article class="hud-box img-glitch-container group cursor-pointer p-4 flex flex-col justify-between space-y-4" onclick="openProjectModal('Sergio Ayala 80s Anime Cyberpunk Template', 'Award-winning style interactive portfolio template featuring Web Audio synthesis, character swap glitch hover, scanlines CRT overlays, and GSAP hardware acceleration.', ['HTML5 Canvas', 'GSAP', 'Tailwind CSS', 'Web Audio API'], '#')">
+            <div class="relative aspect-video bg-obsidian overflow-hidden border border-hud-border">
+              <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=800&q=80" alt="Sergio Ayala Cyber Template" class="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500" />
+              <div class="absolute top-2 left-2 bg-obsidian/90 text-crimson font-mono text-[10px] px-2 py-0.5 border border-crimson/40">
+                [PRJ_06 // SERGIO_AYALA]
+              </div>
+              <div class="absolute bottom-2 right-2 bg-obsidian/90 text-crimson font-mono text-[10px] px-2 py-0.5 border border-crimson/40">
+                SPECIAL EDITION
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <h3 class="font-syne font-bold text-xl text-white group-hover:text-crimson transition-colors flex items-center justify-between">
+                <span>SERGIO AYALA RETRO HUD</span>
+                <span class="text-xs font-mono text-hud-text">©2026</span>
+              </h3>
+              <p class="text-xs text-slate-300 font-mono line-clamp-2">
+                80s/90s retro-anime cyberpunk portfolio interface with chromatic glitch preloader and terminal navigation.
+              </p>
+            </div>
+
+            <div class="flex flex-wrap gap-1.5 pt-2 border-t border-hud-border/60 text-[10px] text-hud-text font-mono">
+              <span class="bg-hud-gray px-2 py-0.5 border border-hud-border">HTML5 Canvas</span>
+              <span class="bg-hud-gray px-2 py-0.5 border border-hud-border">Tailwind</span>
+              <span class="bg-hud-gray px-2 py-0.5 border border-hud-border">Web Audio</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SYSTEM SPECS & TECHNICAL MATRIX SECTION -->
+    <section id="specs" class="py-20 px-4 md:px-12 border-b border-hud-border relative">
+      <div class="max-w-7xl mx-auto space-y-12">
+        <div class="flex items-center justify-between border-b border-hud-border pb-4">
+          <div>
+            <div class="text-xs text-crimson font-mono tracking-widest uppercase mb-1">// TECHNICAL SPECS & HARDWARE MATRIX</div>
+            <h2 class="font-syne font-extrabold text-3xl md:text-5xl uppercase tracking-tight text-white">
+              SYSTEM CAPABILITIES
+            </h2>
+          </div>
+          <div class="hidden md:block text-xs font-mono text-hud-text">
+            [SYS_MONITOR: ACTIVE] // 60.0 FPS
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <!-- FRONTEND CORE -->
+          <div class="hud-box p-6 space-y-4">
+            <div class="flex justify-between items-center border-b border-hud-border pb-2">
+              <h3 class="font-syne font-bold text-lg text-white">// FRONTEND ENGINE</h3>
+              <span class="text-xs text-neon-cyan font-mono">[98% OPT]</span>
+            </div>
+            <ul class="space-y-2 text-xs font-mono text-slate-300">
+              <li class="flex justify-between"><span>React 18 / Next.js 14</span><span class="text-toxic-green">PRIMARY</span></li>
+              <li class="flex justify-between"><span>TypeScript</span><span class="text-toxic-green">STRICT</span></li>
+              <li class="flex justify-between"><span>Tailwind CSS v3</span><span class="text-toxic-green">EXPERT</span></li>
+              <li class="flex justify-between"><span>GSAP & Framer Motion</span><span class="text-toxic-green">60 FPS</span></li>
+              <li class="flex justify-between"><span>HTML5 Canvas / WebGL</span><span class="text-neon-cyan">ADVANCED</span></li>
+            </ul>
+          </div>
+
+          <!-- BACKEND CORE -->
+          <div class="hud-box p-6 space-y-4">
+            <div class="flex justify-between items-center border-b border-hud-border pb-2">
+              <h3 class="font-syne font-bold text-lg text-white">// BACKEND PROTOCOLS</h3>
+              <span class="text-xs text-crimson font-mono">[95% OPT]</span>
+            </div>
+            <ul class="space-y-2 text-xs font-mono text-slate-300">
+              <li class="flex justify-between"><span>Node.js / Express</span><span class="text-toxic-green">PRIMARY</span></li>
+              <li class="flex justify-between"><span>MongoDB & Mongoose</span><span class="text-toxic-green">ACTIVE</span></li>
+              <li class="flex justify-between"><span>MySQL / PostgreSQL</span><span class="text-toxic-green">ACTIVE</span></li>
+              <li class="flex justify-between"><span>REST APIs / Webhooks</span><span class="text-toxic-green">SECURE</span></li>
+              <li class="flex justify-between"><span>Slack & Google APIs</span><span class="text-neon-cyan">INTEGRATED</span></li>
+            </ul>
+          </div>
+
+          <!-- MOBILE & CLOUD -->
+          <div class="hud-box p-6 space-y-4">
+            <div class="flex justify-between items-center border-b border-hud-border pb-2">
+              <h3 class="font-syne font-bold text-lg text-white">// MOBILE & CLOUD</h3>
+              <span class="text-xs text-toxic-green font-mono">[92% OPT]</span>
+            </div>
+            <ul class="space-y-2 text-xs font-mono text-slate-300">
+              <li class="flex justify-between"><span>React Native & Expo</span><span class="text-toxic-green">CROSS-PLATFORM</span></li>
+              <li class="flex justify-between"><span>Flutter</span><span class="text-toxic-green">SECONDARY</span></li>
+              <li class="flex justify-between"><span>AWS (S3 / Lambda)</span><span class="text-neon-cyan">DEPLOYED</span></li>
+              <li class="flex justify-between"><span>Firebase & FCM</span><span class="text-toxic-green">REALTIME</span></li>
+              <li class="flex justify-between"><span>Vercel / CI/CD</span><span class="text-toxic-green">AUTOMATED</span></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT & TERMINAL TRANSMISSION SECTION -->
+    <section id="contact" class="py-20 px-4 md:px-12 bg-[#050508]">
+      <div class="max-w-4xl mx-auto space-y-8">
+        
+        <div class="border-b border-hud-border pb-4">
+          <div class="text-xs text-crimson font-mono tracking-widest uppercase mb-1">// TRANSMIT SIGNAL</div>
+          <h2 class="font-syne font-extrabold text-3xl md:text-5xl uppercase tracking-tight text-white">
+            INITIATE CONTACT PROTOCOL
+          </h2>
+        </div>
+
+        <!-- Terminal Form Box -->
+        <div class="hud-box p-6 md:p-8 space-y-6">
+          <div class="flex justify-between items-center border-b border-hud-border pb-3 text-xs text-hud-text font-mono">
+            <span>CONSOLE: user@cyber-terminal:~$ send-transmission</span>
+            <span class="text-crimson">[STATUS: WAITING_INPUT]</span>
+          </div>
+
+          <form id="contact-form" onsubmit="handleTransmission(event)" class="space-y-4 text-xs font-mono">
+            <div class="space-y-1">
+              <label class="text-slate-300 block uppercase tracking-wider">// 01. YOUR NAME OR CALLSIGN</label>
+              <input type="text" required placeholder="[E.G. COMMANDER / RECRUITER]" class="w-full bg-obsidian border border-hud-border px-4 py-3 text-white focus:outline-none focus:border-crimson transition-colors" />
+            </div>
+
+            <div class="space-y-1">
+              <label class="text-slate-300 block uppercase tracking-wider">// 02. DIRECT EMAIL ADDRESS</label>
+              <input type="email" required placeholder="[NAME@DOMAIN.COM]" class="w-full bg-obsidian border border-hud-border px-4 py-3 text-white focus:outline-none focus:border-crimson transition-colors" />
+            </div>
+
+            <div class="space-y-1">
+              <label class="text-slate-300 block uppercase tracking-wider">// 03. TRANSMISSION MESSAGE DATA</label>
+              <textarea rows="4" required placeholder="[ENTER PROJECT DETAILS OR INQUIRY DATA...]" class="w-full bg-obsidian border border-hud-border px-4 py-3 text-white focus:outline-none focus:border-crimson transition-colors"></textarea>
+            </div>
+
+            <button type="submit" class="w-full hud-box py-4 text-xs uppercase font-bold tracking-widest text-white hover:bg-crimson transition-all border border-crimson/50 hover:border-crimson">
+              [ TRANSMIT SIGNAL → ]
+            </button>
+          </form>
+
+          <!-- Confirmation Output Box -->
+          <div id="transmission-log" class="hidden p-4 border border-toxic-green bg-toxic-green/10 text-toxic-green font-mono text-xs">
+            [✓] TRANSMISSION SENT SUCCESSFULLY. ACKNOWLEDGEMENT RECEIVED. EXPECT RESPONSE WITHIN 24 HOURS.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- EXHIBIT MODAL / DETAIL DRAWER -->
+  <div id="project-modal" class="fixed inset-0 bg-obsidian/95 z-[300] hidden items-center justify-center p-4 backdrop-blur-md">
+    <div class="hud-box max-w-2xl w-full p-6 md:p-8 space-y-6 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-hud-border pb-3">
+        <div class="text-xs text-crimson font-mono tracking-widest">// EXHIBIT DETAIL DUMP</div>
+        <button onclick="closeProjectModal()" class="text-xs text-hud-text hover:text-white uppercase font-mono">[ CLOSE ESC ]</button>
+      </div>
+
+      <div class="space-y-2">
+        <h3 id="modal-title" class="font-syne font-extrabold text-2xl md:text-3xl text-white">PROJECT TITLE</h3>
+        <p id="modal-desc" class="text-xs font-mono text-slate-300 leading-relaxed">Description data...</p>
+      </div>
+
+      <div class="space-y-2">
+        <div class="text-xs font-mono text-hud-text">// TECH STACK</div>
+        <div id="modal-tech" class="flex flex-wrap gap-2 text-xs font-mono"></div>
+      </div>
+
+      <div class="pt-4 border-t border-hud-border flex justify-between items-center">
+        <a id="modal-link" href="#" target="_blank" class="hud-box px-6 py-2.5 text-xs font-mono uppercase text-white hover:bg-crimson transition-all">
+          [ OPEN GITHUB REPOSITORY → ]
+        </a>
+        <button onclick="closeProjectModal()" class="text-xs text-slate-400 font-mono hover:text-white">
+          [ RETURN TO ARCHIVE ]
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-hud-border bg-obsidian py-8 px-4 text-center text-xs font-mono text-hud-text">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div>SERGIO AYALA // AYUSH RAJ PORTFOLIO ©2026. ALL RIGHTS RESERVED.</div>
+      <div class="text-crimson">80s RETRO-ANIME CYBERPUNK HUD INTERFACE</div>
+    </div>
+  </footer>
+
+  <!-- EMBEDDED VANILLA JS & WEB AUDIO SYNTH & GLITCH SHADER -->
+  <script>
+    // -------------------------------------------------------------
+    // WEB AUDIO API SFX SYNTHESIZER
+    // -------------------------------------------------------------
+    let audioEnabled = true;
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+
+    function playCyberBeep(freq = 440, type = 'sine', duration = 0.08) {
+      if (!audioEnabled) return;
+      try {
+        if (!audioCtx) audioCtx = new AudioCtx();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    document.getElementById('audio-toggle').addEventListener('click', () => {
+      audioEnabled = !audioEnabled;
+      document.getElementById('audio-status').innerText = audioEnabled ? 'SFX: ON' : 'SFX: OFF';
+      playCyberBeep(600, 'square');
+    });
+
+    // -------------------------------------------------------------
+    // INTERACTIVE GLITCH PRELOADER BOOT SEQUENCE
+    // -------------------------------------------------------------
+    const bootLogs = [
+      "[0.001] SYSTEM BIOS v3.84 (C) 1989-2026 CYBERDINE SYSTEMS",
+      "[0.012] INITIALIZING VIBE-CODING KERNEL...",
+      "[0.038] LOADING RETRO-ANIME GRAPHICS MATRIX... OK",
+      "[0.065] CHROMATIC DISSOLVE ENGINE ACTIVE...",
+      "[0.092] VERIFYING SUBJECT: SERGIO AYALA // AYUSH RAJ",
+      "[0.120] SYSTEM BOOT COMPLETE. ACCESS GRANTED [100%]"
+    ];
+
+    let currentLogIndex = 0;
+    const terminalEl = document.getElementById('boot-terminal');
+    const percentEl = document.getElementById('boot-percent');
+    const barEl = document.getElementById('boot-bar');
+    const statusTextEl = document.getElementById('boot-status-text');
+
+    function runBootSequence() {
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += Math.floor(Math.random() * 12) + 5;
+        if (progress > 100) progress = 100;
+
+        percentEl.innerText = progress + '%';
+        barEl.style.width = progress + '%';
+
+        if (progress > 20 && currentLogIndex < 1) addLogLine(1);
+        if (progress > 45 && currentLogIndex < 3) addLogLine(2);
+        if (progress > 70 && currentLogIndex < 4) addLogLine(4);
+        if (progress >= 100) {
+          addLogLine(5);
+          statusTextEl.innerText = 'SYSTEM READY · LAUNCHING';
+          clearInterval(interval);
+          setTimeout(dismissPreloader, 600);
+        }
+        playCyberBeep(200 + progress * 4, 'sawtooth', 0.03);
+      }, 90);
+    }
+
+    function addLogLine(index) {
+      if (index <= currentLogIndex) return;
+      currentLogIndex = index;
+      const line = document.createElement('div');
+      line.className = index === 5 ? 'text-toxic-green font-bold' : 'text-slate-300';
+      line.innerText = bootLogs[index] || '';
+      terminalEl.appendChild(line);
+      terminalEl.scrollTop = terminalEl.scrollHeight;
+    }
+
+    function dismissPreloader() {
+      const preloader = document.getElementById('preloader');
+      triggerGlitchCanvas();
+      playCyberBeep(880, 'square', 0.2);
+      gsap.to(preloader, {
+        opacity: 0,
+        scale: 1.05,
+        duration: 0.5,
+        ease: 'power3.inOut',
+        onComplete: () => preloader.style.display = 'none'
+      });
+    }
+
+    document.getElementById('skip-loader-btn').addEventListener('click', dismissPreloader);
+
+    // Run boot sequence on window load
+    window.addEventListener('load', runBootSequence);
+
+    // -------------------------------------------------------------
+    // REALTIME UTC CLOCK TICKER
+    // -------------------------------------------------------------
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('hud-clock').innerText = now.toUTCString().slice(17, 25) + ' UTC';
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // -------------------------------------------------------------
+    // CHARACTER SWAP & CHROMATIC HOVER GLITCH EFFECT
+    // -------------------------------------------------------------
+    const katakana = "アアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789@#$%&*";
+    
+    document.querySelectorAll('.glitch-hover').forEach(el => {
+      const originalText = el.getAttribute('data-value') || el.innerText;
+      let glitchInterval = null;
+
+      el.addEventListener('mouseenter', () => {
+        playCyberBeep(700, 'triangle', 0.05);
+        let iteration = 0;
+        clearInterval(glitchInterval);
+
+        glitchInterval = setInterval(() => {
+          el.innerText = originalText
+            .split("")
+            .map((char, index) => {
+              if (index < iteration) return originalText[index];
+              return katakana[Math.floor(Math.random() * katakana.length)];
+            })
+            .join("");
+
+          if (iteration >= originalText.length) {
+            clearInterval(glitchInterval);
+          }
+          iteration += 1 / 2;
+        }, 30);
+      });
+
+      el.addEventListener('mouseleave', () => {
+        clearInterval(glitchInterval);
+        el.innerText = originalText;
+      });
+    });
+
+    // -------------------------------------------------------------
+    // CANVAS DIGITAL NOISE & SCREEN TEARING SHADER
+    // -------------------------------------------------------------
+    const canvas = document.getElementById('glitch-canvas');
+    const ctx = canvas.getContext('2d');
+    
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function triggerGlitchCanvas() {
+      let frames = 0;
+      function renderGlitch() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // Draw random digital noise blocks
+        for (let i = 0; i < 15; i++) {
+          ctx.fillStyle = Math.random() > 0.5 ? 'rgba(228, 0, 43, 0.25)' : 'rgba(0, 240, 255, 0.25)';
+          const x = Math.random() * canvas.width;
+          const y = Math.random() * canvas.height;
+          const w = Math.random() * 300 + 50;
+          const h = Math.random() * 10 + 2;
+          ctx.fillRect(x, y, w, h);
+        }
+        frames++;
+        if (frames < 12) {
+          requestAnimationFrame(renderGlitch);
+        } else {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+      renderGlitch();
+    }
+
+    // -------------------------------------------------------------
+    // EXHIBIT MODAL HANDLERS
+    // -------------------------------------------------------------
+    function openProjectModal(title, desc, tech, github) {
+      playCyberBeep(500, 'square');
+      document.getElementById('modal-title').innerText = title;
+      document.getElementById('modal-desc').innerText = desc;
+      document.getElementById('modal-link').href = github;
+
+      const techContainer = document.getElementById('modal-tech');
+      techContainer.innerHTML = tech.map(t => `<span class="bg-hud-gray px-3 py-1 border border-hud-border text-white">${t}</span>`).join('');
+
+      const modal = document.getElementById('project-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeProjectModal() {
+      playCyberBeep(300, 'sine');
+      const modal = document.getElementById('project-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // -------------------------------------------------------------
+    // CONTACT TRANSMISSION FORM
+    // -------------------------------------------------------------
+    function handleTransmission(e) {
+      e.preventDefault();
+      playCyberBeep(900, 'sawtooth', 0.15);
+      triggerGlitchCanvas();
+      document.getElementById('transmission-log').classList.remove('hidden');
+      e.target.reset();
+    }
+  </script>
+</body>
+</html>

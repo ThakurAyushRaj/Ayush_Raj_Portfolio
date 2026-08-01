@@ -1,195 +1,60 @@
 "use client";
 
-import { useState } from "react";
-import { Copy, Check, Send, CheckCircle } from "lucide-react";
+import { useState, FormEvent } from "react";
 import { personalInfo } from "@/lib/data";
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", subject: "", story: "" });
-  const [submitted, setSubmit] = useState(false);
-  const [copiedEmail, setCE] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
-  const copyEmail = () => {
-    navigator.clipboard.writeText(personalInfo.email).then(() => {
-      setCE(true);
-      setTimeout(() => setCE(false), 2000);
-    });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    setSubmit(true);
-    setForm({ name: "", email: "", subject: "", story: "" });
-    setTimeout(() => setSubmit(false), 5000);
+    setSubmitted(true);
   };
 
   return (
-    <section id="contact" className="bg-paper text-ink py-16 border-b-2 border-ink overflow-hidden">
-      <div className="max-w-[1400px] mx-auto px-4 md:px-8">
+    <section id="contact" className="py-20 px-4 md:px-12 bg-[#050508] font-mono">
+      <div className="max-w-4xl mx-auto space-y-8">
         
-        {/* Section Header */}
-        <div className="flex justify-between items-center py-3 font-grotesk text-xs tracking-widest uppercase text-ink-muted border-y-2 border-ink mb-12">
-          <div>SUBMIT A TIP</div>
-          <div>Letters & Commissions / Put it in writing</div>
-        </div>
-
-        {/* Section Headline */}
-        <div className="mb-12 max-w-3xl">
-          <span className="font-mono text-xs tracking-widest text-stamp font-bold uppercase block mb-2">
-            CORRESPONDENCE DESK
-          </span>
-          <h2 className="font-caslon text-4xl sm:text-5xl md:text-6xl font-normal leading-tight">
-            Letters & Commissions / Put it in writing.
+        <div className="border-b border-[#2A2A38] pb-4">
+          <div className="text-xs text-[#E4002B] tracking-widest uppercase mb-1">// TRANSMIT SIGNAL</div>
+          <h2 className="font-syne font-extrabold text-3xl md:text-5xl uppercase tracking-tight text-white">
+            INITIATE CONTACT PROTOCOL
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          
-          {/* Left Column: Direct Info Cards & Side Box */}
-          <div className="flex flex-col gap-6">
-            
-            {/* Direct Email Link Card */}
-            <div className="border-2 border-ink p-6 bg-paper-bright">
-              <span className="font-grotesk text-xs font-bold tracking-widest uppercase text-ink-muted block mb-2">
-                DIRECT LINE
-              </span>
-              <div className="flex items-center justify-between gap-4">
-                <a
-                  href={`mailto:${personalInfo.email}`}
-                  className="font-caslon text-2xl sm:text-3xl font-normal text-ink hover:text-stamp link-pencil"
-                >
-                  {personalInfo.email}
-                </a>
-                <button
-                  onClick={copyEmail}
-                  className="font-mono text-xs border border-ink px-3 py-1.5 hover:bg-paper-warm transition-colors flex items-center gap-1.5"
-                >
-                  {copiedEmail ? <Check size={14} className="text-stamp" /> : <Copy size={14} />}
-                  {copiedEmail ? "COPIED" : "COPY"}
-                </button>
-              </div>
-              <p className="font-serif italic text-xs text-ink-muted mt-3">
-                For commissions, contracts, and the occasional good argument about CSS.
-              </p>
-            </div>
-
-            {/* Availability & Location Side Box */}
-            <div className="border-2 border-ink p-6 bg-paper-bright grid sm:grid-cols-2 gap-6">
-              <div>
-                <span className="font-grotesk text-xs font-bold tracking-widest uppercase text-ink-muted block mb-1">
-                  THE DESK
-                </span>
-                <p className="font-caslon text-xl font-normal text-ink">
-                  {personalInfo.location}
-                </p>
-                <p className="font-mono text-xs text-ink-muted mt-1">
-                  IST · Remote-first
-                </p>
-              </div>
-
-              <div>
-                <span className="font-grotesk text-xs font-bold tracking-widest uppercase text-ink-muted block mb-1">
-                  AVAILABILITY
-                </span>
-                <span className="inline-block font-mono text-[10px] font-bold tracking-widest border border-stamp text-stamp px-2.5 py-1 bg-paper/80 uppercase mt-1">
-                  Freelance & contract only
-                </span>
-                <p className="font-serif italic text-xs text-ink-muted mt-2">
-                  Working full-time at aNquest Media, taking select projects on the side.
-                </p>
-              </div>
-            </div>
-
+        {/* Terminal Form Box */}
+        <div className="hud-box p-6 md:p-8 space-y-6">
+          <div className="flex justify-between items-center border-b border-[#2A2A38] pb-3 text-xs text-[#A0A0B0]">
+            <span>CONSOLE: user@cyber-terminal:~$ send-transmission</span>
+            <span className="text-[#E4002B]">[STATUS: WAITING_INPUT]</span>
           </div>
 
-          {/* Right Column: Submit a Tip Form */}
-          <div className="border-2 border-ink p-6 md:p-8 bg-paper-bright">
-            <span className="font-grotesk text-xs font-bold tracking-widest uppercase text-ink-muted block mb-6 border-b border-ink/20 pb-3">
-              TRANSMIT CORRESPONDENCE
-            </span>
+          <form onSubmit={handleSubmit} className="space-y-4 text-xs">
+            <div className="space-y-1">
+              <label className="text-slate-300 block uppercase tracking-wider">// 01. YOUR NAME OR CALLSIGN</label>
+              <input type="text" required placeholder="[E.G. COMMANDER / RECRUITER]" className="w-full bg-[#070709] border border-[#2A2A38] px-4 py-3 text-white focus:outline-none focus:border-[#E4002B] transition-colors" />
+            </div>
 
-            {submitted ? (
-              <div className="py-12 text-center flex flex-col items-center justify-center">
-                <CheckCircle size={40} className="text-stamp mb-3" />
-                <h3 className="font-caslon text-2xl font-normal">Letter Transmitted</h3>
-                <p className="font-serif italic text-sm text-ink-muted mt-2">
-                  Thank you. Your message has been safely filed into the desk queue.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                <div className="grid sm:grid-cols-2 gap-5">
-                  <div>
-                    <label htmlFor="name" className="font-grotesk text-xs tracking-wider uppercase text-ink-muted block mb-1">
-                      YOUR NAME
-                    </label>
-                    <input
-                      id="name"
-                      type="text"
-                      required
-                      value={form.name}
-                      onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      className="w-full bg-paper border border-ink p-3 font-serif text-base text-ink outline-none focus:border-stamp"
-                      placeholder="Jane Doe"
-                    />
-                  </div>
+            <div className="space-y-1">
+              <label className="text-slate-300 block uppercase tracking-wider">// 02. DIRECT EMAIL ADDRESS</label>
+              <input type="email" required placeholder="[NAME@DOMAIN.COM]" className="w-full bg-[#070709] border border-[#2A2A38] px-4 py-3 text-white focus:outline-none focus:border-[#E4002B] transition-colors" />
+            </div>
 
-                  <div>
-                    <label htmlFor="email" className="font-grotesk text-xs tracking-wider uppercase text-ink-muted block mb-1">
-                      EMAIL
-                    </label>
-                    <input
-                      id="email"
-                      type="email"
-                      required
-                      value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      className="w-full bg-paper border border-ink p-3 font-serif text-base text-ink outline-none focus:border-stamp"
-                      placeholder="jane@example.com"
-                    />
-                  </div>
-                </div>
+            <div className="space-y-1">
+              <label className="text-slate-300 block uppercase tracking-wider">// 03. TRANSMISSION MESSAGE DATA</label>
+              <textarea rows={4} required placeholder="[ENTER PROJECT DETAILS OR INQUIRY DATA...]" className="w-full bg-[#070709] border border-[#2A2A38] px-4 py-3 text-white focus:outline-none focus:border-[#E4002B] transition-colors"></textarea>
+            </div>
 
-                <div>
-                  <label htmlFor="subject" className="font-grotesk text-xs tracking-wider uppercase text-ink-muted block mb-1">
-                    SUBJECT
-                  </label>
-                  <input
-                    id="subject"
-                    type="text"
-                    required
-                    value={form.subject}
-                    onChange={(e) => setForm({ ...form, subject: e.target.value })}
-                    className="w-full bg-paper border border-ink p-3 font-serif text-base text-ink outline-none focus:border-stamp"
-                    placeholder="Project Inquiry / Application Build"
-                  />
-                </div>
+            <button type="submit" className="w-full hud-box py-4 text-xs uppercase font-bold tracking-widest text-white hover:bg-[#E4002B] transition-all border border-[#E4002B]/50 hover:border-[#E4002B]">
+              [ TRANSMIT SIGNAL → ]
+            </button>
+          </form>
 
-                <div>
-                  <label htmlFor="story" className="font-grotesk text-xs tracking-wider uppercase text-ink-muted block mb-1">
-                    THE STORY
-                  </label>
-                  <textarea
-                    id="story"
-                    rows={4}
-                    required
-                    value={form.story}
-                    onChange={(e) => setForm({ ...form, story: e.target.value })}
-                    className="w-full bg-paper border border-ink p-3 font-serif text-base text-ink outline-none focus:border-stamp resize-none"
-                    placeholder="Details about your project brief or inquiry..."
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="font-grotesk text-xs font-bold tracking-widest uppercase py-4 bg-ink text-paper hover:bg-stamp transition-colors duration-200 flex items-center justify-center gap-2 mt-2 shadow-sm"
-                >
-                  <Send size={14} /> Send the letter →
-                </button>
-              </form>
-            )}
-          </div>
-
+          {submitted && (
+            <div className="p-4 border border-[#00FF66] bg-[#00FF66]/10 text-[#00FF66] text-xs">
+              [✓] TRANSMISSION SENT SUCCESSFULLY. ACKNOWLEDGEMENT RECEIVED. EXPECT RESPONSE WITHIN 24 HOURS.
+            </div>
+          )}
         </div>
 
       </div>

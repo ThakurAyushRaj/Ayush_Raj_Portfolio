@@ -1,129 +1,114 @@
 "use client";
 
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { projects } from "@/lib/data";
-import { fadeUp, staggerContainer } from "@/lib/motion";
+import { useState } from "react";
+import { projects, CaseFile } from "@/lib/data";
 
 export default function Projects() {
+  const [activeModal, setActiveModal] = useState<CaseFile | null>(null);
+
   return (
-    <section id="work" className="bg-paper text-ink py-16 border-b-2 border-ink overflow-hidden">
-      <div className="max-w-[1400px] mx-auto px-4 md:px-8">
+    <section id="work" className="py-20 px-4 md:px-12 border-b border-[#2A2A38] bg-[#09090D] font-mono">
+      <div className="max-w-7xl mx-auto space-y-10">
         
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="flex justify-between items-center py-3 font-grotesk text-xs tracking-widest uppercase text-ink-muted border-y-2 border-ink mb-12"
-        >
-          <div>THE EVIDENCE</div>
-          <div>Exhibits A – E · Entered 2023 – Now</div>
-        </motion.div>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#2A2A38] pb-6">
+          <div>
+            <div className="text-xs text-[#E4002B] tracking-widest uppercase mb-1">// EXHIBIT CATALOGUE [{projects.length.toString().padStart(2, '0')}]</div>
+            <h2 className="font-syne font-extrabold text-3xl md:text-5xl uppercase tracking-tight text-white">
+              SELECTED WORKS & ARCHIVES
+            </h2>
+          </div>
+          <div className="text-xs text-[#A0A0B0] max-w-xs">
+            [ FILTER: ALL PRODUCTION APPS ] // CLICK CARD TO LOAD EXHIBIT DATA
+          </div>
+        </div>
 
-        {/* Works List / Exhibits */}
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.05 }}
-          className="flex flex-col border-b-2 border-ink"
-        >
-          {projects.map((project) => (
-            <motion.article
-              key={project.id}
-              id={`exhibit-${project.slug}`}
-              variants={fadeUp}
-              whileHover={{ backgroundColor: "var(--paper-warm)" }}
-              transition={{ duration: 0.3 }}
-              className="group relative border-t border-ink py-10 px-4 md:px-8 flex flex-col lg:flex-row gap-8 lg:gap-12 items-start justify-between cursor-pointer"
+        {/* Project Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((proj) => (
+            <article
+              key={proj.id}
+              onClick={() => setActiveModal(proj)}
+              className="hud-box img-glitch-container group cursor-pointer p-4 flex flex-col justify-between space-y-4"
             >
-              {/* Framed Screenshot (Left Column) */}
-              <div className="w-full lg:w-[42%] shrink-0">
-                <motion.div
-                  whileHover={{ rotate: -0.5, scale: 1.015 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className="relative border-2 border-ink p-2.5 bg-paper-bright shadow-sm"
-                >
-                  {/* Tape Graphic */}
-                  <div className="absolute -top-2.5 left-8 w-20 h-4 bg-paper-deep/80 -rotate-2 border-x border-ink/20 pointer-events-none" />
-
-                  <div className="aspect-[16/10] relative overflow-hidden border border-ink/30 bg-paper-warm">
-                    <img
-                      src={project.imagePlaceholder}
-                      alt={project.title}
-                      className="w-full h-full object-cover grayscale contrast-125 mix-blend-multiply group-hover:scale-105 transition-transform duration-700 ease-out"
-                    />
-                    
-                    {/* Hover Red Dot Matrix Overlay */}
-                    <div className="polaroid-overlay absolute inset-0 pointer-events-none" />
-
-                    {/* Confirmed Vintage Badge */}
-                    <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-105 rotate-[-4deg]">
-                      <span className="border-2 border-stamp text-stamp font-mono text-[10px] font-bold px-2.5 py-1 bg-paper/95 uppercase tracking-widest shadow-xs">
-                        {project.status.toUpperCase()}
-                      </span>
-                    </div>
-                  </div>
-                </motion.div>
+              <div className="relative aspect-video bg-[#070709] overflow-hidden border border-[#2A2A38]">
+                <img
+                  src={proj.imagePlaceholder}
+                  alt={proj.title}
+                  className="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                />
+                <div className="absolute top-2 left-2 bg-[#070709]/90 text-[#E4002B] text-[10px] px-2 py-0.5 border border-[#E4002B]/40">
+                  [PRJ_{proj.id.toString().padStart(2, '0')} // {proj.client.toUpperCase()}]
+                </div>
+                <div className="absolute bottom-2 right-2 bg-[#070709]/90 text-[#00FF66] text-[10px] px-2 py-0.5 border border-[#00FF66]/40">
+                  {proj.status.toUpperCase()}
+                </div>
               </div>
 
-              {/* Exhibit Details (Right Column) */}
-              <div className="flex-1 flex flex-col justify-between h-full gap-5">
-                <div>
-                  {/* Exhibit Badge & Status */}
-                  <div className="flex items-center gap-3 font-mono text-xs text-ink-muted mb-2">
-                    <span className="border border-stamp text-stamp px-2 py-0.5 font-bold uppercase tracking-wider">
-                      {project.exhibit} · {project.title}
-                    </span>
-                    <span className="border border-ink/40 px-2 py-0.5 uppercase tracking-widest text-[10px] bg-paper">
-                      Status: {project.status}
-                    </span>
-                  </div>
-
-                  {/* Headline */}
-                  <h3 className="font-caslon text-3xl sm:text-4xl md:text-5xl font-normal leading-tight text-ink group-hover:text-stamp transition-colors duration-200">
-                    <Link href={`/case-files/${project.slug}`} className="hover:underline">
-                      {project.headline}
-                    </Link>
-                  </h3>
-
-                  {/* Investigative Summary */}
-                  <p className="font-serif italic text-base text-ink-muted mt-3 leading-relaxed">
-                    {project.description}
-                  </p>
-                </div>
-
-                {/* Tech Tags Pill Badges */}
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((t) => (
-                    <motion.span
-                      key={t}
-                      whileHover={{ scale: 1.05, borderColor: "var(--ink)" }}
-                      className="font-mono text-[11px] uppercase tracking-wider px-3 py-1 border border-ink/30 bg-paper/60 text-ink-muted group-hover:border-ink group-hover:text-ink transition-colors cursor-default"
-                    >
-                      {t}
-                    </motion.span>
-                  ))}
-                </div>
-
-                {/* Open Case File CTA Link */}
-                <div className="pt-2">
-                  <Link
-                    href={`/case-files/${project.slug}`}
-                    className="inline-flex items-center gap-2 font-grotesk text-xs font-bold tracking-widest uppercase text-ink group-hover:text-stamp link-pencil"
-                  >
-                    Open case file →
-                  </Link>
-                </div>
-
+              <div className="space-y-2">
+                <h3 className="font-syne font-bold text-xl text-white group-hover:text-[#E4002B] transition-colors flex items-center justify-between">
+                  <span>{proj.title.toUpperCase()}</span>
+                  <span className="text-xs text-[#A0A0B0]">©2026</span>
+                </h3>
+                <p className="text-xs text-slate-300 line-clamp-2">
+                  {proj.description}
+                </p>
               </div>
-            </motion.article>
+
+              <div className="flex flex-wrap gap-1.5 pt-2 border-t border-[#2A2A38]/60 text-[10px] text-[#A0A0B0]">
+                {proj.tech.map((t, idx) => (
+                  <span key={idx} className="bg-[#1F1F28] px-2 py-0.5 border border-[#2A2A38]">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </article>
           ))}
-        </motion.div>
+        </div>
 
       </div>
+
+      {/* EXHIBIT MODAL / DRAWER */}
+      {activeModal && (
+        <div className="fixed inset-0 bg-[#070709]/95 z-[300] flex items-center justify-center p-4 backdrop-blur-md">
+          <div className="hud-box max-w-2xl w-full p-6 md:p-8 space-y-6 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between border-b border-[#2A2A38] pb-3">
+              <div className="text-xs text-[#E4002B] tracking-widest">// EXHIBIT DETAIL DUMP</div>
+              <button onClick={() => setActiveModal(null)} className="text-xs text-[#A0A0B0] hover:text-white uppercase">[ CLOSE ESC ]</button>
+            </div>
+
+            <div className="space-y-2">
+              <h3 className="font-syne font-extrabold text-2xl md:text-3xl text-white">{activeModal.title}</h3>
+              <p className="text-xs text-slate-300 leading-relaxed">{activeModal.description}</p>
+            </div>
+
+            <div className="space-y-2">
+              <div className="text-xs text-[#A0A0B0]">// TECH STACK</div>
+              <div className="flex flex-wrap gap-2 text-xs">
+                {activeModal.tech.map((t, idx) => (
+                  <span key={idx} className="bg-[#1F1F28] px-3 py-1 border border-[#2A2A38] text-white">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-[#2A2A38] flex justify-between items-center">
+              <a
+                href={activeModal.github}
+                target="_blank"
+                rel="noreferrer"
+                className="hud-box px-6 py-2.5 text-xs font-mono uppercase text-white hover:bg-[#E4002B] transition-all"
+              >
+                [ OPEN GITHUB REPOSITORY → ]
+              </a>
+              <button onClick={() => setActiveModal(null)} className="text-xs text-slate-400 hover:text-white">
+                [ RETURN TO ARCHIVE ]
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
