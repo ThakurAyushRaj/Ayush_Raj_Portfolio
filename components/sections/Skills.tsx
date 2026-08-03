@@ -1,6 +1,8 @@
 "use client";
 
-import { Wrench, Layout, Server, Smartphone, Terminal } from "lucide-react";
+import { motion } from "framer-motion";
+import { Wrench, Layout, Server, Smartphone } from "lucide-react";
+import { fadeUp, staggerContainer } from "@/lib/motion";
 
 export default function Skills() {
   const skillCategories = [
@@ -44,9 +46,15 @@ export default function Skills() {
 
   return (
     <section id="skills" className="py-20 px-4 md:px-8 max-w-6xl mx-auto border-t border-[#232E42]">
-      <div className="space-y-12">
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        className="space-y-12"
+      >
         {/* Section Heading */}
-        <div className="space-y-2">
+        <motion.div variants={fadeUp} className="space-y-2">
           <div className="inline-flex items-center gap-2 text-blue-400 text-xs font-semibold uppercase tracking-wider">
             <Wrench size={14} />
             <span>Skills & Technologies</span>
@@ -57,14 +65,19 @@ export default function Skills() {
           <p className="text-gray-400 text-sm sm:text-base max-w-2xl">
             A comprehensive list of technologies, frameworks, databases, and tools used to build end-to-end applications.
           </p>
-        </div>
+        </motion.div>
 
         {/* Skill Category Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {skillCategories.map((cat, idx) => {
             const Icon = cat.icon;
             return (
-              <div key={idx} className="clean-card p-6 space-y-6">
+              <motion.div
+                key={idx}
+                variants={fadeUp}
+                whileHover={{ y: -5 }}
+                className="clean-card p-6 space-y-6"
+              >
                 <div className="flex items-center gap-3 border-b border-[#232E42] pb-4">
                   <div className="p-2.5 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20">
                     <Icon size={20} />
@@ -82,12 +95,13 @@ export default function Skills() {
                     </div>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
+
 

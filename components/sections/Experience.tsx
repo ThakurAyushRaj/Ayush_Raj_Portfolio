@@ -1,14 +1,22 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { experiences } from "@/lib/data";
 import { Briefcase, Calendar, MapPin, ExternalLink, CheckCircle2 } from "lucide-react";
+import { fadeUp, staggerContainer } from "@/lib/motion";
 
 export default function Experience() {
   return (
     <section id="experience" className="py-20 px-4 md:px-8 max-w-6xl mx-auto border-t border-[#232E42]">
-      <div className="space-y-12">
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        className="space-y-12"
+      >
         {/* Section Heading */}
-        <div className="space-y-2">
+        <motion.div variants={fadeUp} className="space-y-2">
           <div className="inline-flex items-center gap-2 text-blue-400 text-xs font-semibold uppercase tracking-wider">
             <Briefcase size={14} />
             <span>Work Experience</span>
@@ -16,12 +24,17 @@ export default function Experience() {
           <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
             Professional Career & Development Impact
           </h2>
-        </div>
+        </motion.div>
 
         {/* Experience Timeline Cards */}
         <div className="space-y-6">
           {experiences.map((exp) => (
-            <div key={exp.id} className="clean-card p-6 sm:p-8 space-y-6">
+            <motion.div
+              key={exp.id}
+              variants={fadeUp}
+              whileHover={{ y: -4 }}
+              className="clean-card p-6 sm:p-8 space-y-6"
+            >
               {/* Card Header */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#232E42] pb-6">
                 <div>
@@ -63,11 +76,12 @@ export default function Experience() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
+
 

@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import { motion } from "framer-motion";
 import { personalInfo } from "@/lib/data";
 import { Mail, Phone, MapPin, Send, CheckCircle, Github, Linkedin } from "lucide-react";
+import { fadeUp, staggerContainer } from "@/lib/motion";
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
@@ -14,9 +16,15 @@ export default function Contact() {
 
   return (
     <section id="contact" className="py-20 px-4 md:px-8 max-w-6xl mx-auto border-t border-[#232E42]">
-      <div className="space-y-12">
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        className="space-y-12"
+      >
         {/* Section Heading */}
-        <div className="space-y-2">
+        <motion.div variants={fadeUp} className="space-y-2">
           <div className="inline-flex items-center gap-2 text-blue-400 text-xs font-semibold uppercase tracking-wider">
             <Mail size={14} />
             <span>Contact</span>
@@ -27,11 +35,11 @@ export default function Contact() {
           <p className="text-gray-400 text-sm sm:text-base max-w-xl">
             Whether you have an upcoming full-stack opportunity, product consultation, or just want to connect, feel free to reach out directly.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Direct Contact Cards */}
-          <div className="lg:col-span-5 space-y-4">
+          <motion.div variants={fadeUp} className="lg:col-span-5 space-y-4">
             <div className="clean-card p-6 space-y-4">
               <h3 className="text-lg font-bold text-white border-b border-[#232E42] pb-3">
                 Contact Information
@@ -97,10 +105,10 @@ export default function Contact() {
                 </a>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Contact Form */}
-          <div className="lg:col-span-7 clean-card p-6 md:p-8 space-y-6">
+          <motion.div variants={fadeUp} className="lg:col-span-7 clean-card p-6 md:p-8 space-y-6">
             <h3 className="text-lg font-bold text-white border-b border-[#232E42] pb-3">
               Send a Direct Message
             </h3>
@@ -147,25 +155,32 @@ export default function Contact() {
                 ></textarea>
               </div>
 
-              <button
+              <motion.button
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.98 }}
                 type="submit"
                 className="w-full inline-flex items-center justify-center gap-2 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all shadow-lg shadow-blue-600/20"
               >
                 <Send size={16} />
                 <span>Send Message</span>
-              </button>
+              </motion.button>
             </form>
 
             {submitted && (
-              <div className="p-4 rounded-lg bg-blue-500/10 border border-blue-500/30 text-blue-400 text-sm flex items-center gap-2">
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="p-4 rounded-lg bg-blue-500/10 border border-blue-500/30 text-blue-400 text-sm flex items-center gap-2"
+              >
                 <CheckCircle size={18} className="shrink-0" />
                 <span>Thank you! Your message has been sent successfully. I will get back to you shortly.</span>
-              </div>
+              </motion.div>
             )}
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
+
 
