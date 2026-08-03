@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { personalInfo } from "@/lib/data";
 import { ArrowRight, Mail, Github, Linkedin, MapPin, Briefcase } from "lucide-react";
+import { IlluminatedName } from "@/components/ui";
 
 export default function Hero() {
   const containerVariants = {
@@ -41,11 +42,11 @@ export default function Hero() {
             variants={itemVariants}
             className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-[#0F172A] tracking-tight leading-[1.08]"
           >
-            Hi, I&apos;m <span className="bg-gradient-to-r from-[#0F172A] via-[#1E40AF] to-[#D97706] bg-clip-text text-transparent">{personalInfo.name}</span>
+            Hi, I&apos;m <IlluminatedName name={personalInfo.name} />
           </motion.h1>
           <motion.h2
             variants={itemVariants}
-            className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#475569] tracking-tight"
+            className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#334155] tracking-tight"
           >
             Engineering scalable full-stack web & mobile products.
           </motion.h2>
@@ -53,7 +54,7 @@ export default function Hero() {
 
         <motion.p
           variants={itemVariants}
-          className="text-base sm:text-xl text-[#475569] max-w-2xl font-normal leading-relaxed"
+          className="text-base sm:text-xl text-[#334155] max-w-2xl font-normal leading-relaxed"
         >
           Full-stack developer building production MERN/MEAN features, React Native & Flutter apps, and CRM/EMR platforms that power real estate and healthcare workflows.
         </motion.p>

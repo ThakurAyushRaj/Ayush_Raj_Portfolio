@@ -126,10 +126,10 @@ export default function Skills() {
                 key={idx}
                 variants={fadeUp}
                 whileHover={{ y: -4 }}
-                className={`p-6 rounded-2xl space-y-4 transition-all shadow-md relative group/card ${
+                className={`p-6 rounded-2xl space-y-4 transition-all duration-300 relative group/card ${
                   isDark
-                    ? "bg-[#0F172A] text-[#F9F6F0] border border-[#0F172A]"
-                    : "bg-[#FFFFFF] text-[#0F172A] border border-[#E2E8F0] hover:border-[#0F172A]/40"
+                    ? "bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#0F172A] text-[#F9F6F0] border border-[#1E293B] hover:border-[#D97706]/50 shadow-lg hover:shadow-xl hover:shadow-[#D97706]/10"
+                    : "bg-gradient-to-b from-[#FFFFFF] to-[#FAF8F5] text-[#0F172A] border border-[#E5E0D8] hover:border-[#1E40AF]/40 shadow-[0_4px_20px_-2px_rgba(15,23,42,0.05)] hover:shadow-[0_12px_32px_-4px_rgba(15,23,42,0.12)]"
                 }`}
               >
                 <div className={`flex items-center justify-between border-b pb-3 ${isDark ? "border-[#1E293B]" : "border-[#E2E8F0]"}`}>

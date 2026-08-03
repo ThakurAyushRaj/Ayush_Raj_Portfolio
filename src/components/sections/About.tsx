@@ -114,10 +114,10 @@ export default function About() {
                   key={idx}
                   variants={fadeUp}
                   whileHover={{ y: -4, scale: 1.02 }}
-                  className={`p-5 rounded-2xl space-y-3 flex flex-col justify-between transition-all shadow-md relative group/card ${
+                  className={`p-5 rounded-2xl space-y-3 flex flex-col justify-between transition-all duration-300 relative group/card ${
                     isDark
-                      ? "bg-[#0F172A] text-[#F9F6F0] border border-[#0F172A]"
-                      : "bg-[#FFFFFF] text-[#0F172A] border border-[#E2E8F0] hover:border-[#0F172A]/40"
+                      ? "bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#0F172A] text-[#F9F6F0] border border-[#1E293B] hover:border-[#D97706]/50 shadow-lg hover:shadow-xl hover:shadow-[#D97706]/10"
+                      : "bg-gradient-to-b from-[#FFFFFF] to-[#FAF8F5] text-[#0F172A] border border-[#E5E0D8] hover:border-[#1E40AF]/40 shadow-[0_4px_20px_-2px_rgba(15,23,42,0.05)] hover:shadow-[0_12px_32px_-4px_rgba(15,23,42,0.12)]"
                   }`}
                 >
                   <div className="flex items-center justify-between">
@@ -142,7 +142,7 @@ export default function About() {
 
                   <div>
                     <div className={`text-2xl sm:text-3xl font-extrabold tracking-tight ${isDark ? "text-[#F9F6F0]" : "text-[#0F172A]"}`}>{stat.value}</div>
-                    <div className={`text-xs font-semibold mt-0.5 ${isDark ? "text-[#CBD5E1]" : "text-[#475569]"}`}>{stat.label}</div>
+                    <div className={`text-xs font-semibold mt-0.5 ${isDark ? "text-[#CBD5E1]" : "text-[#334155]"}`}>{stat.label}</div>
                     <div className={`text-[11px] font-medium ${isDark ? "text-[#94A3B8]" : "text-[#64748B]"}`}>{stat.sub}</div>
                   </div>
                 </motion.div>

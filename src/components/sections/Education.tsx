@@ -85,10 +85,10 @@ export default function Education() {
                 key={item.id}
                 variants={fadeUp}
                 whileHover={{ y: -4 }}
-                className={`p-6 rounded-2xl space-y-4 flex flex-col justify-between transition-all shadow-md relative group/card ${
+                className={`p-6 rounded-2xl space-y-4 flex flex-col justify-between transition-all duration-300 relative group/card ${
                   isDark
-                    ? "bg-[#0F172A] text-[#F9F6F0] border border-[#0F172A]"
-                    : "bg-[#FFFFFF] text-[#0F172A] border border-[#E2E8F0] hover:border-[#0F172A]/40"
+                    ? "bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#0F172A] text-[#F9F6F0] border border-[#1E293B] hover:border-[#D97706]/50 shadow-lg hover:shadow-xl hover:shadow-[#D97706]/10"
+                    : "bg-gradient-to-b from-[#FFFFFF] to-[#FAF8F5] text-[#0F172A] border border-[#E5E0D8] hover:border-[#1E40AF]/40 shadow-[0_4px_20px_-2px_rgba(15,23,42,0.05)] hover:shadow-[0_12px_32px_-4px_rgba(15,23,42,0.12)]"
                 }`}
               >
                 <div className="space-y-3">
@@ -116,14 +116,14 @@ export default function Education() {
                     <h3 className={`text-lg font-bold tracking-tight ${isDark ? "text-[#F9F6F0]" : "text-[#0F172A]"}`}>
                       {item.degree}
                     </h3>
-                    <p className={`text-xs font-semibold mt-1 ${isDark ? "text-[#CBD5E1]" : "text-[#475569]"}`}>
+                    <p className={`text-xs font-semibold mt-1 ${isDark ? "text-[#CBD5E1]" : "text-[#334155]"}`}>
                       {item.institution}
                     </p>
                   </div>
                 </div>
 
                 <div className={`pt-3 border-t flex items-center justify-between text-xs font-medium ${
-                  isDark ? "border-[#1E293B] text-[#CBD5E1]" : "border-[#E2E8F0] text-[#475569]"
+                  isDark ? "border-[#1E293B] text-[#CBD5E1]" : "border-[#E2E8F0] text-[#334155]"
                 }`}>
                   <div className="flex items-center gap-1.5">
                     <Calendar size={13} className={isDark ? "text-[#D97706]" : "text-[#1E40AF]"} />

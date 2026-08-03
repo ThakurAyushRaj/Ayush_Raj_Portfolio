@@ -64,10 +64,10 @@ export default function Experience() {
                   <div className={`w-2 h-2 rounded-full ${isDark ? "bg-[#D97706]" : "bg-[#1E40AF]"}`} />
                 </motion.div>
 
-                <div className={`p-6 sm:p-8 rounded-2xl space-y-4 shadow-md transition-all ${
+                <div className={`p-6 sm:p-8 rounded-2xl space-y-4 transition-all duration-300 ${
                   isDark
-                    ? "bg-[#0F172A] text-[#F9F6F0] border border-[#0F172A]"
-                    : "bg-[#FFFFFF] text-[#0F172A] border border-[#E2E8F0] hover:border-[#0F172A]/40"
+                    ? "bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#0F172A] text-[#F9F6F0] border border-[#1E293B] hover:border-[#D97706]/50 shadow-lg hover:shadow-xl hover:shadow-[#D97706]/10"
+                    : "bg-gradient-to-b from-[#FFFFFF] to-[#FAF8F5] text-[#0F172A] border border-[#E5E0D8] hover:border-[#1E40AF]/40 shadow-[0_4px_20px_-2px_rgba(15,23,42,0.05)] hover:shadow-[0_12px_32px_-4px_rgba(15,23,42,0.12)]"
                 }`}>
                   <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b pb-4 ${isDark ? "border-[#1E293B]" : "border-[#E2E8F0]"}`}>
                     <div>
@@ -94,7 +94,7 @@ export default function Experience() {
                       </a>
                     </div>
 
-                    <div className={`flex flex-col sm:items-end text-xs space-y-1 ${isDark ? "text-[#CBD5E1]" : "text-[#475569]"}`}>
+                    <div className={`flex flex-col sm:items-end text-xs space-y-1 ${isDark ? "text-[#CBD5E1]" : "text-[#334155]"}`}>
                       <div className={`flex items-center gap-1.5 font-medium ${isDark ? "text-[#F9F6F0]" : "text-[#0F172A]"}`}>
                         <Calendar size={14} className={isDark ? "text-[#D97706]" : "text-[#1E40AF]"} />
                         <span>{exp.period}</span>
@@ -106,7 +106,7 @@ export default function Experience() {
                     </div>
                   </div>
 
-                  <ul className={`space-y-2.5 text-sm font-normal leading-relaxed ${isDark ? "text-[#CBD5E1]" : "text-[#475569]"}`}>
+                  <ul className={`space-y-2.5 text-sm font-normal leading-relaxed ${isDark ? "text-[#CBD5E1]" : "text-[#334155]"}`}>
                     {exp.bullets.map((bullet, bIdx) => (
                       <li key={bIdx} className="flex items-start gap-3">
                         <span className={`font-bold mt-1 text-xs ${isDark ? "text-[#D97706]" : "text-[#1E40AF]"}`}>▸</span>

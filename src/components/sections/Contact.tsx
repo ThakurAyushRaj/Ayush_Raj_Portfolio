@@ -39,7 +39,7 @@ export default function Contact() {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          <motion.div variants={fadeUp} className="lg:col-span-5 p-6 sm:p-8 rounded-2xl bg-[#0F172A] text-[#F9F6F0] border border-[#0F172A] space-y-6 shadow-xl">
+          <motion.div variants={fadeUp} className="lg:col-span-5 p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#0F172A] text-[#F9F6F0] border border-[#1E293B] space-y-6 shadow-xl hover:border-[#D97706]/40 transition-all duration-300">
             <h3 className="text-xl font-bold text-[#F9F6F0] tracking-tight">
               Direct Contact Details
             </h3>
@@ -126,7 +126,7 @@ export default function Contact() {
             </div>
           </motion.div>
 
-          <motion.div variants={fadeUp} className="lg:col-span-7 p-6 sm:p-8 rounded-2xl bg-[#FFFFFF] text-[#0F172A] border border-[#E2E8F0] space-y-6 shadow-lg">
+          <motion.div variants={fadeUp} className="lg:col-span-7 p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-[#FFFFFF] to-[#FAF8F5] text-[#0F172A] border border-[#E5E0D8] space-y-6 shadow-[0_4px_20px_-2px_rgba(15,23,42,0.05)] hover:shadow-[0_12px_32px_-4px_rgba(15,23,42,0.1)] transition-all duration-300">
             <h3 className="text-xl font-bold text-[#0F172A] tracking-tight">
               Send a Direct Message
             </h3>
