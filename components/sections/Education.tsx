@@ -24,10 +24,10 @@ export default function Education() {
     ];
   };
 
-  const folderColors = ["#FF3000", "#000000", "#FF3000"];
+  const folderColors = ["#FF3000", "#FFFFFF", "#FF3000"];
 
   return (
-    <section id="education" className="py-20 px-4 md:px-8 max-w-7xl mx-auto border-b-4 border-black swiss-grid-pattern">
+    <section id="education" className="py-20 px-4 md:px-8 max-w-7xl mx-auto border-b-4 border-white/20 swiss-grid-pattern">
       <motion.div
         variants={staggerContainer}
         initial="hidden"
@@ -36,20 +36,20 @@ export default function Education() {
         className="space-y-12"
       >
         {/* Section Header */}
-        <motion.div variants={fadeUp} className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-black pb-4">
+        <motion.div variants={fadeUp} className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-white/30 pb-4">
           <div className="flex items-center gap-2">
             <span className="text-[#FF3000] font-black text-sm">05.</span>
-            <span className="text-xs font-black uppercase tracking-widest text-black">
+            <span className="text-xs font-black uppercase tracking-widest text-white">
               ACADEMIC CREDENTIALS // EDUCATION DOSSIER
             </span>
           </div>
-          <span className="text-xs font-black uppercase tracking-widest text-black/60">
+          <span className="text-xs font-black uppercase tracking-widest text-white/60">
             VERIFIED QUALIFICATIONS
           </span>
         </motion.div>
 
         {/* Section Title */}
-        <motion.h2 variants={fadeUp} className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase text-black tracking-tight leading-tight max-w-4xl">
+        <motion.h2 variants={fadeUp} className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase text-white tracking-tight leading-tight max-w-4xl">
           ACADEMIC BACKGROUND & QUALIFICATIONS.
         </motion.h2>
 
@@ -59,12 +59,12 @@ export default function Education() {
             <motion.div
               key={item.id}
               variants={fadeUp}
-              className="swiss-card p-6 flex flex-col justify-between space-y-6"
+              className="swiss-card p-6 flex flex-col justify-between space-y-6 text-white"
             >
               <div className="space-y-4 font-sans">
                 {/* Interactive Folder Preview Container */}
-                <div className="bg-[#F2F2F2] border-2 border-black p-6 flex flex-col items-center justify-center relative min-h-[140px] swiss-dots">
-                  <div className="absolute top-2 left-2 text-[9px] font-black uppercase tracking-widest text-black/60">
+                <div className="bg-black/60 border-2 border-white/30 p-6 flex flex-col items-center justify-center relative min-h-[140px] swiss-dots">
+                  <div className="absolute top-2 left-2 text-[9px] font-black uppercase tracking-widest text-white/60">
                     DOSSIER NO. 0{idx + 1}
                   </div>
                   <InteractiveFolder
@@ -73,33 +73,33 @@ export default function Education() {
                     label={`DOSSIER 0${idx + 1}`}
                     items={getFolderItems(item)}
                   />
-                  <div className="text-[10px] font-black uppercase tracking-widest text-black/70 mt-3">
+                  <div className="text-[10px] font-black uppercase tracking-widest text-white/70 mt-3">
                     [ CLICK TO OPEN DOSSIER ]
                   </div>
                 </div>
 
                 <div className="space-y-2 pt-2">
-                  <div className="inline-flex items-center gap-1.5 text-xs font-black text-white bg-[#FF3000] px-2.5 py-1 uppercase tracking-widest border border-black">
+                  <div className="inline-flex items-center gap-1.5 text-xs font-black text-white bg-[#FF3000] px-2.5 py-1 uppercase tracking-widest border border-white">
                     <Calendar size={12} />
                     <span>{item.period}</span>
                   </div>
                   
-                  <h3 className="text-xl font-black text-black uppercase leading-tight">
+                  <h3 className="text-xl font-black text-white uppercase leading-tight">
                     {item.degree}
                   </h3>
                   
-                  <p className="text-xs font-bold text-black/70 uppercase">
+                  <p className="text-xs font-bold text-white/70 uppercase">
                     {item.institution}
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between text-xs font-black uppercase text-black pt-3 border-t-2 border-black">
+              <div className="flex items-center justify-between text-xs font-black uppercase text-white pt-3 border-t-2 border-white/20">
                 <div className="flex items-center gap-1">
                   <MapPin size={12} className="text-[#FF3000]" />
                   <span>{item.location}</span>
                 </div>
-                <span className="text-[10px] bg-black text-white px-2 py-0.5 tracking-widest flex items-center gap-1">
+                <span className="text-[10px] bg-white text-black px-2 py-0.5 tracking-widest flex items-center gap-1">
                   <CheckCircle2 size={10} className="text-[#FF3000]" />
                   VERIFIED
                 </span>
@@ -111,6 +111,7 @@ export default function Education() {
     </section>
   );
 }
+
 
 
 

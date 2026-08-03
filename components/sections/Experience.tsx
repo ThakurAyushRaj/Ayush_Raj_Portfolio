@@ -7,7 +7,7 @@ import { fadeUp, staggerContainer } from "@/lib/motion";
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-20 px-4 md:px-8 max-w-7xl mx-auto border-b-4 border-black swiss-grid-pattern">
+    <section id="experience" className="py-20 px-4 md:px-8 max-w-7xl mx-auto border-b-4 border-white/20 swiss-grid-pattern">
       <motion.div
         variants={staggerContainer}
         initial="hidden"
@@ -16,20 +16,20 @@ export default function Experience() {
         className="space-y-12"
       >
         {/* Section Header */}
-        <motion.div variants={fadeUp} className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-black pb-4">
+        <motion.div variants={fadeUp} className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-white/30 pb-4">
           <div className="flex items-center gap-2">
             <span className="text-[#FF3000] font-black text-sm">02.</span>
-            <span className="text-xs font-black uppercase tracking-widest text-black">
+            <span className="text-xs font-black uppercase tracking-widest text-white">
               CAREER CHRONOLOGY // KNOWN WHEREABOUTS
             </span>
           </div>
-          <span className="text-xs font-black uppercase tracking-widest text-black/60">
+          <span className="text-xs font-black uppercase tracking-widest text-white/60">
             EMPLOYMENT RECORD
           </span>
         </motion.div>
 
         {/* Section Title */}
-        <motion.h2 variants={fadeUp} className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase text-black tracking-tight leading-tight">
+        <motion.h2 variants={fadeUp} className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase text-white tracking-tight leading-tight">
           PROFESSIONAL CAREER & DEVELOPMENT IMPACT.
         </motion.h2>
 
@@ -39,15 +39,15 @@ export default function Experience() {
             <motion.div
               key={exp.id}
               variants={fadeUp}
-              className="swiss-card p-6 sm:p-10 space-y-6"
+              className="swiss-card p-6 sm:p-10 space-y-6 text-white"
             >
               {/* Header block */}
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-black pb-6">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-white/20 pb-6">
                 <div className="space-y-1">
-                  <div className="inline-block bg-black text-white px-2.5 py-0.5 text-[10px] font-black tracking-widest uppercase mb-1">
+                  <div className="inline-block bg-white text-black px-2.5 py-0.5 text-[10px] font-black tracking-widest uppercase mb-1">
                     RECORD NO. 0{exp.id} // {exp.type.toUpperCase()}
                   </div>
-                  <h3 className="text-2xl sm:text-3xl font-black uppercase text-black tracking-tight">
+                  <h3 className="text-2xl sm:text-3xl font-black uppercase text-white tracking-tight">
                     {exp.role}
                   </h3>
                   <a
@@ -61,12 +61,12 @@ export default function Experience() {
                   </a>
                 </div>
 
-                <div className="flex flex-col md:items-end text-xs font-black text-black space-y-1 uppercase tracking-wider">
-                  <div className="flex items-center gap-1.5 bg-[#F2F2F2] px-3 py-1 border-2 border-black">
+                <div className="flex flex-col md:items-end text-xs font-black text-white space-y-1 uppercase tracking-wider">
+                  <div className="flex items-center gap-1.5 bg-black/60 px-3 py-1 border border-white/30">
                     <Calendar size={14} className="text-[#FF3000]" />
                     <span>{exp.period}</span>
                   </div>
-                  <div className="flex items-center gap-1.5 text-black/70 pt-1">
+                  <div className="flex items-center gap-1.5 text-white/70 pt-1">
                     <MapPin size={14} />
                     <span>{exp.location}</span>
                   </div>
@@ -74,7 +74,7 @@ export default function Experience() {
               </div>
 
               {/* Achievements Bullets */}
-              <ul className="space-y-3 text-black text-sm sm:text-base font-medium leading-relaxed font-sans">
+              <ul className="space-y-3 text-white/90 text-sm sm:text-base font-medium leading-relaxed font-sans">
                 {exp.bullets.map((bullet, idx) => (
                   <li key={idx} className="flex items-start gap-3">
                     <span className="text-[#FF3000] font-black text-base shrink-0 mt-0.5">■</span>
@@ -89,6 +89,7 @@ export default function Experience() {
     </section>
   );
 }
+
 
 
 
