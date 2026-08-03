@@ -22,11 +22,12 @@ const generateBoxShadows = (n: number) => {
 };
 
 export function ParallaxStarsBackground({
-  title = "PURE CSS\nPARALLAX PIXEL STARS",
+  title,
   children,
   className = "",
   speed = 1
 }: ParallaxStarsBackgroundProps) {
+
   // Memoize shadows so they don't regenerate on re-renders
   const shadowsSmall = useMemo(() => generateBoxShadows(700), []);
   const shadowsMedium = useMemo(() => generateBoxShadows(200), []);
