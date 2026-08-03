@@ -1,120 +1,61 @@
-import { motion } from "framer-motion";
 import { personalInfo } from "@/lib/data";
-import { ArrowRight, Mail, Github, Linkedin, MapPin, Briefcase } from "lucide-react";
-import { IlluminatedName } from "@/components/ui";
+import { Download } from "lucide-react";
 
 export default function Hero() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 25, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.7, ease: [0.215, 0.61, 0.355, 1.0] },
-    },
-  };
-
   return (
-    <section id="hero" className="relative min-h-[90vh] pt-32 pb-20 md:pt-40 md:pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col justify-center">
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="space-y-8 max-w-4xl"
-      >
-        <motion.div variants={itemVariants} className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#0F172A] border border-[#0F172A] text-xs font-semibold text-[#F9F6F0] shadow-sm">
-          <span className="w-2 h-2 rounded-full bg-[#D97706] animate-ping" />
-          <span>Software Development Engineer @ {personalInfo.company}</span>
-        </motion.div>
+    <section id="hero" className="py-10 px-4 sm:px-8 max-w-7xl mx-auto space-y-10 text-[#181410]">
+      {/* ─── KICKER & CV DOWNLOAD ACTION BAR ─── */}
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-[#181410] pb-3 text-center sm:text-left">
+        <span className="text-xs font-serif uppercase tracking-[0.25em] text-[#181410] font-bold">
+          DISCIPLINES: FULL-STACK ENGINEERING • MERN / MEAN • MOBILE ARCHITECTURE
+        </span>
 
-        <div className="space-y-3">
-          <motion.h1
-            variants={itemVariants}
-            className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-[#0F172A] tracking-tight leading-[1.08]"
-          >
-            Hi, I&apos;m <IlluminatedName name={personalInfo.name} />
-          </motion.h1>
-          <motion.h2
-            variants={itemVariants}
-            className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#334155] tracking-tight"
-          >
-            Engineering scalable full-stack web & mobile products.
-          </motion.h2>
-        </div>
-
-        <motion.p
-          variants={itemVariants}
-          className="text-base sm:text-xl text-[#334155] max-w-2xl font-normal leading-relaxed"
+        <a
+          href={personalInfo.resume}
+          download="Ayush_Raj_CV.docx"
+          className="px-4 py-2 bg-[#181410] text-[#f4f1ea] hover:bg-[#302922] transition-all hover:scale-105 text-xs font-serif uppercase tracking-[0.2em] font-bold flex items-center gap-2 border border-[#181410] shrink-0"
         >
-          Full-stack developer building production MERN/MEAN features, React Native & Flutter apps, and CRM/EMR platforms that power real estate and healthcare workflows.
-        </motion.p>
+          <Download size={14} />
+          <span>DOWNLOAD CURRICULUM VITAE (.DOCX)</span>
+        </a>
+      </div>
 
-        <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-6 text-xs sm:text-sm font-medium text-[#475569]">
-          <div className="flex items-center gap-2">
-            <MapPin size={16} className="text-[#D97706]" />
-            <span className="text-[#0F172A] font-semibold">{personalInfo.location}</span>
+      {/* ─── HUGE ANTON HEADLINE (~88px) ─── */}
+      <div className="text-center space-y-2">
+        <h2 className="font-anton text-5xl sm:text-7xl lg:text-[88px] uppercase tracking-tight text-[#181410] leading-[0.96] max-w-5xl mx-auto font-black">
+          DESIGN &amp; CODE WORTH THE FRONT PAGE
+        </h2>
+        <div className="text-sm font-serif italic text-[#181410] font-semibold pt-2">
+          Engineering scalable web, mobile &amp; enterprise platforms for real estate and healthcare workflows.
+        </div>
+      </div>
+
+      {/* ─── TWO-COLUMN JUSTIFIED DROP-CAP LEDE ─── */}
+      <div className="max-w-[920px] mx-auto border-y border-[#181410] py-8 my-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 divide-y md:divide-y-0 md:divide-x divide-[#181410] text-[#181410]">
+          <div className="broadsheet-dropcap broadsheet-justify text-base sm:text-lg leading-relaxed font-serif pr-0 md:pr-4">
+            Hi, I&apos;m <strong>{personalInfo.name}</strong>, a Software Development Engineer at {personalInfo.company} dedicated to crafting robust digital products, high-throughput microservices, and elegant web &amp; mobile interfaces. With deep expertise across modern MERN/MEAN architectures, React Native, and Flutter, I engineer software built to endure.
           </div>
-          <div className="flex items-center gap-2">
-            <Briefcase size={16} className="text-[#1E40AF]" />
-            <span>SDE @ <a href={personalInfo.companyUrl} target="_blank" rel="noopener noreferrer" className="text-[#0F172A] font-semibold hover:underline hover:text-[#1E40AF] transition-colors">{personalInfo.company}</a></span>
+          <div className="broadsheet-justify text-base sm:text-lg leading-relaxed font-serif pt-6 md:pt-0 md:pl-8">
+            From architecture to production rollout, every system is constructed with strict performance standards, clean component hierarchies, and resilient backend design. Whether designing complex healthcare EMR platforms or high-volume real estate CRM engines, quality is set in ink.
           </div>
-        </motion.div>
+        </div>
+      </div>
 
-        <motion.div variants={itemVariants} className="pt-2 flex flex-wrap items-center gap-4">
-          <a
-            href="#projects"
-            className="px-6 py-3.5 rounded-xl bg-[#0F172A] hover:bg-[#1E293B] text-[#F9F6F0] font-bold text-sm shadow-xl shadow-[#0F172A]/20 transition-all flex items-center gap-2 group hover:-translate-y-0.5"
-          >
-            <span>Explore Projects</span>
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-          </a>
-
-          <a
-            href="#contact"
-            className="px-6 py-3.5 rounded-xl bg-[#FAF8F5] hover:bg-[#E2E8F0] border border-[#CBD5E1] text-[#0F172A] font-semibold text-sm transition-all hover:-translate-y-0.5 shadow-sm"
-          >
-            Contact Me
-          </a>
-
-          <div className="flex items-center gap-3 ml-0 sm:ml-2 pt-2 sm:pt-0 border-t sm:border-t-0 border-[#E2E8F0] w-full sm:w-auto">
-            <a
-              href={personalInfo.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-xl bg-[#FAF8F5] hover:bg-[#0F172A] border border-[#CBD5E1] text-[#0F172A] hover:text-[#F9F6F0] transition-all hover:scale-105 shadow-sm"
-              aria-label="GitHub Repository"
-            >
-              <Github size={18} />
-            </a>
-            <a
-              href={personalInfo.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-xl bg-[#FAF8F5] hover:bg-[#0F172A] border border-[#CBD5E1] text-[#0F172A] hover:text-[#F9F6F0] transition-all hover:scale-105 shadow-sm"
-              aria-label="LinkedIn Profile"
-            >
-              <Linkedin size={18} />
-            </a>
-            <a
-              href={`mailto:${personalInfo.email}`}
-              className="p-3 rounded-xl bg-[#FAF8F5] hover:bg-[#0F172A] border border-[#CBD5E1] text-[#0F172A] hover:text-[#F9F6F0] transition-all hover:scale-105 shadow-sm"
-              aria-label="Email Transmission"
-            >
-              <Mail size={18} />
-            </a>
-          </div>
-        </motion.div>
-      </motion.div>
+      {/* ─── FULL-WIDTH FRAMED B&W FIGURE WITH CAPTION ROW ─── */}
+      <div className="space-y-2">
+        <div className="border border-[#181410] p-1 bg-[#181410]/5 overflow-hidden">
+          <img
+            src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80"
+            alt="The studio floor and engineering workstation"
+            className="w-full h-[320px] sm:h-[470px] object-cover broadsheet-photo"
+          />
+        </div>
+        <div className="border-b border-[#181410] pb-2 pt-1 flex flex-col sm:flex-row items-center justify-between text-xs font-serif uppercase tracking-[0.2em] text-[#181410] gap-2">
+          <div>Fig. 01 &mdash; The studio floor &amp; production workstation, photographed on press day</div>
+          <div className="italic font-normal">Silver gelatin print, MMXXVI</div>
+        </div>
+      </div>
     </section>
   );
 }

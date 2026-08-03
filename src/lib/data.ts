@@ -10,6 +10,7 @@ export const personalInfo = {
   email: "rajayush226@gmail.com",
   linkedin: "https://linkedin.com/in/ayush-raj-8348a9260",
   github: "https://github.com/ThakurAyushRaj",
+  resume: "/Ayush_Raj_CV.docx",
   company: "aNquest Media",
   companyUrl: "https://anquestmedia.com/",
   tagline: "Building full-stack products that ship.",
@@ -36,6 +37,7 @@ export interface CaseFile {
   scope: string;
   status: string;
   github: string;
+  demo?: string;
   featured: boolean;
   description: string;
   tech: string[];
@@ -59,6 +61,7 @@ export const projects: CaseFile[] = [
     scope: "Full-Stack System Architecture & UI",
     status: "Confirmed",
     github: "https://github.com/ThakurAyushRaj/ERP-Website",
+    demo: "https://erp-website-gamma.vercel.app/",
     featured: true,
     description:
       "Unified ERP platform integrating Finance, HR, Inventory, and Sales into one system to replace manual, spreadsheet-based workflows.",
@@ -202,6 +205,7 @@ export const projects: CaseFile[] = [
     scope: "Frontend Design System & Motion Graphics",
     status: "Confirmed",
     github: "https://github.com/ThakurAyushRaj/Blog-Website",
+    demo: "https://blog-website-murex-sigma.vercel.app/",
     featured: false,
     description:
       "Animated blog site with Framer Motion transitions, built for a smooth, immersive reading experience.",

@@ -87,7 +87,7 @@ export default function Contact() {
           {/* SOLID METALLIC GOLD / DARK BUTTON */}
           <button
             type="submit"
-            className="w-full py-4 px-8 bg-[#c5a059] hover:bg-[#e5c178] text-[#181410] font-serif text-xs uppercase tracking-[0.22em] font-bold rounded-none transition-colors border border-[#c5a059] cursor-pointer shadow-lg"
+            className="w-full py-4 px-8 bg-[#c5a059] hover:bg-[#e5c178] text-[#181410] font-serif text-xs uppercase tracking-[0.22em] font-bold rounded-none transition-all hover:scale-[1.03] border border-[#c5a059] cursor-pointer shadow-lg"
           >
             SUBMIT THE BRIEF &rarr;
           </button>
@@ -101,7 +101,7 @@ export default function Contact() {
       </div>
 
       {/* ─── DIRECT DISPATCH DETAILS ROW ─── */}
-      <div className="max-w-4xl mx-auto border-t border-[#181410] pt-8 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center text-xs font-serif uppercase tracking-[0.2em]">
+      <div className="max-w-4xl mx-auto border-t border-[#181410] pt-8 grid grid-cols-1 sm:grid-cols-4 gap-6 text-center text-xs font-serif uppercase tracking-[0.2em]">
         <div className="space-y-1">
           <div className="text-[#524b42]">DIRECT EMAIL</div>
           <a href={`mailto:${personalInfo.email}`} className="font-bold hover:underline">
@@ -113,6 +113,17 @@ export default function Contact() {
           <div className="text-[#524b42]">PHONE / TELEGRAPH</div>
           <a href={`tel:${personalInfo.phone.replace(/\s+/g, '')}`} className="font-bold hover:underline">
             {personalInfo.phone}
+          </a>
+        </div>
+
+        <div className="space-y-1">
+          <div className="text-[#524b42]">CURRICULUM VITAE</div>
+          <a
+            href={personalInfo.resume}
+            download="Ayush_Raj_CV.docx"
+            className="font-bold text-[#181410] hover:underline underline-offset-4"
+          >
+            DOWNLOAD CV (.DOCX) ↓
           </a>
         </div>
 

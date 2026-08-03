@@ -94,12 +94,23 @@ export default function CaseFilePage() {
                 <span className="text-[10px] text-black/60 tracking-widest block">SCOPE OF WORK</span>
                 <span className="text-xs font-black text-[#FF3000]">{project.scope}</span>
               </div>
-              <div className="pt-3 border-t-2 border-black">
+              <div className="pt-3 border-t-2 border-black space-y-2">
+                {project.demo && (
+                  <a
+                    href={project.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2.5 text-xs font-black flex items-center justify-center gap-2 bg-[#181410] text-[#f4f1ea] border border-black hover:bg-[#302922] transition-colors"
+                  >
+                    <span>LAUNCH LIVE EDITION DEMO ↗</span>
+                    <ExternalLink size={14} />
+                  </a>
+                )}
                 <a
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="swiss-btn-primary px-4 py-2.5 text-xs font-black flex items-center justify-center gap-2"
+                  className="px-4 py-2.5 text-xs font-black flex items-center justify-center gap-2 bg-white text-black border border-black hover:bg-gray-100 transition-colors"
                 >
                   <span>VIEW REPOSITORY ON GITHUB [EXT]</span>
                   <ExternalLink size={14} />
