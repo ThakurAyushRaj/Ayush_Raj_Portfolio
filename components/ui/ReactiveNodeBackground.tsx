@@ -15,6 +15,17 @@ interface Ripple {
   opacity: number;
 }
 
+interface Particle {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  life: number;
+  maxLife: number;
+  size: number;
+  color: string;
+}
+
 export function ReactiveNodeBackground({ children, className = "" }: ReactiveNodeBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -23,6 +34,7 @@ export function ReactiveNodeBackground({ children, className = "" }: ReactiveNod
   const mouseTarget = useRef({ x: -1000, y: -1000 });
   const mouseCurrent = useRef({ x: -1000, y: -1000 });
   const ripplesRef = useRef<Ripple[]>([]);
+  const particlesRef = useRef<Particle[]>([]);
 
   const animFrameId = useRef<number | null>(null);
   const isVisible = useRef(true);
@@ -36,10 +48,24 @@ export function ReactiveNodeBackground({ children, className = "" }: ReactiveNod
     checkMobile();
     window.addEventListener("resize", checkMobile);
 
-    // Mouse position listener
+    // Mouse position listener & particle emitter
     const handleMouseMove = (e: MouseEvent) => {
       if (isMobile) return;
       mouseTarget.current = { x: e.clientX, y: e.clientY };
+
+      // Emit subtle micro-spark particles on movement
+      if (Math.random() > 0.4) {
+        particlesRef.current.push({
+          x: e.clientX + (Math.random() - 0.5) * 20,
+          y: e.clientY + (Math.random() - 0.5) * 20,
+          vx: (Math.random() - 0.5) * 0.8,
+          vy: (Math.random() - 0.5) * 0.8 - 0.2,
+          life: 0,
+          maxLife: 35 + Math.random() * 20,
+          size: 1.5 + Math.random() * 2,
+          color: Math.random() > 0.5 ? "30, 64, 175" : "217, 119, 6",
+        });
+      }
     };
 
     // Global Click ripple listener
@@ -49,9 +75,25 @@ export function ReactiveNodeBackground({ children, className = "" }: ReactiveNod
         x: e.clientX,
         y: e.clientY,
         radius: 5,
-        maxRadius: 180,
-        opacity: 0.85,
+        maxRadius: 210,
+        opacity: 0.9,
       });
+
+      // Emit click burst particles
+      for (let p = 0; p < 8; p++) {
+        const angle = (Math.PI * 2 * p) / 8;
+        const speed = 1.5 + Math.random() * 2;
+        particlesRef.current.push({
+          x: e.clientX,
+          y: e.clientY,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          life: 0,
+          maxLife: 45,
+          size: 2.5,
+          color: p % 2 === 0 ? "217, 119, 6" : "30, 64, 175",
+        });
+      }
     };
 
     // Page Visibility API handler
@@ -93,23 +135,23 @@ export function ReactiveNodeBackground({ children, className = "" }: ReactiveNod
 
           // Render Trail Spotlight Glow underneath nodes
           if (mX > 0 && mY > 0) {
-            const gradient = ctx.createRadialGradient(mX, mY, 10, mX, mY, 320);
-            gradient.addColorStop(0, "rgba(30, 64, 175, 0.12)"); // Royal Blue glow
-            gradient.addColorStop(0.5, "rgba(217, 119, 6, 0.06)"); // Warm Amber middle
+            const gradient = ctx.createRadialGradient(mX, mY, 10, mX, mY, 360);
+            gradient.addColorStop(0, "rgba(30, 64, 175, 0.15)"); // Royal Blue glow center
+            gradient.addColorStop(0.4, "rgba(217, 119, 6, 0.08)"); // Warm Amber middle
             gradient.addColorStop(1, "rgba(249, 246, 240, 0)");
             ctx.fillStyle = gradient;
             ctx.beginPath();
-            ctx.arc(mX, mY, 320, 0, Math.PI * 2);
+            ctx.arc(mX, mY, 360, 0, Math.PI * 2);
             ctx.fill();
           }
 
-          // Node Grid System (~58px spacing)
-          const spacing = 58;
+          // Node Grid System (~56px spacing)
+          const spacing = 56;
           const cols = Math.ceil(width / spacing) + 1;
           const rows = Math.ceil(height / spacing) + 1;
 
-          const activeRadius = 190;
-          const maxLineDistance = 95;
+          const activeRadius = 230;
+          const maxLineDistance = 105;
 
           const activeNodes: { x: number; y: number; distToMouse: number }[] = [];
 
@@ -129,8 +171,8 @@ export function ReactiveNodeBackground({ children, className = "" }: ReactiveNod
 
               if (dist < activeRadius) {
                 const ratio = 1 - dist / activeRadius;
-                radius = 1.8 + ratio * 2.8;
-                opacity = 0.2 + ratio * 0.75;
+                radius = 1.8 + ratio * 3.2;
+                opacity = 0.2 + ratio * 0.8;
                 // Blend royal blue and warm amber near mouse
                 color = ratio > 0.5 ? "30, 64, 175" : "217, 119, 6";
 
@@ -159,13 +201,13 @@ export function ReactiveNodeBackground({ children, className = "" }: ReactiveNod
                 const avgMouseDist = (n1.distToMouse + n2.distToMouse) / 2;
                 const proximityRatio = 1 - avgMouseDist / activeRadius;
 
-                const alpha = lineRatio * proximityRatio * 0.5;
+                const alpha = lineRatio * proximityRatio * 0.6;
 
                 // Alternate stroke color: midnight blue vs warm amber
                 ctx.strokeStyle = i % 2 === 0
                   ? `rgba(30, 64, 175, ${alpha})`
                   : `rgba(217, 119, 6, ${alpha})`;
-                ctx.lineWidth = 1;
+                ctx.lineWidth = 1.2;
                 ctx.beginPath();
                 ctx.moveTo(n1.x, n1.y);
                 ctx.lineTo(n2.x, n2.y);
@@ -174,11 +216,30 @@ export function ReactiveNodeBackground({ children, className = "" }: ReactiveNod
             }
           }
 
-          // 3. Render Click Pulse Ripples
+          // 3. Render Cursor Trail Floating Micro-Sparks
+          for (let p = particlesRef.current.length - 1; p >= 0; p--) {
+            const pt = particlesRef.current[p];
+            pt.x += pt.vx;
+            pt.y += pt.vy;
+            pt.life += 1;
+
+            const alpha = (1 - pt.life / pt.maxLife) * 0.7;
+            if (pt.life >= pt.maxLife || alpha <= 0) {
+              particlesRef.current.splice(p, 1);
+              continue;
+            }
+
+            ctx.fillStyle = `rgba(${pt.color}, ${alpha})`;
+            ctx.beginPath();
+            ctx.arc(pt.x, pt.y, pt.size * (1 - pt.life / pt.maxLife), 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          // 4. Render Click Pulse Ripples
           for (let k = ripplesRef.current.length - 1; k >= 0; k--) {
             const rip = ripplesRef.current[k];
-            rip.radius += 3.5;
-            rip.opacity -= 0.022;
+            rip.radius += 3.8;
+            rip.opacity -= 0.02;
 
             if (rip.opacity <= 0 || rip.radius >= rip.maxRadius) {
               ripplesRef.current.splice(k, 1);
@@ -186,16 +247,16 @@ export function ReactiveNodeBackground({ children, className = "" }: ReactiveNod
             }
 
             ctx.strokeStyle = `rgba(15, 23, 42, ${rip.opacity})`;
-            ctx.lineWidth = 1.5;
+            ctx.lineWidth = 1.8;
             ctx.beginPath();
             ctx.arc(rip.x, rip.y, rip.radius, 0, Math.PI * 2);
             ctx.stroke();
 
             // Inner royal blue ring ripple
-            ctx.strokeStyle = `rgba(30, 64, 175, ${rip.opacity * 0.7})`;
-            ctx.lineWidth = 1;
+            ctx.strokeStyle = `rgba(30, 64, 175, ${rip.opacity * 0.75})`;
+            ctx.lineWidth = 1.2;
             ctx.beginPath();
-            ctx.arc(rip.x, rip.y, Math.max(0, rip.radius - 12), 0, Math.PI * 2);
+            ctx.arc(rip.x, rip.y, Math.max(0, rip.radius - 14), 0, Math.PI * 2);
             ctx.stroke();
           }
         }

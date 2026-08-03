@@ -1,78 +1,100 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
-export default function CustomCursor() {
-  const [hovering, setHovering]   = useState(false);
-  const [visible,  setVisible]    = useState(false);
-
-  const mouseX = useMotionValue(-100);
-  const mouseY = useMotionValue(-100);
-
-  const dotX   = useSpring(mouseX, { stiffness: 450, damping: 28, mass: 0.3 });
-  const dotY   = useSpring(mouseY, { stiffness: 450, damping: 28, mass: 0.3 });
-  const ringX  = useSpring(mouseX, { stiffness: 140, damping: 24, mass: 0.6 });
-  const ringY  = useSpring(mouseY, { stiffness: 140, damping: 24, mass: 0.6 });
+export function CustomCursor() {
+  const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 });
+  const [isHovered, setIsHovered] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (typeof window === "undefined" || "ontouchstart" in window) return;
+    // Disable on touch devices under 768px
+    if (window.innerWidth < 768) return;
+    setIsVisible(true);
 
-    const onMove = (e: MouseEvent) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-      if (!visible) setVisible(true);
+    const onMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+
+      // Check if mouse is hovering over interactive elements
+      const target = e.target as HTMLElement;
+      if (
+        target &&
+        (target.tagName === "BUTTON" ||
+          target.tagName === "A" ||
+          target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.closest("button") ||
+          target.closest("a") ||
+          target.classList.contains("interactive"))
+      ) {
+        setIsHovered(true);
+      } else {
+        setIsHovered(false);
+      }
     };
 
-    const onOver = (e: Event) => {
-      const t = e.target as HTMLElement;
-      if (t.tagName === "A" || t.tagName === "BUTTON" || t.closest("[data-cursor='hover']"))
-        setHovering(true);
-    };
+    const onMouseDown = () => setIsClicked(true);
+    const onMouseUp = () => setIsClicked(false);
+    const onMouseLeave = () => setIsVisible(false);
+    const onMouseEnter = () => setIsVisible(true);
 
-    const onOut = () => setHovering(false);
-
-    window.addEventListener("mousemove", onMove);
-    document.addEventListener("mouseover", onOver);
-    document.addEventListener("mouseout", onOut);
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mousedown", onMouseDown);
+    window.addEventListener("mouseup", onMouseUp);
+    document.addEventListener("mouseleave", onMouseLeave);
+    document.addEventListener("mouseenter", onMouseEnter);
 
     return () => {
-      window.removeEventListener("mousemove", onMove);
-      document.removeEventListener("mouseover", onOver);
-      document.removeEventListener("mouseout", onOut);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mousedown", onMouseDown);
+      window.removeEventListener("mouseup", onMouseUp);
+      document.removeEventListener("mouseleave", onMouseLeave);
+      document.removeEventListener("mouseenter", onMouseEnter);
     };
-  }, [mouseX, mouseY, visible]);
+  }, []);
 
-  if (typeof window !== "undefined" && "ontouchstart" in window) return null;
+  if (!isVisible) return null;
 
   return (
-    <>
-      {/* Small dot */}
+    <div className="fixed inset-0 pointer-events-none z-[9999] overflow-hidden select-none">
+      {/* Outer Spring Reactive Ring */}
       <motion.div
-        className="fixed top-0 left-0 z-[99999] pointer-events-none rounded-full"
-        style={{
-          x: dotX, y: dotY,
-          translateX: "-50%", translateY: "-50%",
-          background: "#16140F",
+        className="fixed top-0 left-0 w-8 h-8 rounded-full border-2 pointer-events-none mix-blend-difference"
+        animate={{
+          x: mousePosition.x - 16,
+          y: mousePosition.y - 16,
+          scale: isClicked ? 0.7 : isHovered ? 1.8 : 1,
+          borderColor: isHovered ? "#D97706" : "#1E40AF",
+          backgroundColor: isHovered ? "rgba(217, 119, 6, 0.15)" : "transparent",
         }}
-        animate={{ width: hovering ? 6 : 4, height: hovering ? 6 : 4, opacity: visible ? 1 : 0 }}
-        transition={{ duration: 0.15 }}
+        transition={{
+          type: "spring",
+          damping: 28,
+          stiffness: 300,
+          mass: 0.5,
+        }}
       />
 
-      {/* Outer ring — square on hover (editorial stamp feel) */}
+      {/* Inner Precision Micro Dot */}
       <motion.div
-        className="fixed top-0 left-0 z-[99998] pointer-events-none"
-        style={{ x: ringX, y: ringY, translateX: "-50%", translateY: "-50%" }}
+        className="fixed top-0 left-0 w-2.5 h-2.5 rounded-full bg-[#0F172A] pointer-events-none shadow-sm"
         animate={{
-          width:  hovering ? 40 : 24,
-          height: hovering ? 40 : 24,
-          borderRadius: hovering ? "0px" : "50%",
-          opacity: visible ? (hovering ? 0.8 : 0.4) : 0,
-          borderColor: hovering ? "#C83232" : "rgba(22, 20, 15, 0.4)",
+          x: mousePosition.x - 5,
+          y: mousePosition.y - 5,
+          scale: isHovered ? 1.4 : 1,
+          backgroundColor: isHovered ? "#1E40AF" : "#0F172A",
         }}
-        transition={{ duration: 0.2 }}
-        className="fixed top-0 left-0 z-[99998] pointer-events-none border"
+        transition={{
+          type: "spring",
+          damping: 40,
+          stiffness: 800,
+          mass: 0.1,
+        }}
       />
-    </>
+    </div>
   );
 }
+
+export default CustomCursor;
