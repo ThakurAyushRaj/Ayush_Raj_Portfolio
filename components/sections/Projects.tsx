@@ -3,14 +3,14 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { projects, CaseFile } from "@/lib/data";
-import { FolderGit2, Github, ExternalLink, X, Calendar } from "lucide-react";
+import { ExternalLink, X, Calendar, Github } from "lucide-react";
 import { fadeUp, staggerContainer, scaleIn } from "@/lib/motion";
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<CaseFile | null>(null);
 
   return (
-    <section id="projects" className="py-20 px-4 md:px-8 max-w-6xl mx-auto border-t border-[#232E42]">
+    <section id="projects" className="py-20 px-4 md:px-8 max-w-7xl mx-auto border-b-4 border-black swiss-grid-pattern">
       <motion.div
         variants={staggerContainer}
         initial="hidden"
@@ -18,19 +18,23 @@ export default function Projects() {
         viewport={{ once: true, amount: 0.1 }}
         className="space-y-12"
       >
-        {/* Section Heading */}
-        <motion.div variants={fadeUp} className="space-y-2">
-          <div className="inline-flex items-center gap-2 text-blue-400 text-xs font-semibold uppercase tracking-wider">
-            <FolderGit2 size={14} />
-            <span>Featured Work</span>
+        {/* Section Header */}
+        <motion.div variants={fadeUp} className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-black pb-4">
+          <div className="flex items-center gap-2">
+            <span className="text-[#FF3000] font-black text-sm">03.</span>
+            <span className="text-xs font-black uppercase tracking-widest text-black">
+              SELECTED WORKS // PRODUCTION ARCHIVE [{projects.length.toString().padStart(2, '0')}]
+            </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-            Production Applications & Systems
-          </h2>
-          <p className="text-gray-400 text-sm sm:text-base max-w-2xl">
-            A showcase of full-stack web applications, mobile tools, and automated backend systems built with modern engineering standards.
-          </p>
+          <span className="text-xs font-black uppercase tracking-widest text-black/60">
+            SYSTEM EXHIBIT CATALOGUE
+          </span>
         </motion.div>
+
+        {/* Section Title */}
+        <motion.h2 variants={fadeUp} className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase text-black tracking-tight leading-tight max-w-4xl">
+          PRODUCTION APPLICATIONS & SYSTEM ARCHITECTURE.
+        </motion.h2>
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -38,14 +42,13 @@ export default function Projects() {
             <motion.div
               key={project.id}
               variants={fadeUp}
-              whileHover={{ y: -6 }}
-              className="clean-card p-6 flex flex-col justify-between space-y-6 group cursor-pointer"
+              className="swiss-card-red p-6 sm:p-8 flex flex-col justify-between space-y-6 group cursor-pointer swiss-dots"
               onClick={() => setSelectedProject(project)}
             >
               <div className="space-y-4">
                 {/* Header info */}
-                <div className="flex items-center justify-between gap-2 text-xs text-gray-400">
-                  <span className="font-semibold text-blue-400">{project.scope}</span>
+                <div className="flex items-center justify-between gap-2 text-xs font-black uppercase tracking-widest pb-3 border-b-2 border-black">
+                  <span className="text-[#FF3000] group-hover:text-white transition-colors">{project.scope}</span>
                   <span className="flex items-center gap-1">
                     <Calendar size={12} />
                     {project.date}
@@ -54,16 +57,16 @@ export default function Projects() {
 
                 {/* Title & Headline */}
                 <div>
-                  <h3 className="text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">
+                  <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight">
                     {project.title}
                   </h3>
-                  <p className="text-sm font-medium text-gray-300 mt-1">
+                  <p className="text-xs font-bold uppercase tracking-wider opacity-80 mt-1">
                     {project.headline}
                   </p>
                 </div>
 
                 {/* Description */}
-                <p className="text-sm text-gray-400 leading-relaxed">
+                <p className="text-sm font-medium leading-relaxed font-sans opacity-90">
                   {project.description}
                 </p>
 
@@ -72,7 +75,7 @@ export default function Projects() {
                   {project.tech.map((t, idx) => (
                     <span
                       key={idx}
-                      className="px-2.5 py-1 rounded bg-[#1C263B] text-blue-300 text-xs font-medium border border-blue-500/20"
+                      className="px-2.5 py-1 text-xs font-black uppercase tracking-wider bg-black text-white border border-black group-hover:border-white transition-colors"
                     >
                       {t}
                     </span>
@@ -80,10 +83,10 @@ export default function Projects() {
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="flex items-center justify-between pt-4 border-t border-[#232E42]">
-                <span className="text-xs font-semibold text-gray-300 group-hover:text-blue-400 flex items-center gap-1.5 transition-colors">
-                  <span>View Project Details</span>
+              {/* Action Bar */}
+              <div className="flex items-center justify-between pt-4 border-t-2 border-black font-black text-xs uppercase tracking-widest">
+                <span className="flex items-center gap-1.5 group-hover:underline">
+                  <span>EXHIBIT DATA →</span>
                   <ExternalLink size={14} />
                 </span>
 
@@ -92,10 +95,10 @@ export default function Projects() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#131B2A] hover:bg-blue-600 text-gray-300 hover:text-white text-xs font-semibold border border-[#232E42] transition-all"
+                  className="px-3 py-1.5 bg-black text-white group-hover:bg-white group-hover:text-black border-2 border-black transition-colors flex items-center gap-1"
                 >
                   <Github size={14} />
-                  <span>GitHub</span>
+                  <span>SRC CODE</span>
                 </a>
               </div>
             </motion.div>
@@ -110,87 +113,97 @@ export default function Projects() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
           >
             <motion.div
               variants={scaleIn}
               initial="hidden"
               animate="visible"
               exit="hidden"
-              className="clean-card max-w-3xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto bg-[#0B0F17] border border-[#232E42]"
+              className="bg-white border-4 border-black max-w-3xl w-full p-6 sm:p-10 space-y-6 max-h-[90vh] overflow-y-auto swiss-grid-pattern text-black"
             >
               {/* Modal Header */}
-              <div className="flex items-center justify-between border-b border-[#232E42] pb-4">
+              <div className="flex items-start justify-between border-b-4 border-black pb-4">
                 <div>
-                  <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider">
-                    {selectedProject.scope}
+                  <span className="text-xs font-black text-[#FF3000] uppercase tracking-widest">
+                    EXHIBIT DETAIL // {selectedProject.scope}
                   </span>
-                  <h3 className="text-2xl font-bold text-white mt-1">{selectedProject.title}</h3>
+                  <h3 className="text-3xl font-black uppercase tracking-tight text-black mt-1">
+                    {selectedProject.title}
+                  </h3>
                 </div>
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="p-2 text-gray-400 hover:text-white hover:bg-[#131B2A] rounded-lg transition-colors"
-                  aria-label="Close modal"
+                  className="p-2 bg-black text-white hover:bg-[#FF3000] transition-colors border-2 border-black"
+                  aria-label="Close"
                 >
                   <X size={20} />
                 </button>
               </div>
 
-              {/* Subtitle / Overview */}
-              <p className="text-gray-300 text-base leading-relaxed">{selectedProject.subtitle}</p>
+              {/* Subtitle */}
+              <p className="text-sm font-bold uppercase tracking-wider bg-[#F2F2F2] p-3 border-2 border-black">
+                {selectedProject.subtitle}
+              </p>
 
-              {/* Story Paragraphs */}
-              <div className="space-y-3">
-                <h4 className="text-sm font-bold text-white uppercase tracking-wider">Project Story & Architecture</h4>
+              {/* Story */}
+              <div className="space-y-3 font-sans">
+                <h4 className="text-xs font-black uppercase tracking-widest text-[#FF3000] border-b-2 border-black pb-1">
+                  ARCHITECTURE & IMPLEMENTATION STORY
+                </h4>
                 {selectedProject.storyParagraphs.map((para, idx) => (
-                  <p key={idx} className="text-sm text-gray-400 leading-relaxed">
+                  <p key={idx} className="text-sm font-medium text-black leading-relaxed">
                     {para}
                   </p>
                 ))}
               </div>
 
               {/* Tech Stack breakdown */}
-              <div className="space-y-3">
-                <h4 className="text-sm font-bold text-white uppercase tracking-wider">Tech Stack Breakdown</h4>
+              <div className="space-y-3 font-sans">
+                <h4 className="text-xs font-black uppercase tracking-widest text-[#FF3000] border-b-2 border-black pb-1">
+                  TECH STACK SPECIFICATION
+                </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {selectedProject.techStack.map((item, idx) => (
-                    <div key={idx} className="p-3 rounded bg-[#131B2A] border border-[#232E42]">
-                      <div className="text-xs font-bold text-blue-400">{item.name}</div>
-                      <div className="text-xs text-gray-300 mt-0.5">{item.role}</div>
+                    <div key={idx} className="p-3 bg-[#F2F2F2] border-2 border-black">
+                      <div className="text-xs font-black text-black uppercase">{item.name}</div>
+                      <div className="text-xs font-semibold text-black/70 mt-0.5">{item.role}</div>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Key Findings / Metrics */}
+              {/* Key Metrics */}
               <div className="space-y-3">
-                <h4 className="text-sm font-bold text-white uppercase tracking-wider">Key Metrics & Highlights</h4>
+                <h4 className="text-xs font-black uppercase tracking-widest text-[#FF3000] border-b-2 border-black pb-1">
+                  SYSTEM METRICS & FINDINGS
+                </h4>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   {selectedProject.keyFindings.map((finding, idx) => (
-                    <div key={idx} className="p-3 rounded bg-[#131B2A] border border-[#232E42] text-center">
-                      <div className="text-xs text-gray-400">{finding.label}</div>
-                      <div className="text-sm font-bold text-white mt-1">{finding.value}</div>
+                    <div key={idx} className="p-3 bg-[#FF3000] text-white border-2 border-black text-center">
+                      <div className="text-[10px] font-black uppercase tracking-wider">{finding.label}</div>
+                      <div className="text-xs font-black uppercase mt-1">{finding.value}</div>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Modal Actions */}
-              <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-[#232E42]">
+              {/* Actions */}
+              <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t-4 border-black">
                 <a
                   href={selectedProject.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all"
+                  className="swiss-btn-primary px-6 py-3 text-xs font-black flex items-center gap-2"
                 >
                   <Github size={16} />
-                  <span>View Source Code on GitHub</span>
+                  <span>VIEW REPOSITORY ON GITHUB [EXT]</span>
                 </a>
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors"
+                  className="swiss-btn-secondary px-6 py-3 text-xs font-black"
                 >
-                  Close
+                  CLOSE EXHIBIT
                 </button>
               </div>
             </motion.div>
@@ -200,5 +213,6 @@ export default function Projects() {
     </section>
   );
 }
+
 
 

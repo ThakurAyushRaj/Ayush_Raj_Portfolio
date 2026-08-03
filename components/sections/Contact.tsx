@@ -15,7 +15,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 px-4 md:px-8 max-w-6xl mx-auto border-t border-[#232E42]">
+    <section id="contact" className="py-20 px-4 md:px-8 max-w-7xl mx-auto border-b-4 border-black swiss-grid-pattern">
       <motion.div
         variants={staggerContainer}
         initial="hidden"
@@ -23,157 +23,151 @@ export default function Contact() {
         viewport={{ once: true, amount: 0.2 }}
         className="space-y-12"
       >
-        {/* Section Heading */}
-        <motion.div variants={fadeUp} className="space-y-2">
-          <div className="inline-flex items-center gap-2 text-blue-400 text-xs font-semibold uppercase tracking-wider">
-            <Mail size={14} />
-            <span>Contact</span>
+        {/* Section Header */}
+        <motion.div variants={fadeUp} className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-black pb-4">
+          <div className="flex items-center gap-2">
+            <span className="text-[#FF3000] font-black text-sm">06.</span>
+            <span className="text-xs font-black uppercase tracking-widest text-black">
+              TRANSMISSION PROTOCOL // DIRECT INQUIRY
+            </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-            Get In Touch
-          </h2>
-          <p className="text-gray-400 text-sm sm:text-base max-w-xl">
-            Whether you have an upcoming full-stack opportunity, product consultation, or just want to connect, feel free to reach out directly.
-          </p>
+          <span className="text-xs font-black uppercase tracking-widest text-black/60">
+            DISPATCH CHANNEL
+          </span>
         </motion.div>
 
+        {/* Section Title */}
+        <motion.h2 variants={fadeUp} className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase text-black tracking-tight leading-tight max-w-4xl">
+          INITIATE DIRECT COMMUNICATION.
+        </motion.h2>
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Direct Contact Cards */}
-          <motion.div variants={fadeUp} className="lg:col-span-5 space-y-4">
-            <div className="clean-card p-6 space-y-4">
-              <h3 className="text-lg font-bold text-white border-b border-[#232E42] pb-3">
-                Contact Information
-              </h3>
+          {/* Direct Contact Info Box */}
+          <motion.div variants={fadeUp} className="lg:col-span-5 border-2 border-black bg-white p-6 sm:p-8 space-y-6 swiss-dots">
+            <h3 className="text-lg font-black uppercase text-black border-b-2 border-black pb-3">
+              DIRECT CHANNELS
+            </h3>
 
-              <div className="space-y-4 text-sm text-gray-300">
-                <a
-                  href={`mailto:${personalInfo.email}`}
-                  className="flex items-center gap-3 p-3 rounded bg-[#131B2A] hover:bg-[#1C263B] border border-[#232E42] transition-colors group"
-                >
-                  <Mail size={18} className="text-blue-400 shrink-0" />
-                  <div>
-                    <div className="text-xs text-gray-400">Email Address</div>
-                    <div className="font-semibold text-white group-hover:text-blue-400 transition-colors">
-                      {personalInfo.email}
-                    </div>
-                  </div>
-                </a>
+            <div className="space-y-4 font-sans text-xs font-black uppercase text-black">
+              <a
+                href={`mailto:${personalInfo.email}`}
+                className="flex items-center gap-3 p-3 bg-[#F2F2F2] border-2 border-black hover:bg-[#FF3000] hover:text-white transition-colors group"
+              >
+                <Mail size={18} className="text-[#FF3000] group-hover:text-white shrink-0" />
+                <div>
+                  <div className="text-[10px] opacity-70">EMAIL ADDRESS</div>
+                  <div className="font-black text-sm">{personalInfo.email}</div>
+                </div>
+              </a>
 
-                <a
-                  href={`tel:${personalInfo.phone.replace(/\s+/g, '')}`}
-                  className="flex items-center gap-3 p-3 rounded bg-[#131B2A] hover:bg-[#1C263B] border border-[#232E42] transition-colors group"
-                >
-                  <Phone size={18} className="text-blue-400 shrink-0" />
-                  <div>
-                    <div className="text-xs text-gray-400">Phone / WhatsApp</div>
-                    <div className="font-semibold text-white group-hover:text-blue-400 transition-colors">
-                      {personalInfo.phone}
-                    </div>
-                  </div>
-                </a>
+              <a
+                href={`tel:${personalInfo.phone.replace(/\s+/g, '')}`}
+                className="flex items-center gap-3 p-3 bg-[#F2F2F2] border-2 border-black hover:bg-black hover:text-white transition-colors group"
+              >
+                <Phone size={18} className="text-[#FF3000] group-hover:text-white shrink-0" />
+                <div>
+                  <div className="text-[10px] opacity-70">PHONE / WHATSAPP</div>
+                  <div className="font-black text-sm">{personalInfo.phone}</div>
+                </div>
+              </a>
 
-                <div className="flex items-center gap-3 p-3 rounded bg-[#131B2A] border border-[#232E42]">
-                  <MapPin size={18} className="text-blue-400 shrink-0" />
-                  <div>
-                    <div className="text-xs text-gray-400">Location</div>
-                    <div className="font-semibold text-white">
-                      {personalInfo.location}
-                    </div>
-                  </div>
+              <div className="flex items-center gap-3 p-3 bg-[#F2F2F2] border-2 border-black">
+                <MapPin size={18} className="text-[#FF3000] shrink-0" />
+                <div>
+                  <div className="text-[10px] opacity-70">LOCATION BASE</div>
+                  <div className="font-black text-sm">{personalInfo.location}</div>
                 </div>
               </div>
+            </div>
 
-              {/* Social links */}
-              <div className="pt-4 border-t border-[#232E42] flex items-center gap-3">
-                <a
-                  href={personalInfo.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 inline-flex items-center justify-center gap-2 p-2.5 rounded bg-[#131B2A] hover:bg-blue-600 border border-[#232E42] text-xs font-semibold text-gray-300 hover:text-white transition-all"
-                >
-                  <Github size={16} />
-                  <span>GitHub</span>
-                </a>
-                <a
-                  href={personalInfo.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 inline-flex items-center justify-center gap-2 p-2.5 rounded bg-[#131B2A] hover:bg-blue-600 border border-[#232E42] text-xs font-semibold text-gray-300 hover:text-white transition-all"
-                >
-                  <Linkedin size={16} />
-                  <span>LinkedIn</span>
-                </a>
-              </div>
+            {/* Social Buttons */}
+            <div className="pt-4 border-t-2 border-black flex items-center gap-3">
+              <a
+                href={personalInfo.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 swiss-btn-primary py-3 text-center text-xs flex items-center justify-center gap-2"
+              >
+                <Github size={14} />
+                <span>GITHUB [EXT]</span>
+              </a>
+              <a
+                href={personalInfo.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 swiss-btn-secondary py-3 text-center text-xs flex items-center justify-center gap-2"
+              >
+                <Linkedin size={14} />
+                <span>LINKEDIN [EXT]</span>
+              </a>
             </div>
           </motion.div>
 
           {/* Contact Form */}
-          <motion.div variants={fadeUp} className="lg:col-span-7 clean-card p-6 md:p-8 space-y-6">
-            <h3 className="text-lg font-bold text-white border-b border-[#232E42] pb-3">
-              Send a Direct Message
+          <motion.div variants={fadeUp} className="lg:col-span-7 border-2 border-black bg-[#F2F2F2] p-6 sm:p-8 space-y-6">
+            <h3 className="text-lg font-black uppercase text-black border-b-2 border-black pb-3">
+              DISPATCH MESSAGE FORM
             </h3>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4 font-sans">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-gray-300">Your Name</label>
+                <div className="space-y-1">
+                  <label className="text-[10px] font-black uppercase tracking-wider text-black">YOUR NAME / IDENTITY</label>
                   <input
                     type="text"
                     required
-                    placeholder="Enter your name"
-                    className="w-full bg-[#0B0F17] border border-[#232E42] rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500 transition-colors"
+                    placeholder="E.G. ALEX MORGAN"
+                    className="w-full bg-white border-2 border-black px-4 py-3 text-xs font-black uppercase text-black focus:outline-none focus:border-[#FF3000] transition-colors"
                   />
                 </div>
-                <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-gray-300">Your Email</label>
+                <div className="space-y-1">
+                  <label className="text-[10px] font-black uppercase tracking-wider text-black">EMAIL ADDRESS</label>
                   <input
                     type="email"
                     required
-                    placeholder="name@company.com"
-                    className="w-full bg-[#0B0F17] border border-[#232E42] rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500 transition-colors"
+                    placeholder="NAME@COMPANY.COM"
+                    className="w-full bg-white border-2 border-black px-4 py-3 text-xs font-black uppercase text-black focus:outline-none focus:border-[#FF3000] transition-colors"
                   />
                 </div>
               </div>
 
-              <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-gray-300">Subject</label>
+              <div className="space-y-1">
+                <label className="text-[10px] font-black uppercase tracking-wider text-black">SUBJECT / INQUIRY CATEGORY</label>
                 <input
                   type="text"
                   required
-                  placeholder="Project Inquiry / Job Opportunity"
-                  className="w-full bg-[#0B0F17] border border-[#232E42] rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500 transition-colors"
+                  placeholder="PROJECT INQUIRY / FULL-TIME OPPORTUNITY"
+                  className="w-full bg-white border-2 border-black px-4 py-3 text-xs font-black uppercase text-black focus:outline-none focus:border-[#FF3000] transition-colors"
                 />
               </div>
 
-              <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-gray-300">Message</label>
+              <div className="space-y-1">
+                <label className="text-[10px] font-black uppercase tracking-wider text-black">TRANSMISSION MESSAGE BODY</label>
                 <textarea
                   rows={4}
                   required
-                  placeholder="Write your message details..."
-                  className="w-full bg-[#0B0F17] border border-[#232E42] rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500 transition-colors"
+                  placeholder="ENTER DETAILED SPECIFICATIONS..."
+                  className="w-full bg-white border-2 border-black px-4 py-3 text-xs font-black uppercase text-black focus:outline-none focus:border-[#FF3000] transition-colors"
                 ></textarea>
               </div>
 
-              <motion.button
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.98 }}
+              <button
                 type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all shadow-lg shadow-blue-600/20"
+                className="w-full swiss-btn-primary py-4 text-xs font-black flex items-center justify-center gap-2"
               >
                 <Send size={16} />
-                <span>Send Message</span>
-              </motion.button>
+                <span>DISPATCH TRANSMISSION →</span>
+              </button>
             </form>
 
             {submitted && (
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="p-4 rounded-lg bg-blue-500/10 border border-blue-500/30 text-blue-400 text-sm flex items-center gap-2"
+                className="p-4 bg-[#FF3000] text-white border-2 border-black text-xs font-black uppercase flex items-center gap-2"
               >
                 <CheckCircle size={18} className="shrink-0" />
-                <span>Thank you! Your message has been sent successfully. I will get back to you shortly.</span>
+                <span>[✓] TRANSMISSION SENT SUCCESSFULLY. ACKNOWLEDGEMENT RECEIVED.</span>
               </motion.div>
             )}
           </motion.div>
@@ -182,5 +176,3 @@ export default function Contact() {
     </section>
   );
 }
-
-

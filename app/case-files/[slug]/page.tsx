@@ -21,75 +21,51 @@ export default function CaseFilePage({ params }: { params: { slug: string } }) {
   const nextProject = projects[(projectIndex + 1) % projects.length];
 
   return (
-    <main className="min-h-screen bg-paper text-ink pb-20">
+    <main className="min-h-screen bg-white text-black pb-20 pt-20 font-sans swiss-grid-pattern">
       
       {/* ── TOP METADATA NAVIGATION BAR ─────────────────────── */}
-      <div className="border-b-2 border-ink py-3 px-4 md:px-8 bg-paper font-grotesk text-xs tracking-widest uppercase flex flex-wrap justify-between items-center text-ink-muted">
-        <Link href="/#work" className="font-bold text-ink hover:text-stamp flex items-center gap-1.5 link-pencil">
-          <ArrowLeft size={12} /> BACK TO THE CASE
+      <div className="border-b-4 border-black py-3 px-4 md:px-8 bg-white font-sans text-xs tracking-widest uppercase flex flex-wrap justify-between items-center text-black">
+        <Link href="/#projects" className="font-black text-black hover:text-[#FF3000] flex items-center gap-1.5 transition-colors">
+          <ArrowLeft size={14} /> BACK TO SELECTED WORKS [03]
         </Link>
-        <div className="hidden sm:block">THE AYUSH RAJ TIMES · CASE FILES</div>
-        <div>FILED FROM GREATER NOIDA</div>
+        <div className="hidden sm:block font-black text-black/60">SWISS INTERNATIONAL TYPOGRAPHIC ARCHIVE</div>
+        <div className="font-black text-[#FF3000]">EXHIBIT // {project.slug.toUpperCase()}</div>
       </div>
 
-      <div className="max-w-[1200px] mx-auto px-4 md:px-8 pt-10">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 pt-10">
         
         {/* ── CASE FILE IDENTIFIER BADGE ─────────────────────── */}
-        <div className="font-mono text-xs font-bold text-stamp uppercase tracking-widest mb-4">
-          CASE FILE · {project.exhibit.toUpperCase()} · {project.slug.toUpperCase()}
+        <div className="inline-block bg-[#FF3000] text-white px-3 py-1 font-black text-xs uppercase tracking-widest mb-4 border border-black">
+          EXHIBIT SPECIFICATION // {project.scope.toUpperCase()}
         </div>
 
         {/* ── ARTICLE HEADLINE ───────────────────────────────── */}
-        <h1 className="font-caslon text-4xl sm:text-6xl md:text-7xl font-normal leading-[1.08] tracking-tight mb-6">
+        <h1 className="text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-tight leading-[0.95] mb-6 text-black">
           {project.headline}
         </h1>
 
         {/* ── SUBTITLE QUOTE ─────────────────────────────────── */}
-        <blockquote className="border-l-4 border-ink pl-6 py-1 font-serif italic text-xl sm:text-2xl text-ink-soft leading-relaxed mb-6">
+        <blockquote className="border-l-4 border-black pl-6 py-2 text-lg sm:text-2xl font-bold uppercase tracking-wide text-black/90 leading-relaxed mb-6 bg-[#F2F2F2]">
           {project.subtitle}
         </blockquote>
 
         {/* ── BYLINE ─────────────────────────────────────────── */}
-        <div className="font-grotesk text-xs tracking-wider uppercase text-ink-muted border-b border-ink/25 pb-8 mb-10">
-          BY <strong className="text-ink">THE INVESTIGATION DESK</strong> · {project.date}
-        </div>
-
-        {/* ── POLAROID HERO SCREENSHOT FRAME ─────────────────── */}
-        <div className="relative border-2 border-ink p-3 bg-paper-bright mb-14">
-          {/* Top Tape graphic */}
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-32 h-6 bg-paper-deep/80 -rotate-1 border-x border-ink/20 shadow-xs pointer-events-none" />
-
-          <div className="aspect-[16/9] relative overflow-hidden border border-ink/30 bg-paper-warm">
-            <img
-              src={project.imagePlaceholder}
-              alt={project.title}
-              className="w-full h-full object-cover grayscale contrast-125 mix-blend-multiply"
-            />
-            <div className="absolute bottom-4 right-4">
-              <span className="border-2 border-stamp text-stamp font-mono text-xs font-bold px-3 py-1 bg-paper/90 uppercase tracking-widest">
-                VERIFIED ARCHIVE
-              </span>
-            </div>
-          </div>
+        <div className="text-xs font-black tracking-widest uppercase text-black/60 border-b-2 border-black pb-6 mb-10">
+          DOCUMENT RECORDED BY <strong className="text-black">AYUSH RAJ</strong> // {project.date}
         </div>
 
         {/* ── ARTICLE BODY & SIDEBAR GRID ────────────────────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1.6fr_1fr] gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* LEFT: Editorial Story (Multi-column) */}
-          <div className="flex flex-col gap-6">
-            <h2 className="font-caslon text-3xl font-normal border-b border-ink/20 pb-3">
-              Case Investigation & Architecture
+          <div className="lg:col-span-7 space-y-6">
+            <h2 className="text-2xl font-black uppercase text-black border-b-2 border-black pb-3">
+              SYSTEM ARCHITECTURE & STORY
             </h2>
             
-            <div className="article-columns space-y-6">
+            <div className="space-y-4 font-sans text-sm sm:text-base font-medium leading-relaxed text-black">
               {project.storyParagraphs.map((paragraph, idx) => (
-                <p
-                  key={idx}
-                  className={`font-serif text-base text-ink leading-relaxed ${
-                    idx === 0 ? "dropcap" : ""
-                  }`}
-                >
+                <p key={idx} className="border-l-2 border-black pl-4">
                   {paragraph}
                 </p>
               ))}
@@ -97,62 +73,57 @@ export default function CaseFilePage({ params }: { params: { slug: string } }) {
           </div>
 
           {/* RIGHT: Metadata Sidebar Cards */}
-          <div className="flex flex-col gap-8">
+          <div className="lg:col-span-5 space-y-6">
             
             {/* Tech Stack Card */}
-            <div className="border-2 border-ink bg-paper-bright overflow-hidden">
-              <div className="bg-ink text-paper px-4 py-2.5 font-grotesk text-xs font-bold tracking-widest uppercase">
+            <div className="border-2 border-black bg-white swiss-dots">
+              <div className="bg-black text-white px-4 py-3 text-xs font-black tracking-widest uppercase">
                 TECH STACK & SPECIFICATIONS
               </div>
-              <div className="p-4 divide-y divide-ink/15">
+              <div className="p-4 space-y-2 font-sans">
                 {project.techStack.map((tech, idx) => (
-                  <div key={idx} className="py-2.5 flex flex-col gap-0.5">
-                    <span className="font-caslon font-bold text-base text-ink">{tech.name}</span>
-                    <span className="font-mono text-xs text-ink-muted">{tech.role}</span>
+                  <div key={idx} className="p-2.5 bg-[#F2F2F2] border border-black/30 flex flex-col gap-0.5">
+                    <span className="font-black text-xs uppercase text-black">{tech.name}</span>
+                    <span className="text-[10px] font-bold text-black/70 uppercase">{tech.role}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Key Findings Card */}
-            <div className="border-2 border-ink bg-paper-bright overflow-hidden">
-              <div className="bg-ink text-paper px-4 py-2.5 font-grotesk text-xs font-bold tracking-widest uppercase">
-                KEY FINDINGS
+            <div className="border-2 border-black bg-white">
+              <div className="bg-black text-white px-4 py-3 text-xs font-black tracking-widest uppercase">
+                SYSTEM METRICS & HIGHLIGHTS
               </div>
-              <div className="p-4 divide-y divide-ink/15">
+              <div className="p-4 space-y-2 font-sans">
                 {project.keyFindings.map((finding, idx) => (
-                  <div key={idx} className="py-2.5 flex justify-between items-center text-xs">
-                    <span className="font-grotesk uppercase tracking-wider text-ink-muted">
-                      {finding.label}
-                    </span>
-                    <span className="font-mono font-bold text-ink">{finding.value}</span>
+                  <div key={idx} className="p-2.5 bg-[#FF3000] text-white border border-black flex justify-between items-center text-xs font-black uppercase tracking-wider">
+                    <span>{finding.label}</span>
+                    <span>{finding.value}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Client & Scope Card */}
-            <div className="border-2 border-ink p-4 bg-paper-bright flex flex-col gap-3">
+            <div className="border-2 border-black p-6 bg-[#F2F2F2] space-y-4 font-sans text-xs font-black uppercase text-black">
               <div>
-                <span className="font-grotesk text-[11px] uppercase tracking-wider text-ink-muted block">
-                  CLIENT / SUITE
-                </span>
-                <span className="font-caslon text-lg text-ink font-bold">{project.client}</span>
+                <span className="text-[10px] text-black/60 tracking-widest block">CLIENT / SYSTEM SUITE</span>
+                <span className="text-sm font-black text-black">{project.client}</span>
               </div>
               <div>
-                <span className="font-grotesk text-[11px] uppercase tracking-wider text-ink-muted block">
-                  SCOPE OF WORK
-                </span>
-                <span className="font-mono text-xs text-ink">{project.scope}</span>
+                <span className="text-[10px] text-black/60 tracking-widest block">SCOPE OF WORK</span>
+                <span className="text-xs font-black text-[#FF3000]">{project.scope}</span>
               </div>
-              <div className="pt-2 border-t border-ink/20">
+              <div className="pt-3 border-t-2 border-black">
                 <a
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-grotesk text-xs font-bold tracking-widest uppercase text-ink hover:text-stamp link-pencil inline-flex items-center gap-1.5"
+                  className="swiss-btn-primary px-4 py-2.5 text-xs font-black flex items-center justify-center gap-2"
                 >
-                  Open Github Repository <ExternalLink size={12} />
+                  <span>VIEW REPOSITORY ON GITHUB [EXT]</span>
+                  <ExternalLink size={14} />
                 </a>
               </div>
             </div>
@@ -162,17 +133,17 @@ export default function CaseFilePage({ params }: { params: { slug: string } }) {
         </div>
 
         {/* ── BOTTOM CASE NAVIGATION ─────────────────────────── */}
-        <div className="mt-16 pt-8 border-t-2 border-ink flex justify-between items-center">
+        <div className="mt-16 pt-8 border-t-4 border-black flex justify-between items-center text-xs font-black uppercase tracking-widest">
           <Link
             href={`/case-files/${prevProject.slug}`}
-            className="font-grotesk text-xs font-bold tracking-widest uppercase text-ink hover:text-stamp flex items-center gap-2 link-pencil"
+            className="hover:text-[#FF3000] flex items-center gap-2 transition-colors"
           >
-            <ArrowLeft size={14} /> PREVIOUS: {prevProject.title}
+            <ArrowLeft size={14} /> PREV: {prevProject.title}
           </Link>
 
           <Link
             href={`/case-files/${nextProject.slug}`}
-            className="font-grotesk text-xs font-bold tracking-widest uppercase text-ink hover:text-stamp flex items-center gap-2 link-pencil"
+            className="hover:text-[#FF3000] flex items-center gap-2 transition-colors"
           >
             NEXT: {nextProject.title} <ArrowRight size={14} />
           </Link>
@@ -182,3 +153,4 @@ export default function CaseFilePage({ params }: { params: { slug: string } }) {
     </main>
   );
 }
+

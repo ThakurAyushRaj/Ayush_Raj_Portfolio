@@ -1,51 +1,51 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Wrench, Layout, Server, Smartphone } from "lucide-react";
+import { Layout, Server, Smartphone } from "lucide-react";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 
 export default function Skills() {
   const skillCategories = [
     {
-      title: "Frontend Engineering",
+      title: "FRONTEND ENGINEERING",
       icon: Layout,
       skills: [
-        { name: "React.js", level: "Expert" },
-        { name: "Next.js", level: "Advanced" },
-        { name: "TypeScript", level: "Advanced" },
-        { name: "Tailwind CSS", level: "Expert" },
-        { name: "HTML5 / CSS3 / JS (ES6+)", level: "Expert" },
-        { name: "Framer Motion", level: "Intermediate" },
+        { name: "React.js", level: "EXPERT" },
+        { name: "Next.js 14", level: "ADVANCED" },
+        { name: "TypeScript", level: "ADVANCED" },
+        { name: "Tailwind CSS", level: "EXPERT" },
+        { name: "HTML5 / CSS3 / JS (ES6+)", level: "EXPERT" },
+        { name: "Framer Motion", level: "INTERMEDIATE" },
       ],
     },
     {
-      title: "Backend & Databases",
+      title: "BACKEND & DATABASES",
       icon: Server,
       skills: [
-        { name: "Node.js & Express.js", level: "Expert" },
-        { name: "MongoDB & Mongoose", level: "Advanced" },
-        { name: "MySQL & SQL Schemas", level: "Intermediate" },
-        { name: "RESTful API Architecture", level: "Expert" },
-        { name: "JWT Authentication", level: "Advanced" },
-        { name: "Slack & Google APIs", level: "Advanced" },
+        { name: "Node.js & Express.js", level: "EXPERT" },
+        { name: "MongoDB & Mongoose", level: "ADVANCED" },
+        { name: "MySQL & SQL Schemas", level: "INTERMEDIATE" },
+        { name: "RESTful API Architecture", level: "EXPERT" },
+        { name: "JWT Authentication", level: "ADVANCED" },
+        { name: "Slack & Google APIs", level: "ADVANCED" },
       ],
     },
     {
-      title: "Mobile & Cloud Infrastructure",
+      title: "MOBILE & CLOUD INFRASTRUCTURE",
       icon: Smartphone,
       skills: [
-        { name: "React Native (Expo)", level: "Advanced" },
-        { name: "Flutter", level: "Intermediate" },
-        { name: "Firebase (Auth & FCM)", level: "Advanced" },
-        { name: "AWS (S3, Lambda, EC2)", level: "Intermediate" },
-        { name: "Vercel & Netlify", level: "Advanced" },
-        { name: "Git & GitHub Workflows", level: "Expert" },
+        { name: "React Native (Expo)", level: "ADVANCED" },
+        { name: "Flutter", level: "INTERMEDIATE" },
+        { name: "Firebase (Auth & FCM)", level: "ADVANCED" },
+        { name: "AWS (S3, Lambda, EC2)", level: "INTERMEDIATE" },
+        { name: "Vercel & Netlify", level: "ADVANCED" },
+        { name: "Git & GitHub Workflows", level: "EXPERT" },
       ],
     },
   ];
 
   return (
-    <section id="skills" className="py-20 px-4 md:px-8 max-w-6xl mx-auto border-t border-[#232E42]">
+    <section id="skills" className="py-20 px-4 md:px-8 max-w-7xl mx-auto border-b-4 border-black swiss-grid-pattern">
       <motion.div
         variants={staggerContainer}
         initial="hidden"
@@ -53,19 +53,23 @@ export default function Skills() {
         viewport={{ once: true, amount: 0.2 }}
         className="space-y-12"
       >
-        {/* Section Heading */}
-        <motion.div variants={fadeUp} className="space-y-2">
-          <div className="inline-flex items-center gap-2 text-blue-400 text-xs font-semibold uppercase tracking-wider">
-            <Wrench size={14} />
-            <span>Skills & Technologies</span>
+        {/* Section Header */}
+        <motion.div variants={fadeUp} className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-black pb-4">
+          <div className="flex items-center gap-2">
+            <span className="text-[#FF3000] font-black text-sm">04.</span>
+            <span className="text-xs font-black uppercase tracking-widest text-black">
+              TECHNICAL MATRIX // SYSTEM CAPABILITIES
+            </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-            Technical Stack & Capabilities
-          </h2>
-          <p className="text-gray-400 text-sm sm:text-base max-w-2xl">
-            A comprehensive list of technologies, frameworks, databases, and tools used to build end-to-end applications.
-          </p>
+          <span className="text-xs font-black uppercase tracking-widest text-black/60">
+            FRAMEWORK CLASSIFICATION
+          </span>
         </motion.div>
+
+        {/* Section Title */}
+        <motion.h2 variants={fadeUp} className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase text-black tracking-tight leading-tight max-w-4xl">
+          FULL STACK HARDWARE & SOFTWARE SPECIFICATION.
+        </motion.h2>
 
         {/* Skill Category Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -75,25 +79,31 @@ export default function Skills() {
               <motion.div
                 key={idx}
                 variants={fadeUp}
-                whileHover={{ y: -5 }}
-                className="clean-card p-6 space-y-6"
+                className="swiss-card p-6 space-y-6 flex flex-col justify-between"
               >
-                <div className="flex items-center gap-3 border-b border-[#232E42] pb-4">
-                  <div className="p-2.5 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20">
-                    <Icon size={20} />
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between border-b-2 border-black pb-4">
+                    <h3 className="text-sm font-black uppercase tracking-wider text-black">{cat.title}</h3>
+                    <div className="p-2 bg-black text-white">
+                      <Icon size={18} />
+                    </div>
                   </div>
-                  <h3 className="text-lg font-bold text-white">{cat.title}</h3>
+
+                  <div className="space-y-3 font-sans">
+                    {cat.skills.map((skill, sIdx) => (
+                      <div key={sIdx} className="flex items-center justify-between text-xs font-black p-2 bg-[#F2F2F2] border border-black/30">
+                        <span className="text-black uppercase">{skill.name}</span>
+                        <span className="text-[10px] px-2 py-0.5 bg-black text-white tracking-widest">
+                          {skill.level}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
-                <div className="space-y-3">
-                  {cat.skills.map((skill, sIdx) => (
-                    <div key={sIdx} className="flex items-center justify-between text-sm">
-                      <span className="font-medium text-gray-200">{skill.name}</span>
-                      <span className="text-xs px-2 py-0.5 rounded bg-[#131B2A] text-blue-300 border border-[#232E42]">
-                        {skill.level}
-                      </span>
-                    </div>
-                  ))}
+                <div className="pt-4 border-t-2 border-black text-[10px] font-black uppercase text-black/60 tracking-widest flex items-center justify-between">
+                  <span>MODULE 0{idx + 1}</span>
+                  <span className="text-[#FF3000]">ACTIVE SPEC</span>
                 </div>
               </motion.div>
             );
@@ -103,5 +113,6 @@ export default function Skills() {
     </section>
   );
 }
+
 
 

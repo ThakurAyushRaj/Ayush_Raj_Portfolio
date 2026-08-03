@@ -1,43 +1,49 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, X, Code2 } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { personalInfo } from "@/lib/data";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { name: "About", href: "#about" },
-    { name: "Experience", href: "#experience" },
-    { name: "Projects", href: "#projects" },
-    { name: "Skills", href: "#skills" },
-    { name: "Education", href: "#education" },
-    { name: "Contact", href: "#contact" },
+    { num: "01", name: "ABOUT", href: "#about" },
+    { num: "02", name: "EXPERIENCE", href: "#experience" },
+    { num: "03", name: "PROJECTS", href: "#projects" },
+    { num: "04", name: "SKILLS", href: "#skills" },
+    { num: "05", name: "EDUCATION", href: "#education" },
+    { num: "06", name: "CONTACT", href: "#contact" },
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 glass-nav">
-      <div className="max-w-6xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
-        {/* Brand Logo */}
-        <a href="#hero" className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 rounded-lg bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-all">
-            <Code2 size={18} />
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b-4 border-black font-sans">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
+        {/* Brand Emblem */}
+        <a href="#hero" className="flex items-center gap-3 group">
+          <div className="w-9 h-9 bg-black text-white flex items-center justify-center font-extrabold text-sm tracking-tighter group-hover:bg-[#FF3000] transition-colors">
+            AR
           </div>
-          <span className="font-bold text-lg text-white group-hover:text-blue-400 transition-colors">
-            {personalInfo.name}
-          </span>
+          <div className="flex flex-col">
+            <span className="font-black text-sm tracking-widest uppercase text-black group-hover:text-[#FF3000] transition-colors">
+              {personalInfo.name}
+            </span>
+            <span className="text-[10px] font-bold tracking-wider text-black/60 uppercase">
+              // SYS 1950.SWISS
+            </span>
+          </div>
         </a>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
+        <nav className="hidden lg:flex items-center gap-6 text-xs font-black tracking-wider text-black">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className="hover:text-blue-400 transition-colors"
+              className="hover:text-[#FF3000] transition-colors flex items-center gap-1 group py-1"
             >
-              {link.name}
+              <span className="text-[#FF3000] text-[10px]">{link.num}.</span>
+              <span>{link.name}</span>
             </a>
           ))}
         </nav>
@@ -48,43 +54,44 @@ export default function Navbar() {
             href={personalInfo.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:inline-flex px-4 py-1.5 text-xs font-semibold text-blue-400 border border-blue-500/30 rounded-full hover:bg-blue-600 hover:text-white transition-all"
+            className="hidden sm:inline-flex px-4 py-2 text-xs font-black uppercase tracking-widest text-white bg-black border-2 border-black hover:bg-[#FF3000] transition-all"
           >
-            GitHub Profile
+            GITHUB [EXT]
           </a>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden text-gray-400 hover:text-white p-2"
-            aria-label="Toggle Navigation Menu"
+            className="lg:hidden p-2 text-black hover:bg-black hover:text-white transition-colors border-2 border-black"
+            aria-label="Toggle Menu"
           >
-            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Mobile Dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#0B0F17]/95 border-b border-[#232E42] px-6 py-4 space-y-3">
+        <div className="lg:hidden bg-white border-b-4 border-black px-6 py-6 space-y-3 font-black">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
               onClick={() => setMobileMenuOpen(false)}
-              className="block text-gray-300 hover:text-blue-400 py-1 text-base font-medium"
+              className="block text-base tracking-widest text-black hover:text-[#FF3000] py-2 border-b border-black/10"
             >
+              <span className="text-[#FF3000] text-xs mr-2">{link.num}.</span>
               {link.name}
             </a>
           ))}
-          <div className="pt-2">
+          <div className="pt-3">
             <a
               href={personalInfo.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full text-center py-2 text-sm font-semibold text-blue-400 border border-blue-500/30 rounded-lg hover:bg-blue-600 hover:text-white transition-all"
+              className="block w-full text-center py-3 text-xs font-black uppercase tracking-widest text-white bg-black hover:bg-[#FF3000] transition-colors"
             >
-              GitHub Profile
+              GITHUB [EXTERNAL]
             </a>
           </div>
         </div>
@@ -92,4 +99,5 @@ export default function Navbar() {
     </header>
   );
 }
+
 
