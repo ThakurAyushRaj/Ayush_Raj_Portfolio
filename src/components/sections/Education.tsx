@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { education } from "@/lib/data";
 import { GraduationCap, Calendar, MapPin, Award, BookOpen, Scroll } from "lucide-react";
 import { fadeUp, staggerContainer } from "@/lib/motion";
-import { InteractiveFolder } from "@/components/ui/InteractiveFolder";
+import { InteractiveFolder } from "@/components/ui";
 
 export default function Education() {
   const eduFolders = [

@@ -1,10 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LenisProvider from "@/components/providers/LenisProvider";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import CustomCursor from "@/components/ui/CustomCursor";
-import HomePage from "@/pages/HomePage";
-import CaseFilePage from "@/pages/CaseFilePage";
+import { LenisProvider } from "@/components/providers";
+import { Navbar, Footer } from "@/components/layout";
+import { CustomCursor } from "@/components/ui";
+import { HomePage, CaseFilePage } from "@/pages";
 
 export default function App() {
   return (

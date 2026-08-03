@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { stats } from "@/lib/data";
 import { Code2, Server, Smartphone, Cloud, FileText, CheckCircle2, Briefcase, Database, Layers, Cpu, ShieldCheck, Zap } from "lucide-react";
 import { fadeUp, staggerContainer } from "@/lib/motion";
-import { InteractiveFolder } from "@/components/ui/InteractiveFolder";
+import { InteractiveFolder } from "@/components/ui";
 
 export default function About() {
   const highlightIcons = [Code2, Server, Smartphone, Cloud];

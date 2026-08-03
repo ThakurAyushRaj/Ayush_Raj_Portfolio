@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Code, Layout, Server, Database, Cloud, Terminal, Cpu, HardDrive, Layers, GitBranch, Box, Smartphone } from "lucide-react";
 import { fadeUp, staggerContainer } from "@/lib/motion";
-import { InteractiveFolder } from "@/components/ui/InteractiveFolder";
+import { InteractiveFolder } from "@/components/ui";
 
 export default function Skills() {
   const skillCategories = [

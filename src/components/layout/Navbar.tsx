@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowUpRight, Command } from "lucide-react";
 import { personalInfo } from "@/lib/data";
-import { CommandPalette } from "@/components/ui/CommandPalette";
+import { CommandPalette } from "@/components/ui";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
