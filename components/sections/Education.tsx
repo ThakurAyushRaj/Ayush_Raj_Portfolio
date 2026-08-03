@@ -2,117 +2,70 @@
 
 import { motion } from "framer-motion";
 import { education } from "@/lib/data";
-import { Calendar, MapPin, GraduationCap, Award, FileText, CheckCircle2 } from "lucide-react";
+import { GraduationCap, Calendar, MapPin } from "lucide-react";
 import { fadeUp, staggerContainer } from "@/lib/motion";
-import { InteractiveFolder } from "@/components/ui/InteractiveFolder";
 
 export default function Education() {
-  const getFolderItems = (item: typeof education[0]) => {
-    return [
-      <div key="1" className="flex flex-col items-center justify-center text-center p-1 text-black">
-        <GraduationCap className="w-5 h-5 text-[#FF3000]" />
-        <span className="text-[8px] font-black uppercase mt-0.5">{item.degree.split(' ')[0]}</span>
-      </div>,
-      <div key="2" className="flex flex-col items-center justify-center text-center p-1 text-black">
-        <Award className="w-5 h-5 text-black" />
-        <span className="text-[8px] font-black uppercase mt-0.5">8.0 CGPA</span>
-      </div>,
-      <div key="3" className="flex flex-col items-center justify-center text-center p-1 text-black">
-        <FileText className="w-5 h-5 text-[#FF3000]" />
-        <span className="text-[8px] font-black uppercase mt-0.5">VERIFIED</span>
-      </div>
-    ];
-  };
-
-  const folderColors = ["#FF3000", "#FFFFFF", "#FF3000"];
-
   return (
-    <section id="education" className="py-20 px-4 md:px-8 max-w-7xl mx-auto border-b-4 border-white/20 swiss-grid-pattern">
+    <section id="education" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#342D45]/60">
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.15 }}
         className="space-y-12"
       >
         {/* Section Header */}
-        <motion.div variants={fadeUp} className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-white/30 pb-4">
-          <div className="flex items-center gap-2">
-            <span className="text-[#FF3000] font-black text-sm">05.</span>
-            <span className="text-xs font-black uppercase tracking-widest text-white">
-              ACADEMIC CREDENTIALS // EDUCATION DOSSIER
-            </span>
+        <motion.div variants={fadeUp} className="space-y-2">
+          <div className="inline-flex items-center gap-2 text-xs font-semibold text-[#4FD1C5] uppercase tracking-widest">
+            <span className="w-2 h-2 rounded-full bg-[#F2A65A]" />
+            <span>05 // Education & Credentials</span>
           </div>
-          <span className="text-xs font-black uppercase tracking-widest text-white/60">
-            VERIFIED QUALIFICATIONS
-          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#F6F3EE] tracking-tight">
+            Academic qualifications & foundation.
+          </h2>
         </motion.div>
 
-        {/* Section Title */}
-        <motion.h2 variants={fadeUp} className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase text-white tracking-tight leading-tight max-w-4xl">
-          ACADEMIC BACKGROUND & QUALIFICATIONS.
-        </motion.h2>
-
-        {/* Education List with Interactive Folder Showcase */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-          {education.map((item, idx) => (
-            <motion.div
-              key={item.id}
-              variants={fadeUp}
-              className="swiss-card p-6 flex flex-col justify-between space-y-6 text-white"
-            >
-              <div className="space-y-4 font-sans">
-                {/* Interactive Folder Preview Container */}
-                <div className="bg-black/60 border-2 border-white/30 p-6 flex flex-col items-center justify-center relative min-h-[140px] swiss-dots">
-                  <div className="absolute top-2 left-2 text-[9px] font-black uppercase tracking-widest text-white/60">
-                    DOSSIER NO. 0{idx + 1}
+        {/* Education List */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {education.map((item, idx) => {
+            const isWarm = idx % 2 === 0;
+            return (
+              <motion.div
+                key={item.id}
+                variants={fadeUp}
+                whileHover={{ y: -4 }}
+                className="p-6 rounded-2xl bg-[#272138]/80 border border-[#342D45] backdrop-blur-sm space-y-4 flex flex-col justify-between hover:border-[#4FD1C5]/40 transition-all shadow-lg"
+              >
+                <div className="space-y-3">
+                  <div className={`p-2.5 rounded-xl w-fit ${isWarm ? "bg-[#F2A65A]/15 text-[#F2A65A]" : "bg-[#4FD1C5]/15 text-[#4FD1C5]"}`}>
+                    <GraduationCap size={22} />
                   </div>
-                  <InteractiveFolder
-                    size={1.15}
-                    color={folderColors[idx % folderColors.length]}
-                    label={`DOSSIER 0${idx + 1}`}
-                    items={getFolderItems(item)}
-                  />
-                  <div className="text-[10px] font-black uppercase tracking-widest text-white/70 mt-3">
-                    [ CLICK TO OPEN DOSSIER ]
+                  <div>
+                    <h3 className="text-lg font-bold text-[#F6F3EE] tracking-tight">
+                      {item.degree}
+                    </h3>
+                    <p className="text-xs font-semibold text-[#B3ABCF] mt-1">
+                      {item.institution}
+                    </p>
                   </div>
                 </div>
 
-                <div className="space-y-2 pt-2">
-                  <div className="inline-flex items-center gap-1.5 text-xs font-black text-white bg-[#FF3000] px-2.5 py-1 uppercase tracking-widest border border-white">
-                    <Calendar size={12} />
+                <div className="pt-3 border-t border-[#342D45] flex items-center justify-between text-xs font-medium text-[#B3ABCF]">
+                  <div className="flex items-center gap-1.5">
+                    <Calendar size={13} className="text-[#F2A65A]" />
                     <span>{item.period}</span>
                   </div>
-                  
-                  <h3 className="text-xl font-black text-white uppercase leading-tight">
-                    {item.degree}
-                  </h3>
-                  
-                  <p className="text-xs font-bold text-white/70 uppercase">
-                    {item.institution}
-                  </p>
+                  <div className="flex items-center gap-1.5">
+                    <MapPin size={13} />
+                    <span>{item.location}</span>
+                  </div>
                 </div>
-              </div>
-
-              <div className="flex items-center justify-between text-xs font-black uppercase text-white pt-3 border-t-2 border-white/20">
-                <div className="flex items-center gap-1">
-                  <MapPin size={12} className="text-[#FF3000]" />
-                  <span>{item.location}</span>
-                </div>
-                <span className="text-[10px] bg-white text-black px-2 py-0.5 tracking-widest flex items-center gap-1">
-                  <CheckCircle2 size={10} className="text-[#FF3000]" />
-                  VERIFIED
-                </span>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </motion.div>
     </section>
   );
 }
-
-
-
-
-

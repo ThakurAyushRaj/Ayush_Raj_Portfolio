@@ -1,121 +1,89 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Layout, Server, Smartphone } from "lucide-react";
+import { Code, Layout, Server, Database, Cloud } from "lucide-react";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 
 export default function Skills() {
   const skillCategories = [
     {
-      title: "FRONTEND ENGINEERING",
+      category: "Languages",
+      icon: Code,
+      skills: ["JavaScript", "TypeScript", "Dart"],
+    },
+    {
+      category: "Frontend & Mobile",
       icon: Layout,
-      skills: [
-        { name: "React.js", level: "EXPERT", pct: "95%" },
-        { name: "Next.js 14", level: "ADVANCED", pct: "90%" },
-        { name: "TypeScript", level: "ADVANCED", pct: "88%" },
-        { name: "Tailwind CSS", level: "EXPERT", pct: "96%" },
-        { name: "HTML5 / CSS3 / JS (ES6+)", level: "EXPERT", pct: "98%" },
-        { name: "Framer Motion", level: "INTERMEDIATE", pct: "82%" },
-      ],
+      skills: ["React.js", "React Native", "Flutter", "HTML5", "CSS3", "Tailwind CSS"],
     },
     {
-      title: "BACKEND & DATABASES",
+      category: "Backend",
       icon: Server,
-      skills: [
-        { name: "Node.js & Express.js", level: "EXPERT", pct: "92%" },
-        { name: "MongoDB & Mongoose", level: "ADVANCED", pct: "88%" },
-        { name: "MySQL & SQL Schemas", level: "INTERMEDIATE", pct: "80%" },
-        { name: "RESTful API Architecture", level: "EXPERT", pct: "95%" },
-        { name: "JWT Authentication", level: "ADVANCED", pct: "90%" },
-        { name: "Slack & Google APIs", level: "ADVANCED", pct: "86%" },
-      ],
+      skills: ["Node.js", "Express.js"],
     },
     {
-      title: "MOBILE & CLOUD INFRASTRUCTURE",
-      icon: Smartphone,
-      skills: [
-        { name: "React Native (Expo)", level: "ADVANCED", pct: "88%" },
-        { name: "Flutter", level: "INTERMEDIATE", pct: "78%" },
-        { name: "Firebase (Auth & FCM)", level: "ADVANCED", pct: "86%" },
-        { name: "AWS (S3, Lambda, EC2)", level: "INTERMEDIATE", pct: "75%" },
-        { name: "Vercel & Netlify", level: "ADVANCED", pct: "92%" },
-        { name: "Git & GitHub Workflows", level: "EXPERT", pct: "96%" },
-      ],
+      category: "Databases",
+      icon: Database,
+      skills: ["MongoDB", "MySQL", "PostgreSQL", "Firebase"],
+    },
+    {
+      category: "Cloud & Tools",
+      icon: Cloud,
+      skills: ["AWS", "Git", "GitHub"],
     },
   ];
 
   return (
-    <section id="skills" className="py-20 px-4 md:px-8 max-w-7xl mx-auto border-b-4 border-white/20 swiss-grid-pattern">
+    <section id="skills" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#342D45]/60">
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.15 }}
         className="space-y-12"
       >
         {/* Section Header */}
-        <motion.div variants={fadeUp} className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-white/30 pb-4">
-          <div className="flex items-center gap-2">
-            <span className="text-[#FF3000] font-black text-sm">04.</span>
-            <span className="text-xs font-black uppercase tracking-widest text-white">
-              TECHNICAL MATRIX // SYSTEM CAPABILITIES
-            </span>
+        <motion.div variants={fadeUp} className="space-y-2">
+          <div className="inline-flex items-center gap-2 text-xs font-semibold text-[#4FD1C5] uppercase tracking-widest">
+            <span className="w-2 h-2 rounded-full bg-[#F2A65A]" />
+            <span>03 // Skills & Technologies</span>
           </div>
-          <span className="text-xs font-black uppercase tracking-widest text-white/60">
-            FRAMEWORK CLASSIFICATION
-          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#F6F3EE] tracking-tight">
+            Technical stack & engineering tools.
+          </h2>
         </motion.div>
 
-        {/* Section Title */}
-        <motion.h2 variants={fadeUp} className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase text-white tracking-tight leading-tight max-w-4xl">
-          FULL STACK HARDWARE & SOFTWARE SPECIFICATION.
-        </motion.h2>
-
         {/* Skill Category Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {skillCategories.map((cat, idx) => {
-            const Icon = cat.icon;
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {skillCategories.map((group, idx) => {
+            const Icon = group.icon;
+            const isWarm = idx % 2 === 0;
             return (
               <motion.div
                 key={idx}
                 variants={fadeUp}
-                className="swiss-card p-6 space-y-6 flex flex-col justify-between text-white"
+                whileHover={{ y: -4 }}
+                className="p-6 rounded-2xl bg-[#272138]/80 border border-[#342D45] backdrop-blur-sm space-y-4 hover:border-[#4FD1C5]/40 transition-all shadow-lg"
               >
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between border-b-2 border-white/20 pb-4">
-                    <h3 className="text-sm font-black uppercase tracking-wider text-white">{cat.title}</h3>
-                    <div className="p-2 bg-white text-black">
-                      <Icon size={18} />
-                    </div>
+                <div className="flex items-center gap-3 border-b border-[#342D45] pb-3">
+                  <div className={`p-2 rounded-xl ${isWarm ? "bg-[#F2A65A]/15 text-[#F2A65A]" : "bg-[#4FD1C5]/15 text-[#4FD1C5]"}`}>
+                    <Icon size={18} />
                   </div>
-
-                  <div className="space-y-4 font-sans">
-                    {cat.skills.map((skill, sIdx) => (
-                      <div key={sIdx} className="space-y-1">
-                        <div className="flex items-center justify-between text-xs font-black">
-                          <span className="text-white uppercase">{skill.name}</span>
-                          <div className="flex items-center gap-2">
-                            <span className="text-[#FF3000] text-[10px]">{skill.pct}</span>
-                            <span className="text-[10px] px-1.5 py-0.5 bg-white text-black tracking-widest">
-                              {skill.level}
-                            </span>
-                          </div>
-                        </div>
-                        {/* Progress Bar */}
-                        <div className="w-full h-2 bg-black/60 border border-white/30 overflow-hidden">
-                          <div
-                            className="h-full bg-[#FF3000] transition-all duration-500"
-                            style={{ width: skill.pct }}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                  <h3 className="text-base font-bold text-[#F6F3EE] tracking-tight">
+                    {group.category}
+                  </h3>
                 </div>
 
-                <div className="pt-4 border-t-2 border-white/20 text-[10px] font-black uppercase text-white/60 tracking-widest flex items-center justify-between">
-                  <span>MODULE 0{idx + 1}</span>
-                  <span className="text-[#FF3000]">100% OPERATIONAL</span>
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {group.skills.map((skill, sIdx) => (
+                    <motion.span
+                      key={sIdx}
+                      whileHover={{ scale: 1.05 }}
+                      className="px-3 py-1.5 rounded-lg text-xs font-medium bg-[#1A1725] text-[#F6F3EE] border border-[#342D45] hover:bg-[#F2A65A] hover:text-[#1A1725] hover:border-[#F2A65A] transition-all cursor-default"
+                    >
+                      {skill}
+                    </motion.span>
+                  ))}
                 </div>
               </motion.div>
             );
@@ -125,8 +93,3 @@ export default function Skills() {
     </section>
   );
 }
-
-
-
-
-

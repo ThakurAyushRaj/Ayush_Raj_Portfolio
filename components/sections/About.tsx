@@ -2,12 +2,14 @@
 
 import { motion } from "framer-motion";
 import { personalInfo, stats } from "@/lib/data";
-import { Code, Layers, Server, Cpu } from "lucide-react";
+import { Code2, Server, Smartphone, Cloud } from "lucide-react";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 
 export default function About() {
+  const highlightIcons = [Code2, Server, Smartphone, Cloud];
+
   return (
-    <section id="about" className="py-20 px-4 md:px-8 max-w-7xl mx-auto border-b-4 border-white/20 swiss-grid-pattern">
+    <section id="about" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#342D45]/60">
       <motion.div
         variants={staggerContainer}
         initial="hidden"
@@ -16,99 +18,56 @@ export default function About() {
         className="space-y-12"
       >
         {/* Section Header */}
-        <motion.div variants={fadeUp} className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-white/30 pb-4">
-          <div className="flex items-center gap-2">
-            <span className="text-[#FF3000] font-black text-sm">01.</span>
-            <span className="text-xs font-black uppercase tracking-widest text-white">
-              BACKGROUND INTEL // SUBJECT RECORD
-            </span>
+        <motion.div variants={fadeUp} className="space-y-2">
+          <div className="inline-flex items-center gap-2 text-xs font-semibold text-[#4FD1C5] uppercase tracking-widest">
+            <span className="w-2 h-2 rounded-full bg-[#F2A65A]" />
+            <span>01 // About Me</span>
           </div>
-          <span className="text-xs font-black uppercase tracking-widest text-white/60">
-            DOSSIER NO. 01
-          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#F6F3EE] tracking-tight">
+            Building features that solve real-world workflows.
+          </h2>
         </motion.div>
 
-        {/* Headline */}
-        <motion.h2 variants={fadeUp} className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase text-white tracking-tight leading-tight max-w-4xl">
-          BUILDING SOFTWARE PRODUCTS THAT SHIP AND SOLVE REAL WORKFLOWS.
-        </motion.h2>
+        {/* Bio Grid (7:5 layout) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          {/* Bio text block */}
+          <motion.div variants={fadeUp} className="lg:col-span-7 space-y-6 text-[#B3ABCF] text-base sm:text-lg leading-relaxed">
+            <p className="border-l-4 border-[#F2A65A] pl-4 py-1 text-[#F6F3EE] font-medium">
+              Full-stack developer experienced in building and shipping production features across the MERN and MEAN stacks, React Native, and Flutter.
+            </p>
+            <p className="text-[#B3ABCF] text-sm sm:text-base leading-relaxed">
+              Currently at <strong className="text-[#F6F3EE]">aNquest Media</strong>, developing CRM and EMR products that power lead and patient workflows for real estate and healthcare clients. Strong foundation in REST API design and both relational and NoSQL databases, with an expanding focus on AWS and system design.
+            </p>
+          </motion.div>
 
-        {/* Asymmetric Grid Content (7:5 ratio) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Main Bio Text */}
-          <motion.div variants={fadeUp} className="lg:col-span-7 space-y-6 text-white leading-relaxed font-sans">
-            <p className="text-base sm:text-lg font-medium border-l-4 border-[#FF3000] pl-4">
-              {personalInfo.about}
-            </p>
-            <p className="text-sm sm:text-base font-semibold text-white/80">
-              With 3+ years of hands-on full-stack development experience, Ayush Raj specializes in engineering high-throughput React/Next.js interfaces, resilient Node.js REST services, relational & document schema design (MongoDB, MySQL), and cross-platform mobile apps (React Native & Flutter).
-            </p>
-            
-            {/* Stats Grid (2x2) */}
-            <div className="grid grid-cols-2 gap-4 pt-4">
-              {stats.map((stat, idx) => (
+          {/* Highlights Grid (2x2) */}
+          <div className="lg:col-span-5 grid grid-cols-2 gap-4">
+            {stats.map((stat, idx) => {
+              const Icon = highlightIcons[idx % highlightIcons.length];
+              const isEven = idx % 2 === 0;
+              return (
                 <motion.div
                   key={idx}
-                  whileHover={{ backgroundColor: "#FF3000", color: "#FFFFFF" }}
-                  className="swiss-card p-5 cursor-default transition-all duration-150"
+                  variants={fadeUp}
+                  whileHover={{ y: -4, scale: 1.02 }}
+                  className="p-5 rounded-2xl bg-[#272138]/80 border border-[#342D45] backdrop-blur-sm space-y-2 flex flex-col justify-between group hover:border-[#4FD1C5]/50 transition-all shadow-lg"
                 >
-                  <div className="text-3xl sm:text-4xl font-black tracking-tight">{stat.value}</div>
-                  <div className="text-xs font-black uppercase tracking-wider mt-1">{stat.label}</div>
-                  <div className="text-[10px] font-bold uppercase opacity-80">{stat.sub}</div>
+                  <div className={`p-2.5 rounded-xl w-fit transition-colors ${
+                    isEven ? "bg-[#F2A65A]/15 text-[#F2A65A] group-hover:bg-[#F2A65A] group-hover:text-[#1A1725]" : "bg-[#4FD1C5]/15 text-[#4FD1C5] group-hover:bg-[#4FD1C5] group-hover:text-[#1A1725]"
+                  }`}>
+                    <Icon size={20} />
+                  </div>
+                  <div>
+                    <div className="text-2xl sm:text-3xl font-extrabold text-[#F6F3EE] tracking-tight">{stat.value}</div>
+                    <div className="text-xs font-semibold text-[#B3ABCF] mt-0.5">{stat.label}</div>
+                    <div className="text-[11px] text-[#B3ABCF]/60 font-medium">{stat.sub}</div>
+                  </div>
                 </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Core Capabilities Box */}
-          <motion.div
-            variants={fadeUp}
-            className="lg:col-span-5 border-2 border-white/30 bg-[#0D131D]/80 backdrop-blur-md p-6 sm:p-8 space-y-6 swiss-diagonal text-white"
-          >
-            <h3 className="text-lg font-black uppercase text-white border-b-2 border-white/20 pb-3 flex items-center justify-between">
-              <span>CORE STACK SPEC</span>
-              <Cpu size={20} className="text-[#FF3000]" />
-            </h3>
-
-            <div className="space-y-4 font-sans">
-              <div className="p-3 bg-black/60 border border-white/30 space-y-1">
-                <div className="text-[10px] font-black tracking-widest text-[#FF3000] uppercase flex items-center gap-1.5">
-                  <Code size={12} />
-                  <span>FRONTEND ENGINEERING</span>
-                </div>
-                <div className="text-xs font-black text-white uppercase">React.js, Next.js 14, TypeScript, Tailwind CSS</div>
-              </div>
-
-              <div className="p-3 bg-black/60 border border-white/30 space-y-1">
-                <div className="text-[10px] font-black tracking-widest text-[#FF3000] uppercase flex items-center gap-1.5">
-                  <Server size={12} />
-                  <span>BACKEND ARCHITECTURE</span>
-                </div>
-                <div className="text-xs font-black text-white uppercase">Node.js, Express.js, RESTful APIs, JWT Auth</div>
-              </div>
-
-              <div className="p-3 bg-black/60 border border-white/30 space-y-1">
-                <div className="text-[10px] font-black tracking-widest text-[#FF3000] uppercase flex items-center gap-1.5">
-                  <Layers size={12} />
-                  <span>MOBILE & DATA LAYER</span>
-                </div>
-                <div className="text-xs font-black text-white uppercase">React Native, Flutter, MongoDB, MySQL, AWS</div>
-              </div>
-            </div>
-
-            <div className="pt-4 border-t-2 border-white/20 flex justify-between items-center text-xs font-black uppercase">
-              <span>CURRENT ENGAGEMENT:</span>
-              <a href={personalInfo.companyUrl} target="_blank" rel="noopener noreferrer" className="text-[#FF3000] hover:underline">
-                {personalInfo.company}
-              </a>
-            </div>
-          </motion.div>
+              );
+            })}
+          </div>
         </div>
       </motion.div>
     </section>
   );
 }
-
-
-
-

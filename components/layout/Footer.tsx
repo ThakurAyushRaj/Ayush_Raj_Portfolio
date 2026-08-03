@@ -1,71 +1,68 @@
 "use client";
 
 import { personalInfo } from "@/lib/data";
+import { ArrowUp, Github, Linkedin, Mail } from "lucide-react";
 
 export default function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
-    <footer className="border-t-4 border-white/20 bg-[#090A0F]/90 backdrop-blur-md py-12 px-4 md:px-8 font-sans swiss-grid-pattern text-white">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-        {/* Left Column */}
-        <div className="md:col-span-6 space-y-3">
-          <div className="inline-block bg-[#FF3000] text-white px-2 py-0.5 text-[10px] font-black tracking-widest uppercase">
-            // SWISS TYPOGRAPHIC ARCHIVE
-          </div>
-          <h3 className="text-2xl font-black uppercase text-white tracking-tight">
+    <footer className="border-t border-[#342D45]/80 bg-[#1A1725]/90 backdrop-blur-md py-12 px-4 sm:px-6 lg:px-8 text-[#B3ABCF] font-sans">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+        {/* Left Info */}
+        <div className="space-y-1 text-center md:text-left">
+          <div className="text-[#F6F3EE] font-bold text-base tracking-tight">
             {personalInfo.name} — {personalInfo.title}
-          </h3>
-          <p className="text-xs font-semibold text-white/70 max-w-md">
-            {personalInfo.tagline} Building full-stack CRM, EMR, and scalable enterprise products at {personalInfo.company}.
+          </div>
+          <p className="text-xs text-[#B3ABCF]/70">
+            SDE @ {personalInfo.company} • {personalInfo.location}
           </p>
         </div>
 
-        {/* Center Column Links */}
-        <div className="md:col-span-3 space-y-2">
-          <div className="text-xs font-black text-white/40 uppercase tracking-widest border-b-2 border-white/20 pb-1">
-            DIRECTORY
-          </div>
-          <ul className="space-y-1 text-xs font-bold uppercase tracking-wider text-white">
-            <li><a href="#about" className="hover:text-[#FF3000] transition-colors">01. ABOUT</a></li>
-            <li><a href="#experience" className="hover:text-[#FF3000] transition-colors">02. EXPERIENCE</a></li>
-            <li><a href="#projects" className="hover:text-[#FF3000] transition-colors">03. PROJECTS</a></li>
-            <li><a href="#skills" className="hover:text-[#FF3000] transition-colors">04. SKILLS</a></li>
-            <li><a href="#education" className="hover:text-[#FF3000] transition-colors">05. EDUCATION</a></li>
-            <li><a href="#contact" className="hover:text-[#FF3000] transition-colors">06. CONTACT</a></li>
-          </ul>
+        {/* Center Socials */}
+        <div className="flex items-center gap-4">
+          <a
+            href={personalInfo.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2.5 rounded-xl bg-[#272138] border border-[#342D45] text-[#B3ABCF] hover:text-[#4FD1C5] hover:border-[#4FD1C5]/40 transition-all"
+            aria-label="GitHub"
+          >
+            <Github size={16} />
+          </a>
+          <a
+            href={personalInfo.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2.5 rounded-xl bg-[#272138] border border-[#342D45] text-[#B3ABCF] hover:text-[#4FD1C5] hover:border-[#4FD1C5]/40 transition-all"
+            aria-label="LinkedIn"
+          >
+            <Linkedin size={16} />
+          </a>
+          <a
+            href={`mailto:${personalInfo.email}`}
+            className="p-2.5 rounded-xl bg-[#272138] border border-[#342D45] text-[#B3ABCF] hover:text-[#F2A65A] hover:border-[#F2A65A]/40 transition-all"
+            aria-label="Email"
+          >
+            <Mail size={16} />
+          </a>
         </div>
 
-        {/* Right Column Socials */}
-        <div className="md:col-span-3 space-y-2">
-          <div className="text-xs font-black text-white/40 uppercase tracking-widest border-b-2 border-white/20 pb-1">
-            NETWORK
-          </div>
-          <ul className="space-y-1 text-xs font-bold uppercase tracking-wider text-white">
-            <li>
-              <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="hover:text-[#FF3000] transition-colors">
-                GITHUB [EXT] →
-              </a>
-            </li>
-            <li>
-              <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-[#FF3000] transition-colors">
-                LINKEDIN [EXT] →
-              </a>
-            </li>
-            <li>
-              <a href={`mailto:${personalInfo.email}`} className="hover:text-[#FF3000] transition-colors">
-                EMAIL TRANSMISSION →
-              </a>
-            </li>
-          </ul>
-        </div>
+        {/* Back-to-Top Control */}
+        <button
+          onClick={scrollToTop}
+          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#272138] hover:bg-[#342D45] border border-[#342D45] text-xs font-semibold text-[#B3ABCF] hover:text-[#F6F3EE] transition-all group"
+        >
+          <span>Back to Top</span>
+          <ArrowUp size={14} className="group-hover:-translate-y-0.5 transition-transform text-[#F2A65A]" />
+        </button>
       </div>
 
-      <div className="max-w-7xl mx-auto mt-10 pt-6 border-t-2 border-white/20 flex flex-col sm:flex-row items-center justify-between text-[11px] font-black uppercase text-white/60 gap-2">
-        <div>© {new Date().getFullYear()} {personalInfo.name}. OBJECTIVE DIGITAL COMMUNICATION.</div>
-        <div>DESIGN SYSTEM: INTERNATIONAL TYPOGRAPHIC STYLE</div>
+      <div className="max-w-7xl mx-auto mt-8 pt-6 border-t border-[#272138] text-center text-xs text-[#B3ABCF]/50">
+        © {new Date().getFullYear()} {personalInfo.name}. All rights reserved. Built with Next.js, TypeScript, Tailwind CSS & Framer Motion.
       </div>
     </footer>
   );
 }
-
-
-
