@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function CustomCursor() {
   const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 });
   const [isHovered, setIsHovered] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
+  const [clickRipples, setClickRipples] = useState<{ id: number; x: number; y: number }[]>([]);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -23,7 +24,9 @@ export function CustomCursor() {
           target.tagName === "TEXTAREA" ||
           target.closest("button") ||
           target.closest("a") ||
-          target.classList.contains("interactive"))
+          target.getAttribute("role") === "button" ||
+          target.classList.contains("interactive") ||
+          target.classList.contains("btn"))
       ) {
         setIsHovered(true);
       } else {
@@ -31,7 +34,15 @@ export function CustomCursor() {
       }
     };
 
-    const onMouseDown = () => setIsClicked(true);
+    const onMouseDown = (e: MouseEvent) => {
+      setIsClicked(true);
+      const newRipple = { id: Date.now(), x: e.clientX, y: e.clientY };
+      setClickRipples((prev) => [...prev.slice(-4), newRipple]);
+      setTimeout(() => {
+        setClickRipples((prev) => prev.filter((r) => r.id !== newRipple.id));
+      }, 700);
+    };
+
     const onMouseUp = () => setIsClicked(false);
     const onMouseLeave = () => setIsVisible(false);
     const onMouseEnter = () => setIsVisible(true);
@@ -55,35 +66,58 @@ export function CustomCursor() {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[9999] overflow-hidden select-none">
+      {/* ─── CLICK DRAFTING COMPASS RIPPLES ─── */}
+      <AnimatePresence>
+        {clickRipples.map((ripple) => (
+          <motion.div
+            key={ripple.id}
+            initial={{ scale: 0.2, opacity: 0.9, rotate: 0 }}
+            animate={{ scale: 3.5, opacity: 0, rotate: 90 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.65, ease: "easeOut" }}
+            className="fixed top-0 left-0 w-10 h-10 rounded-full border border-[#c5a059] border-dashed pointer-events-none flex items-center justify-center"
+            style={{
+              left: ripple.x - 20,
+              top: ripple.y - 20,
+            }}
+          >
+            <div className="w-full h-[1px] bg-[#c5a059]/40" />
+          </motion.div>
+        ))}
+      </AnimatePresence>
+
+      {/* ─── ARCHITECTURAL DRAFTING LENS RING ─── */}
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 rounded-full border-2 pointer-events-none mix-blend-difference"
+        className="fixed top-0 left-0 w-8 h-8 rounded-full border border-[#c5a059] pointer-events-none"
         animate={{
           x: mousePosition.x - 16,
           y: mousePosition.y - 16,
-          scale: isClicked ? 0.7 : isHovered ? 1.8 : 1,
-          borderColor: isHovered ? "#D97706" : "#1E40AF",
-          backgroundColor: isHovered ? "rgba(217, 119, 6, 0.15)" : "transparent",
+          scale: isClicked ? 0.75 : isHovered ? 1.6 : 1,
+          borderColor: isHovered ? "#e5c178" : "#c5a059",
+          backgroundColor: isHovered ? "rgba(197, 160, 89, 0.15)" : "transparent",
         }}
         transition={{
           type: "spring",
-          damping: 28,
-          stiffness: 300,
-          mass: 0.5,
+          damping: 24,
+          stiffness: 350,
+          mass: 0.35,
         }}
       />
+
+      {/* ─── CENTRAL PRECISION CROSSHAIR DOT ─── */}
       <motion.div
-        className="fixed top-0 left-0 w-2.5 h-2.5 rounded-full bg-[#0F172A] pointer-events-none shadow-sm"
+        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-[#181410] border border-[#c5a059] pointer-events-none"
         animate={{
-          x: mousePosition.x - 5,
-          y: mousePosition.y - 5,
-          scale: isHovered ? 1.4 : 1,
-          backgroundColor: isHovered ? "#1E40AF" : "#0F172A",
+          x: mousePosition.x - 4,
+          y: mousePosition.y - 4,
+          scale: isHovered ? 1.5 : isClicked ? 0.7 : 1,
+          backgroundColor: isHovered ? "#e5c178" : "#181410",
         }}
         transition={{
           type: "spring",
-          damping: 40,
-          stiffness: 800,
-          mass: 0.1,
+          damping: 38,
+          stiffness: 850,
+          mass: 0.06,
         }}
       />
     </div>
