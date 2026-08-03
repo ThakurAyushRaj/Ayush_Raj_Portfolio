@@ -42,7 +42,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`scroll-smooth ${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="bg-[#1A1725] text-[#F6F3EE] font-sans selection:bg-[#F2A65A] selection:text-[#1A1725] relative overflow-x-hidden min-h-screen flex flex-col antialiased">
+      <body className="bg-[#F9F6F0] text-[#0F172A] font-sans selection:bg-[#0F172A] selection:text-[#F9F6F0] relative overflow-x-hidden min-h-screen flex flex-col antialiased">
         <Navbar />
         <main id="main-content" role="main" className="flex-grow">
           {children}
@@ -52,6 +52,7 @@ export default function RootLayout({
     </html>
   );
 }
+
 
 
 

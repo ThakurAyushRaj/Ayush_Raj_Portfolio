@@ -50,7 +50,7 @@ export function ReactiveNodeBackground({ children, className = "" }: ReactiveNod
         y: e.clientY,
         radius: 5,
         maxRadius: 180,
-        opacity: 0.9,
+        opacity: 0.85,
       });
     };
 
@@ -94,9 +94,9 @@ export function ReactiveNodeBackground({ children, className = "" }: ReactiveNod
           // Render Trail Spotlight Glow underneath nodes
           if (mX > 0 && mY > 0) {
             const gradient = ctx.createRadialGradient(mX, mY, 10, mX, mY, 320);
-            gradient.addColorStop(0, "rgba(79, 209, 197, 0.18)"); // Cool Teal glow center
-            gradient.addColorStop(0.5, "rgba(242, 166, 90, 0.08)"); // Warm Amber middle
-            gradient.addColorStop(1, "rgba(26, 23, 37, 0)");
+            gradient.addColorStop(0, "rgba(30, 64, 175, 0.12)"); // Royal Blue glow
+            gradient.addColorStop(0.5, "rgba(217, 119, 6, 0.06)"); // Warm Amber middle
+            gradient.addColorStop(1, "rgba(249, 246, 240, 0)");
             ctx.fillStyle = gradient;
             ctx.beginPath();
             ctx.arc(mX, mY, 320, 0, Math.PI * 2);
@@ -124,15 +124,15 @@ export function ReactiveNodeBackground({ children, className = "" }: ReactiveNod
               const dist = Math.sqrt(dx * dx + dy * dy);
 
               let radius = 1.8;
-              let opacity = 0.15;
-              let color = "246, 243, 238"; // Base text off-white
+              let opacity = 0.18;
+              let color = "15, 23, 42"; // Midnight Black-Blue
 
               if (dist < activeRadius) {
                 const ratio = 1 - dist / activeRadius;
                 radius = 1.8 + ratio * 2.8;
-                opacity = 0.15 + ratio * 0.75;
-                // Blend warm sunset amber and cool teal near mouse
-                color = ratio > 0.5 ? "242, 166, 90" : "79, 209, 197";
+                opacity = 0.2 + ratio * 0.75;
+                // Blend royal blue and warm amber near mouse
+                color = ratio > 0.5 ? "30, 64, 175" : "217, 119, 6";
 
                 activeNodes.push({ x: nx, y: ny, distToMouse: dist });
               }
@@ -159,12 +159,12 @@ export function ReactiveNodeBackground({ children, className = "" }: ReactiveNod
                 const avgMouseDist = (n1.distToMouse + n2.distToMouse) / 2;
                 const proximityRatio = 1 - avgMouseDist / activeRadius;
 
-                const alpha = lineRatio * proximityRatio * 0.55;
+                const alpha = lineRatio * proximityRatio * 0.5;
 
-                // Alternate stroke color: warm vs cool
+                // Alternate stroke color: midnight blue vs warm amber
                 ctx.strokeStyle = i % 2 === 0
-                  ? `rgba(79, 209, 197, ${alpha})`
-                  : `rgba(242, 166, 90, ${alpha})`;
+                  ? `rgba(30, 64, 175, ${alpha})`
+                  : `rgba(217, 119, 6, ${alpha})`;
                 ctx.lineWidth = 1;
                 ctx.beginPath();
                 ctx.moveTo(n1.x, n1.y);
@@ -185,14 +185,14 @@ export function ReactiveNodeBackground({ children, className = "" }: ReactiveNod
               continue;
             }
 
-            ctx.strokeStyle = `rgba(242, 166, 90, ${rip.opacity})`;
+            ctx.strokeStyle = `rgba(15, 23, 42, ${rip.opacity})`;
             ctx.lineWidth = 1.5;
             ctx.beginPath();
             ctx.arc(rip.x, rip.y, rip.radius, 0, Math.PI * 2);
             ctx.stroke();
 
-            // Inner cool teal ring ripple
-            ctx.strokeStyle = `rgba(79, 209, 197, ${rip.opacity * 0.7})`;
+            // Inner royal blue ring ripple
+            ctx.strokeStyle = `rgba(30, 64, 175, ${rip.opacity * 0.7})`;
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.arc(rip.x, rip.y, Math.max(0, rip.radius - 12), 0, Math.PI * 2);
@@ -217,20 +217,20 @@ export function ReactiveNodeBackground({ children, className = "" }: ReactiveNod
   }, [isMobile]);
 
   return (
-    <div ref={containerRef} className={`relative w-full min-h-screen bg-[#1A1725] text-[#F6F3EE] overflow-hidden ${className}`}>
-      {/* ─── LAYER 1: AMBIENT PLUM & DUAL ACCENT BLOBS ────────────────────────── */}
+    <div ref={containerRef} className={`relative w-full min-h-screen bg-[#F9F6F0] text-[#0F172A] overflow-hidden ${className}`}>
+      {/* ─── LAYER 1: AMBIENT CREAM & ACCENT BLOBS ────────────────────────────── */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none">
-        {/* Blob 1 - Warm Sunset Amber (#F2A65A) */}
-        <div className="absolute -top-[12%] -left-[10%] w-[55vw] h-[55vw] max-w-[750px] max-h-[750px] rounded-full bg-[#F2A65A] opacity-25 blur-[110px] md:blur-[140px] animate-aurora-slow-1" />
+        {/* Blob 1 - Royal Cobalt Blue (#1E40AF) */}
+        <div className="absolute -top-[12%] -left-[10%] w-[55vw] h-[55vw] max-w-[750px] max-h-[750px] rounded-full bg-[#1E40AF] opacity-[0.12] blur-[120px] md:blur-[150px] animate-aurora-slow-1" />
 
-        {/* Blob 2 - Cool Electric Teal (#4FD1C5) */}
-        <div className="absolute top-[25%] -right-[15%] w-[52vw] h-[52vw] max-w-[700px] max-h-[700px] rounded-full bg-[#4FD1C5] opacity-25 blur-[120px] md:blur-[150px] animate-aurora-slow-2" />
+        {/* Blob 2 - Warm Amber (#D97706) */}
+        <div className="absolute top-[25%] -right-[15%] w-[52vw] h-[52vw] max-w-[700px] max-h-[700px] rounded-full bg-[#D97706] opacity-[0.14] blur-[130px] md:blur-[160px] animate-aurora-slow-2" />
 
-        {/* Blob 3 - Deep Purple / Plum Ambient Accent */}
-        <div className="absolute bottom-[10%] left-[25%] w-[48vw] h-[48vw] max-w-[650px] max-h-[650px] rounded-full bg-[#6B46C1] opacity-20 blur-[100px] md:blur-[130px] animate-aurora-slow-3" />
+        {/* Blob 3 - Midnight Blue Accent (#0F172A) */}
+        <div className="absolute bottom-[10%] left-[25%] w-[48vw] h-[48vw] max-w-[650px] max-h-[650px] rounded-full bg-[#0F172A] opacity-[0.08] blur-[110px] md:blur-[140px] animate-aurora-slow-3" />
 
-        {/* Page Contrast Gradient Scrim Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#1A1725]/60 to-[#1A1725]/90" />
+        {/* Page Gradient Scrim Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#F9F6F0]/50 to-[#F9F6F0]/90" />
       </div>
 
       {/* ─── LAYER 2: INTERACTIVE REACTIVE CANVAS NODE NETWORK ───────────────── */}
@@ -239,8 +239,8 @@ export function ReactiveNodeBackground({ children, className = "" }: ReactiveNod
         className="fixed inset-0 pointer-events-none z-0 select-none"
       />
 
-      {/* Soft Text Radial Scrim to Guarantee Hero Readability */}
-      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-[600px] pointer-events-none z-0 bg-[radial-gradient(ellipse_at_center,rgba(26,23,37,0.75)_0%,transparent_70%)]" />
+      {/* Hero Radial Scrim */}
+      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-[600px] pointer-events-none z-0 bg-[radial-gradient(ellipse_at_center,rgba(249,246,240,0.85)_0%,transparent_75%)]" />
 
       {/* Page Content */}
       <div className="relative z-10">{children}</div>
