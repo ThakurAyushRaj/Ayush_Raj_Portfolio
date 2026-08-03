@@ -1,180 +1,140 @@
 import { motion } from "framer-motion";
-import { Code, Layout, Server, Database, Cloud, Terminal, Cpu, HardDrive, Layers, GitBranch, Box, Smartphone } from "lucide-react";
-import { fadeUp, staggerContainer } from "@/lib/motion";
-import { InteractiveFolder } from "@/components/ui";
 
 export default function Skills() {
-  const skillCategories = [
+  const desks = [
     {
-      category: "Languages",
-      icon: Code,
-      color: "#3B82F6",
-      label: "LANGS",
-      description: "Core languages for building full-stack web & mobile applications.",
-      skills: ["JavaScript", "TypeScript", "Dart"],
-      folderItems: [
-        <div key="1" className="flex items-center gap-1 text-[11px] font-black text-amber-600 uppercase tracking-tighter">JS</div>,
-        <div key="2" className="flex items-center gap-1 text-[11px] font-black text-blue-600 uppercase tracking-tighter">TS</div>,
-        <div key="3" className="flex items-center gap-1 text-[11px] font-black text-cyan-600 uppercase tracking-tighter">DART</div>,
-      ],
-      infoDetails: [
-        "JavaScript (ES6+) — Asynchronous logic, DOM APIs & Event Loop",
-        "TypeScript — Static typing, Generics, Interfaces & Strict compiler",
-        "Dart — OOP language powering cross-platform Flutter applications"
-      ]
+      number: "DESK I",
+      title: "FRONTEND & WEB ARCHITECTURE",
+      body: "Crafting type-safe, interactive single-page dashboards and responsive web application interfaces using React, TypeScript, and modern styling architectures.",
+      image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80",
+      caption: "Interactive Dashboards & UI Systems",
+      skills: ["React.js", "TypeScript", "Tailwind CSS", "HTML5/CSS3"],
+      isDark: true,
+      link: "#projects"
     },
     {
-      category: "Frontend & Mobile",
-      icon: Layout,
-      color: "#5227FF",
-      label: "UI/MOB",
-      description: "Responsive UI & native cross-platform mobile frameworks.",
-      skills: ["React.js", "React Native", "Flutter", "HTML5", "CSS3", "Tailwind CSS"],
-      folderItems: [
-        <Layout key="1" className="w-5 h-5 text-indigo-600" />,
-        <Smartphone key="2" className="w-5 h-5 text-purple-600" />,
-        <Code key="3" className="w-5 h-5 text-sky-500" />,
-      ],
-      infoDetails: [
-        "React.js — Modular component architecture, Hooks & State management",
-        "React Native — Native mobile apps for iOS & Android with unified code",
-        "Flutter — High-performance widget system & custom mobile UI layouts"
-      ]
+      number: "DESK II",
+      title: "FULL-STACK & BACKEND SYSTEMS",
+      body: "Architecting non-blocking REST APIs, microservices, and relational & NoSQL databases in Node.js, Express, MongoDB, and MySQL with AWS deployment.",
+      image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80",
+      caption: "RESTful Pipelines & Database Schemas",
+      skills: ["Node.js", "Express.js", "MongoDB", "MySQL", "AWS"],
+      isDark: false,
+      link: "#projects"
     },
     {
-      category: "Backend",
-      icon: Server,
-      color: "#10B981",
-      label: "API/NODE",
-      description: "Scalable server architectures & RESTful API endpoints.",
-      skills: ["Node.js", "Express.js"],
-      folderItems: [
-        <Server key="1" className="w-5 h-5 text-emerald-600" />,
-        <Cpu key="2" className="w-5 h-5 text-teal-600" />,
-        <Terminal key="3" className="w-5 h-5 text-slate-700" />,
-      ],
-      infoDetails: [
-        "Node.js — Non-blocking event-driven backend JavaScript runtime",
-        "Express.js — Lightweight REST API routing & middleware pipeline",
-        "REST APIs — Authentication, JWT Tokens & Rate Limiting"
-      ]
-    },
-    {
-      category: "Databases",
-      icon: Database,
-      color: "#D97706",
-      label: "DATABASES",
-      description: "Relational & NoSQL database design and schema optimization.",
-      skills: ["MongoDB", "MySQL", "PostgreSQL", "Firebase"],
-      folderItems: [
-        <Database key="1" className="w-5 h-5 text-amber-600" />,
-        <HardDrive key="2" className="w-5 h-5 text-orange-600" />,
-        <Layers key="3" className="w-5 h-5 text-yellow-600" />,
-      ],
-      infoDetails: [
-        "MongoDB — Document database, Mongoose aggregation & indexing",
-        "MySQL — Relational database modeling, complex joins & SQL queries",
-        "Firebase — Firestore NoSQL, Realtime Sync & Push Notifications"
-      ]
-    },
-    {
-      category: "Cloud & Tools",
-      icon: Cloud,
-      color: "#EC4899",
-      label: "DEVOPS",
-      description: "Cloud infrastructure, version control & CI/CD deployment.",
-      skills: ["AWS", "Git", "GitHub"],
-      folderItems: [
-        <Cloud key="1" className="w-5 h-5 text-pink-600" />,
-        <GitBranch key="2" className="w-5 h-5 text-red-500" />,
-        <Box key="3" className="w-5 h-5 text-purple-500" />,
-      ],
-      infoDetails: [
-        "AWS — Cloud services including S3 storage, Lambda & CloudFront",
-        "Git — Distributed version control, branching & merge workflows",
-        "GitHub — Repository management, Actions CI/CD & collaboration"
-      ]
-    },
+      number: "DESK III",
+      title: "CROSS-PLATFORM MOBILE DESK",
+      body: "Building production mobile applications for iOS & Android utilizing React Native and Flutter, integrated with push notifications, offline sync, and OAuth.",
+      image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=600&q=80",
+      caption: "Native iOS & Android Applications",
+      skills: ["React Native", "Flutter", "Dart", "Firebase"],
+      isDark: true,
+      link: "#projects"
+    }
   ];
 
   return (
-    <section id="skills" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#E2E8F0]">
-      <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.15 }}
-        className="space-y-12"
-      >
-        <motion.div variants={fadeUp} className="space-y-2">
-          <div className="inline-flex items-center gap-2 text-xs font-semibold text-[#1E40AF] uppercase tracking-widest">
-            <span className="w-2 h-2 rounded-full bg-[#D97706]" />
-            <span>03 // Skills & Technologies</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">
-            Technical stack & engineering tools.
+    <section id="services" className="py-16 px-4 sm:px-8 max-w-7xl mx-auto border-t border-[#181410] text-[#181410]">
+      {/* ─── SECTION HEADER ─── */}
+      <div className="border-b border-[#181410] pb-4 mb-10 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-2">
+        <div>
+          <span className="text-xs font-serif uppercase tracking-[0.25em] text-[#524b42] font-semibold">
+            02 // SERVICES &amp; SPECIALIZATIONS
+          </span>
+          <h2 className="font-anton text-4xl sm:text-5xl uppercase tracking-tight text-[#181410] mt-1">
+            THE THREE DESKS
           </h2>
-          <p className="text-sm text-[#64748B]">Click on any card&apos;s folder tab to open and view detailed tech information.</p>
-        </motion.div>
+        </div>
+        <div className="text-xs font-serif uppercase tracking-[0.2em] text-[#524b42]">
+          WHAT THE STUDIO SETS, COLUMN BY COLUMN
+        </div>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skillCategories.map((group, idx) => {
-            const Icon = group.icon;
-            const isDark = idx % 2 === 1;
-            return (
-              <motion.div
-                key={idx}
-                variants={fadeUp}
-                whileHover={{ y: -4 }}
-                className={`p-6 rounded-2xl space-y-4 transition-all duration-300 relative group/card ${
-                  isDark
-                    ? "bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#0F172A] text-[#F9F6F0] border border-[#1E293B] hover:border-[#D97706]/50 shadow-lg hover:shadow-xl hover:shadow-[#D97706]/10"
-                    : "bg-gradient-to-b from-[#FFFFFF] to-[#FAF8F5] text-[#0F172A] border border-[#E5E0D8] hover:border-[#1E40AF]/40 shadow-[0_4px_20px_-2px_rgba(15,23,42,0.05)] hover:shadow-[0_12px_32px_-4px_rgba(15,23,42,0.12)]"
+      {/* ─── THREE COLUMNS WITH DARK INK CARDS ─── */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {desks.map((desk, idx) => (
+          <div
+            key={idx}
+            className={`relative group overflow-hidden p-6 border flex flex-col justify-between space-y-6 transition-all duration-500 ${
+              desk.isDark
+                ? "bg-[#181410] text-[#f4f1ea] border-[#c5a059] shadow-2xl hover:border-[#e5c178]"
+                : "bg-[#f4f1ea] text-[#181410] border-[#181410] shadow-md hover:border-[#c5a059]"
+            }`}
+          >
+            {/* Shimmer Light Sheen for Dark Cards */}
+            {desk.isDark && (
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 pointer-events-none" />
+            )}
+
+            <div className="space-y-4 relative z-10">
+              <div className={`text-xs font-serif uppercase tracking-[0.2em] font-bold border-b pb-2 flex items-center justify-between ${
+                desk.isDark ? "border-[#c5a059]/40 text-[#c5a059]" : "border-[#181410] text-[#524b42]"
+              }`}>
+                <span>{desk.number}</span>
+                <span className="text-base">{idx === 0 ? "✦" : idx === 1 ? "❦" : "❖"}</span>
+              </div>
+
+              <h3 className={`font-anton text-2xl uppercase tracking-tight leading-snug ${
+                desk.isDark ? "text-[#f4f1ea]" : "text-[#181410]"
+              }`}>
+                {desk.title}
+              </h3>
+
+              <p className={`broadsheet-justify text-sm font-serif leading-relaxed ${
+                desk.isDark ? "text-[#d2c9b8]" : "text-[#181410]"
+              }`}>
+                {desk.body}
+              </p>
+
+              {/* Inset Photo */}
+              <div className={`border p-1 overflow-hidden ${
+                desk.isDark ? "border-[#c5a059]/40 bg-black/40" : "border-[#181410] bg-[#181410]/5"
+              }`}>
+                <img
+                  src={desk.image}
+                  alt={desk.caption}
+                  className="w-full h-[170px] object-cover broadsheet-photo filter grayscale contrast-125 group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className={`text-[11px] font-serif italic text-center pt-1 ${
+                  desk.isDark ? "text-[#c5a059]" : "text-[#524b42]"
+                }`}>
+                  {desk.caption}
+                </div>
+              </div>
+
+              {/* Skills Tags */}
+              <div className="flex flex-wrap gap-2 pt-2">
+                {desk.skills.map((skill, sIdx) => (
+                  <span
+                    key={sIdx}
+                    className={`px-2 py-0.5 border text-[11px] font-serif uppercase tracking-widest ${
+                      desk.isDark
+                        ? "bg-black/40 border-[#c5a059]/50 text-[#e5c178]"
+                        : "bg-white/50 border-[#181410] text-[#181410]"
+                    }`}
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className={`pt-4 border-t relative z-10 ${
+              desk.isDark ? "border-[#c5a059]/40" : "border-[#181410]"
+            }`}>
+              <a
+                href={desk.link}
+                className={`inline-block text-xs font-serif uppercase tracking-[0.22em] font-bold hover:underline underline-offset-4 ${
+                  desk.isDark ? "text-[#c5a059] hover:text-[#e5c178]" : "text-[#181410]"
                 }`}
               >
-                <div className={`flex items-center justify-between border-b pb-3 ${isDark ? "border-[#1E293B]" : "border-[#E2E8F0]"}`}>
-                  <div className="flex items-center gap-3">
-                    <div className={`p-2 rounded-xl ${isDark ? "bg-[#1E293B] text-[#D97706]" : "bg-[#F1F5F9] text-[#1E40AF]"}`}>
-                      <Icon size={18} />
-                    </div>
-                    <h3 className={`text-base font-bold tracking-tight ${isDark ? "text-[#F9F6F0]" : "text-[#0F172A]"}`}>
-                      {group.category}
-                    </h3>
-                  </div>
-
-                  <div className="relative flex-shrink-0 -mr-2 -mt-2">
-                    <InteractiveFolder 
-                      size={0.65} 
-                      color={group.color} 
-                      label={group.label}
-                      infoTitle={group.category}
-                      description={group.description}
-                      infoDetails={group.infoDetails}
-                      items={group.folderItems}
-                    />
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap gap-2 pt-1">
-                  {group.skills.map((skill, sIdx) => (
-                    <motion.span
-                      key={sIdx}
-                      whileHover={{ scale: 1.05 }}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-all cursor-default ${
-                        isDark
-                          ? "bg-[#1E293B] text-[#F9F6F0] border-[#334155] hover:bg-[#D97706] hover:text-[#0F172A]"
-                          : "bg-[#F1F5F9] text-[#0F172A] border-[#E2E8F0] hover:bg-[#0F172A] hover:text-[#F9F6F0]"
-                      }`}
-                    >
-                      {skill}
-                    </motion.span>
-                  ))}
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-      </motion.div>
+                READ THE CASE FILES &rarr;
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
     </section>
   );
 }

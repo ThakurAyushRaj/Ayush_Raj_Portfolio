@@ -1,190 +1,126 @@
 import { useState, FormEvent } from "react";
-import { motion } from "framer-motion";
 import { personalInfo } from "@/lib/data";
-import { Mail, Phone, MapPin, Send, CheckCircle2, Github, Linkedin, Copy, Check } from "lucide-react";
-import { fadeUp, staggerContainer } from "@/lib/motion";
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
-  const [copiedField, setCopiedField] = useState<string | null>(null);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
   };
 
-  const handleCopy = (text: string, fieldName: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedField(fieldName);
-    setTimeout(() => setCopiedField(null), 2500);
-  };
-
   return (
-    <section id="contact" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#E2E8F0]">
-      <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.15 }}
-        className="space-y-12"
-      >
-        <motion.div variants={fadeUp} className="space-y-2">
-          <div className="inline-flex items-center gap-2 text-xs font-semibold text-[#D97706] uppercase tracking-widest">
-            <span className="w-2 h-2 rounded-full bg-[#0F172A]" />
-            <span>06 // Contact & Transmission</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">
-            Initiate direct communication.
+    <section id="contact" className="py-16 px-4 sm:px-8 max-w-7xl mx-auto border-t border-[#181410] text-[#181410] space-y-12">
+      {/* ─── SECTION HEADER ─── */}
+      <div className="border-b border-[#181410] pb-4 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-2">
+        <div>
+          <span className="text-xs font-serif uppercase tracking-[0.25em] text-[#524b42] font-semibold">
+            04 // TRANSMISSION &amp; COMMISSIONS
+          </span>
+          <h2 className="font-anton text-4xl sm:text-5xl uppercase tracking-tight text-[#181410] mt-1">
+            SUBMIT THE BRIEF
           </h2>
-        </motion.div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          <motion.div variants={fadeUp} className="lg:col-span-5 p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#0F172A] text-[#F9F6F0] border border-[#1E293B] space-y-6 shadow-xl hover:border-[#D97706]/40 transition-all duration-300">
-            <h3 className="text-xl font-bold text-[#F9F6F0] tracking-tight">
-              Direct Contact Details
-            </h3>
-
-            <div className="space-y-4 text-sm font-medium">
-              <div className="flex items-center justify-between gap-3 p-3.5 rounded-xl bg-[#1E293B] border border-[#334155]">
-                <a
-                  href={`mailto:${personalInfo.email}`}
-                  className="flex items-center gap-3 hover:text-[#D97706] transition-colors flex-1"
-                >
-                  <Mail size={18} className="text-[#D97706] shrink-0" />
-                  <div>
-                    <div className="text-[11px] text-[#94A3B8] uppercase font-semibold">Email</div>
-                    <div className="text-[#F9F6F0] text-xs sm:text-sm font-semibold">{personalInfo.email}</div>
-                  </div>
-                </a>
-                <button
-                  onClick={() => handleCopy(personalInfo.email, "email")}
-                  className="p-2 rounded-lg bg-[#334155] hover:bg-[#D97706] text-[#CBD5E1] hover:text-[#0F172A] transition-colors"
-                  title="Copy Email"
-                >
-                  {copiedField === "email" ? <Check size={14} className="text-[#F9F6F0]" /> : <Copy size={14} />}
-                </button>
-              </div>
-
-              <div className="flex items-center justify-between gap-3 p-3.5 rounded-xl bg-[#1E293B] border border-[#334155]">
-                <a
-                  href={`tel:${personalInfo.phone.replace(/\s+/g, '')}`}
-                  className="flex items-center gap-3 hover:text-[#D97706] transition-colors flex-1"
-                >
-                  <Phone size={18} className="text-[#38BDF8] shrink-0" />
-                  <div>
-                    <div className="text-[11px] text-[#94A3B8] uppercase font-semibold">Phone / WhatsApp</div>
-                    <div className="text-[#F9F6F0] text-xs sm:text-sm font-semibold">{personalInfo.phone}</div>
-                  </div>
-                </a>
-                <button
-                  onClick={() => handleCopy(personalInfo.phone, "phone")}
-                  className="p-2 rounded-lg bg-[#334155] hover:bg-[#38BDF8] text-[#CBD5E1] hover:text-[#0F172A] transition-colors"
-                  title="Copy Phone"
-                >
-                  {copiedField === "phone" ? <Check size={14} className="text-[#F9F6F0]" /> : <Copy size={14} />}
-                </button>
-              </div>
-
-              <div className="flex items-center gap-3 p-3.5 rounded-xl bg-[#1E293B] border border-[#334155]">
-                <MapPin size={18} className="text-[#D97706] shrink-0" />
-                <div>
-                  <div className="text-[11px] text-[#94A3B8] uppercase font-semibold">Location</div>
-                  <div className="text-[#F9F6F0] text-xs sm:text-sm font-semibold">{personalInfo.location}</div>
-                </div>
-              </div>
-            </div>
-
-            {copiedField && (
-              <motion.div
-                initial={{ opacity: 0, y: -5 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="p-2.5 rounded-lg bg-[#D97706] text-[#0F172A] text-xs font-bold text-center shadow-lg"
-              >
-                Copied {copiedField} to clipboard!
-              </motion.div>
-            )}
-
-            <div className="pt-2 flex items-center gap-3">
-              <a
-                href={personalInfo.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 py-3 px-4 rounded-xl bg-[#1E293B] hover:bg-[#F9F6F0] hover:text-[#0F172A] border border-[#334155] text-[#F9F6F0] text-xs font-bold flex items-center justify-center gap-2 transition-all"
-              >
-                <Github size={15} />
-                <span>GitHub</span>
-              </a>
-              <a
-                href={personalInfo.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 py-3 px-4 rounded-xl bg-[#D97706] hover:bg-[#B45309] text-[#0F172A] text-xs font-bold flex items-center justify-center gap-2 transition-all shadow-lg shadow-[#D97706]/20"
-              >
-                <Linkedin size={15} />
-                <span>LinkedIn</span>
-              </a>
-            </div>
-          </motion.div>
-
-          <motion.div variants={fadeUp} className="lg:col-span-7 p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-[#FFFFFF] to-[#FAF8F5] text-[#0F172A] border border-[#E5E0D8] space-y-6 shadow-[0_4px_20px_-2px_rgba(15,23,42,0.05)] hover:shadow-[0_12px_32px_-4px_rgba(15,23,42,0.1)] transition-all duration-300">
-            <h3 className="text-xl font-bold text-[#0F172A] tracking-tight">
-              Send a Direct Message
-            </h3>
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-[#475569]">Your Name</label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="Alex Morgan"
-                    className="w-full bg-[#FAF8F5] border border-[#CBD5E1] rounded-xl px-4 py-3 text-xs text-[#0F172A] placeholder:text-[#94A3B8] focus:outline-none focus:border-[#0F172A] transition-colors"
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-[#475569]">Your Email</label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="alex@company.com"
-                    className="w-full bg-[#FAF8F5] border border-[#CBD5E1] rounded-xl px-4 py-3 text-xs text-[#0F172A] placeholder:text-[#94A3B8] focus:outline-none focus:border-[#0F172A] transition-colors"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-[#475569]">Message</label>
-                <textarea
-                  rows={4}
-                  required
-                  placeholder="Hi Ayush, I'd like to discuss a project..."
-                  className="w-full bg-[#FAF8F5] border border-[#CBD5E1] rounded-xl px-4 py-3 text-xs text-[#0F172A] placeholder:text-[#94A3B8] focus:outline-none focus:border-[#0F172A] transition-colors"
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full py-3.5 rounded-xl bg-[#0F172A] hover:bg-[#1E293B] text-[#F9F6F0] font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-[#0F172A]/15 transition-all hover:-translate-y-0.5"
-              >
-                <Send size={15} />
-                <span>Send Message</span>
-              </button>
-            </form>
-
-            {submitted && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="p-4 rounded-xl bg-[#F0FDF4] border border-[#BBF7D0] text-[#166534] text-xs font-semibold flex items-center gap-2"
-              >
-                <CheckCircle2 size={16} className="shrink-0 text-[#15803D]" />
-                <span>Thank you! Your message has been dispatched successfully.</span>
-              </motion.div>
-            )}
-          </motion.div>
         </div>
-      </motion.div>
+        <div className="text-xs font-serif uppercase tracking-[0.2em] text-[#524b42]">
+          DIRECT DISPATCH &amp; ENGAGEMENTS
+        </div>
+      </div>
+
+      {/* ─── ENHANCED DARK INK COMMISSION CARD ─── */}
+      <div className="max-w-[800px] mx-auto relative group overflow-hidden border-2 border-[#c5a059] py-12 px-6 sm:px-14 text-center space-y-8 bg-[#181410] text-[#f4f1ea] shadow-2xl transition-all duration-500 hover:border-[#e5c178]">
+        {/* Shimmer Light Sheen */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 pointer-events-none" />
+
+        <div className="space-y-3 relative z-10">
+          <div className="text-xs font-serif uppercase tracking-[0.25em] font-semibold text-[#c5a059]">
+            ✦ NOW ACCEPTING AUTUMN &amp; WINTER COMMISSIONS ✦
+          </div>
+
+          <h3 className="font-anton text-4xl sm:text-6xl uppercase tracking-tight text-[#f4f1ea] leading-none">
+            PUT YOUR BRAND ABOVE THE FOLD
+          </h3>
+
+          <p className="font-serif italic text-base sm:text-lg text-[#d2c9b8] max-w-xl mx-auto leading-relaxed pt-1">
+            &ldquo;Engagements are accepted on a limited quarterly basis to ensure broadsheet quality execution. Direct responses dispatched within 24 hours.&rdquo;
+          </p>
+        </div>
+
+        {/* ─── DARK INK FORM ─── */}
+        <form onSubmit={handleSubmit} className="space-y-4 text-left max-w-xl mx-auto relative z-10 pt-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-1">
+              <label className="text-xs font-serif uppercase tracking-[0.2em] font-bold text-[#c5a059]">
+                Correspondent Name
+              </label>
+              <input
+                type="text"
+                required
+                placeholder="E.G. ALEX MORGAN"
+                className="w-full bg-black/60 border border-[#c5a059]/60 rounded-none px-4 py-3 text-xs font-serif uppercase text-[#f4f1ea] placeholder:text-[#d2c9b8]/40 focus:outline-none focus:border-[#e5c178] focus:bg-black/90 transition-colors"
+              />
+            </div>
+            <div className="space-y-1">
+              <label className="text-xs font-serif uppercase tracking-[0.2em] font-bold text-[#c5a059]">
+                Dispatch Email
+              </label>
+              <input
+                type="email"
+                required
+                placeholder="ALEX@COMPANY.COM"
+                className="w-full bg-black/60 border border-[#c5a059]/60 rounded-none px-4 py-3 text-xs font-serif uppercase text-[#f4f1ea] placeholder:text-[#d2c9b8]/40 focus:outline-none focus:border-[#e5c178] focus:bg-black/90 transition-colors"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-1">
+            <label className="text-xs font-serif uppercase tracking-[0.2em] font-bold text-[#c5a059]">
+              Commission Brief &amp; Scope
+            </label>
+            <textarea
+              rows={4}
+              required
+              placeholder="OUTLINE YOUR PRODUCT OR SYSTEM REQUIREMENTS..."
+              className="w-full bg-black/60 border border-[#c5a059]/60 rounded-none px-4 py-3 text-xs font-serif uppercase text-[#f4f1ea] placeholder:text-[#d2c9b8]/40 focus:outline-none focus:border-[#e5c178] focus:bg-black/90 transition-colors"
+            ></textarea>
+          </div>
+
+          {/* SOLID METALLIC GOLD / DARK BUTTON */}
+          <button
+            type="submit"
+            className="w-full py-4 px-8 bg-[#c5a059] hover:bg-[#e5c178] text-[#181410] font-serif text-xs uppercase tracking-[0.22em] font-bold rounded-none transition-colors border border-[#c5a059] cursor-pointer shadow-lg"
+          >
+            SUBMIT THE BRIEF &rarr;
+          </button>
+        </form>
+
+        {submitted && (
+          <div className="p-3 border border-[#c5a059] bg-[#c5a059] text-[#181410] text-xs font-serif uppercase tracking-[0.2em] font-bold relative z-10">
+            TRANSMISSION RECEIVED &bull; WE SHALL RESPOND ON PRESS DAY
+          </div>
+        )}
+      </div>
+
+      {/* ─── DIRECT DISPATCH DETAILS ROW ─── */}
+      <div className="max-w-4xl mx-auto border-t border-[#181410] pt-8 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center text-xs font-serif uppercase tracking-[0.2em]">
+        <div className="space-y-1">
+          <div className="text-[#524b42]">DIRECT EMAIL</div>
+          <a href={`mailto:${personalInfo.email}`} className="font-bold hover:underline">
+            {personalInfo.email}
+          </a>
+        </div>
+
+        <div className="space-y-1">
+          <div className="text-[#524b42]">PHONE / TELEGRAPH</div>
+          <a href={`tel:${personalInfo.phone.replace(/\s+/g, '')}`} className="font-bold hover:underline">
+            {personalInfo.phone}
+          </a>
+        </div>
+
+        <div className="space-y-1">
+          <div className="text-[#524b42]">STUDIO HEADQUARTERS</div>
+          <div className="font-bold">{personalInfo.location}</div>
+        </div>
+      </div>
     </section>
   );
 }

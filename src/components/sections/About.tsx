@@ -1,156 +1,111 @@
-import { motion } from "framer-motion";
-import { stats } from "@/lib/data";
-import { Code2, Server, Smartphone, Cloud, FileText, CheckCircle2, Briefcase, Database, Layers, Cpu, ShieldCheck, Zap } from "lucide-react";
-import { fadeUp, staggerContainer } from "@/lib/motion";
-import { InteractiveFolder } from "@/components/ui";
+import { personalInfo } from "@/lib/data";
 
 export default function About() {
-  const highlightIcons = [Code2, Server, Smartphone, Cloud];
-
-  const folderConfigs = [
-    {
-      color: "#0F172A",
-      label: "SHIPPED",
-      infoTitle: "Production Apps",
-      description: "1+ Live Systems — Powering real estate CRM & healthcare EMR workflows",
-      infoDetails: [
-        "CRM Platform — Lead management, agent assignment & analytics",
-        "EMR System — Patient records, appointment scheduling & prescriptions",
-        "Enterprise ERP — Operations, inventory control & financial tracking"
-      ],
-      items: [
-        <FileText key="1" className="w-5 h-5 text-amber-600" />,
-        <CheckCircle2 key="2" className="w-5 h-5 text-emerald-600" />,
-        <Briefcase key="3" className="w-5 h-5 text-blue-600" />,
-      ]
-    },
-    {
-      color: "#1E40AF",
-      label: "MERN",
-      infoTitle: "Full-Stack Experience",
-      description: "MERN & MEAN Stack — MongoDB, Express, React, Node.js, Angular",
-      infoDetails: [
-        "React & TypeScript — Type-safe interactive dashboard UIs",
-        "Node.js & Express — High performance RESTful microservices",
-        "MongoDB & MySQL — Relational & NoSQL database schemas"
-      ],
-      items: [
-        <Code2 key="1" className="w-5 h-5 text-sky-500" />,
-        <Server key="2" className="w-5 h-5 text-emerald-500" />,
-        <Database key="3" className="w-5 h-5 text-amber-500" />,
-      ]
-    },
-    {
-      color: "#D97706",
-      label: "MOBILE",
-      infoTitle: "Mobile Frameworks",
-      description: "React Native & Flutter — Native cross-platform mobile app development",
-      infoDetails: [
-        "React Native — Google Auth, FCM push notifications & offline storage",
-        "Flutter — Dart powered responsive mobile user interfaces",
-        "Cross-Platform — Single codebase shipping to iOS & Android"
-      ],
-      items: [
-        <Smartphone key="1" className="w-5 h-5 text-purple-600" />,
-        <Layers key="2" className="w-5 h-5 text-cyan-600" />,
-        <Cpu key="3" className="w-5 h-5 text-orange-600" />,
-      ]
-    },
-    {
-      color: "#FF3000",
-      label: "CLOUD",
-      infoTitle: "Cloud Focus",
-      description: "AWS Cloud Services — Scalable cloud deployment & backend focus",
-      infoDetails: [
-        "AWS S3 & CloudFront — Asset storage & global content distribution",
-        "AWS Lambda — Serverless function execution & API triggers",
-        "DevOps & Security — OAuth 2.0, CORS & Rate Limiting"
-      ],
-      items: [
-        <Cloud key="1" className="w-5 h-5 text-pink-600" />,
-        <ShieldCheck key="2" className="w-5 h-5 text-indigo-600" />,
-        <Zap key="3" className="w-5 h-5 text-amber-500" />,
-      ]
-    }
+  const clientRegister = [
+    "ANQUEST MEDIA",
+    "REAL ESTATE CRM PLATFORM",
+    "HEALTHCARE EMR SYSTEM",
+    "IIMT COLLEGE SYSTEMS",
+    "OPEN SOURCE COLLABORATIVES",
+    "ENTERPRISE OPERATIONS ERP",
+    "CROSS-PLATFORM MOBILE SUITE"
   ];
 
   return (
-    <section id="about" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#E2E8F0]">
-      <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="space-y-12"
-      >
-        <motion.div variants={fadeUp} className="space-y-2">
-          <div className="inline-flex items-center gap-2 text-xs font-semibold text-[#1E40AF] uppercase tracking-widest">
-            <span className="w-2 h-2 rounded-full bg-[#D97706]" />
-            <span>01 // About Me</span>
+    <section id="about" className="py-16 px-4 sm:px-8 max-w-7xl mx-auto border-t border-[#181410] text-[#181410] space-y-16">
+      {/* ─── ABOUT THE STUDIO LEDE ─── */}
+      <div className="border-b border-[#181410] pb-10 space-y-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-2 border-b border-[#181410] pb-3">
+          <div>
+            <span className="text-xs font-serif uppercase tracking-[0.25em] text-[#524b42] font-semibold">
+              01 // THE STUDIO COLOPHON
+            </span>
+            <h2 className="font-anton text-4xl sm:text-5xl uppercase tracking-tight text-[#181410] mt-1">
+              THE STUDIO &amp; PRESS
+            </h2>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">
-            Building features that solve real-world workflows.
-          </h2>
-        </motion.div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          <motion.div variants={fadeUp} className="lg:col-span-7 space-y-6 text-[#475569] text-base sm:text-lg leading-relaxed">
-            <p className="border-l-4 border-[#0F172A] pl-4 py-1 text-[#0F172A] font-semibold">
-              Full-stack developer experienced in building and shipping production features across the MERN and MEAN stacks, React Native, and Flutter.
-            </p>
-            <p className="text-[#475569] text-sm sm:text-base leading-relaxed">
-              Currently at <strong className="text-[#0F172A]">aNquest Media</strong>, developing CRM and EMR products that power lead and patient workflows for real estate and healthcare clients. Strong foundation in REST API design and both relational and NoSQL databases, with an expanding focus on AWS and system design.
-            </p>
-          </motion.div>
-
-          <div className="lg:col-span-5 grid grid-cols-2 gap-4">
-            {stats.map((stat, idx) => {
-              const Icon = highlightIcons[idx % highlightIcons.length];
-              const isDark = idx % 2 === 1;
-              const folderConfig = folderConfigs[idx % folderConfigs.length];
-
-              return (
-                <motion.div
-                  key={idx}
-                  variants={fadeUp}
-                  whileHover={{ y: -4, scale: 1.02 }}
-                  className={`p-5 rounded-2xl space-y-3 flex flex-col justify-between transition-all duration-300 relative group/card ${
-                    isDark
-                      ? "bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#0F172A] text-[#F9F6F0] border border-[#1E293B] hover:border-[#D97706]/50 shadow-lg hover:shadow-xl hover:shadow-[#D97706]/10"
-                      : "bg-gradient-to-b from-[#FFFFFF] to-[#FAF8F5] text-[#0F172A] border border-[#E5E0D8] hover:border-[#1E40AF]/40 shadow-[0_4px_20px_-2px_rgba(15,23,42,0.05)] hover:shadow-[0_12px_32px_-4px_rgba(15,23,42,0.12)]"
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className={`p-2.5 rounded-xl w-fit ${
-                      isDark ? "bg-[#1E293B] text-[#D97706]" : "bg-[#F1F5F9] text-[#1E40AF]"
-                    }`}>
-                      <Icon size={20} />
-                    </div>
-
-                    <div className="relative flex-shrink-0 -mr-2 -mt-2">
-                      <InteractiveFolder
-                        size={0.55}
-                        color={folderConfig.color}
-                        label={folderConfig.label}
-                        infoTitle={folderConfig.infoTitle}
-                        description={folderConfig.description}
-                        infoDetails={folderConfig.infoDetails}
-                        items={folderConfig.items}
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className={`text-2xl sm:text-3xl font-extrabold tracking-tight ${isDark ? "text-[#F9F6F0]" : "text-[#0F172A]"}`}>{stat.value}</div>
-                    <div className={`text-xs font-semibold mt-0.5 ${isDark ? "text-[#CBD5E1]" : "text-[#334155]"}`}>{stat.label}</div>
-                    <div className={`text-[11px] font-medium ${isDark ? "text-[#94A3B8]" : "text-[#64748B]"}`}>{stat.sub}</div>
-                  </div>
-                </motion.div>
-              );
-            })}
+          <div className="text-xs font-serif uppercase tracking-[0.2em] text-[#524b42]">
+            BACKGROUND &amp; PHILOSOPHY
           </div>
         </div>
-      </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+          <div className="md:col-span-8 broadsheet-justify text-base sm:text-lg font-serif leading-relaxed space-y-4">
+            <p className="font-semibold text-lg sm:text-xl italic border-l-2 border-[#181410] pl-4 py-1">
+              Software engineering executed with the precision of print production. Every line of code, schema definition, and interface element is designed for longevity.
+            </p>
+            <p>
+              Currently serving as Software Development Engineer at <strong>{personalInfo.company}</strong>, building scalable CRM and EMR systems that manage critical lead flows and healthcare patient records. Specialized in clean microservice interfaces, reactive mobile architectures, and resilient database schemas.
+            </p>
+          </div>
+
+          {/* Dark Ink Metrics Card */}
+          <div className="md:col-span-4 relative group overflow-hidden border-2 border-[#c5a059] p-5 bg-[#181410] text-[#f4f1ea] space-y-3 text-xs font-serif shadow-2xl transition-all duration-500 hover:border-[#e5c178]">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 pointer-events-none" />
+
+            <div className="font-bold border-b border-[#c5a059]/40 pb-2 uppercase tracking-[0.2em] text-[#c5a059] flex justify-between items-center relative z-10">
+              <span>STUDIO METRICS</span>
+              <span>✦</span>
+            </div>
+
+            <div className="space-y-2 relative z-10">
+              <div className="flex justify-between py-1 border-b border-[#c5a059]/20">
+                <span className="text-[#d2c9b8]">YEARS IN PRESS</span>
+                <span className="font-bold text-[#e5c178]">4+ YEARS</span>
+              </div>
+              <div className="flex justify-between py-1 border-b border-[#c5a059]/20">
+                <span className="text-[#d2c9b8]">LIVE SYSTEMS</span>
+                <span className="font-bold text-[#e5c178]">1+ PRODUCTION CRM/EMR</span>
+              </div>
+              <div className="flex justify-between py-1 border-b border-[#c5a059]/20">
+                <span className="text-[#d2c9b8]">PRIMARY STACK</span>
+                <span className="font-bold text-[#e5c178]">MERN / REACT NATIVE</span>
+              </div>
+              <div className="flex justify-between py-1">
+                <span className="text-[#d2c9b8]">LOCATION</span>
+                <span className="font-bold text-[#e5c178]">{personalInfo.location}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ─── LETTERS TO THE EDITOR (DARK INK BANNER CARD) ─── */}
+      <div id="letters" className="relative group overflow-hidden py-10 px-6 sm:px-12 border-2 border-[#c5a059] bg-[#181410] text-[#f4f1ea] text-center space-y-6 shadow-2xl transition-all duration-500">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 pointer-events-none" />
+
+        <div className="text-xs font-serif uppercase tracking-[0.3em] font-semibold text-[#c5a059] relative z-10">
+          ✦ LETTERS TO THE EDITOR ✦
+        </div>
+
+        <blockquote className="font-playfair italic text-2xl sm:text-4xl text-[#f4f1ea] max-w-4xl mx-auto leading-snug px-4 relative z-10">
+          &ldquo;Ayush delivered full-stack CRM and EMR systems that transformed our operational workflows with remarkable speed and precision.&rdquo;
+        </blockquote>
+
+        <div className="text-xs font-serif uppercase tracking-[0.22em] font-bold text-[#c5a059] relative z-10">
+          &mdash; EXECUTIVE ENGINEERING LEADERSHIP, ANQUEST MEDIA &bull; RECEIVED MMXXV
+        </div>
+      </div>
+
+      {/* ─── THE CLIENT REGISTER ─── */}
+      <div className="text-center space-y-4 py-4">
+        <div className="text-xs font-serif uppercase tracking-[0.3em] text-[#524b42] font-semibold">
+          THE CLIENT REGISTER
+        </div>
+
+        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs font-serif uppercase tracking-[0.22em] font-bold max-w-4xl mx-auto text-[#181410]">
+          {clientRegister.map((client, idx) => (
+            <span key={idx} className="inline-flex items-center gap-4">
+              <span>{client}</span>
+              {idx !== clientRegister.length - 1 && (
+                <span className="text-sm font-normal text-[#524b42]">
+                  {idx % 3 === 0 ? "❦" : idx % 3 === 1 ? "❖" : "✦"}
+                </span>
+              )}
+            </span>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }
