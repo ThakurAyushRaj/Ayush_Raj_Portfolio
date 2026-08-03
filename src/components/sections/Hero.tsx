@@ -46,13 +46,13 @@ export default function Hero() {
       <div className="space-y-2">
         <div className="border border-[#181410] p-1 bg-[#181410]/5 overflow-hidden">
           <img
-            src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80"
-            alt="The studio floor and engineering workstation"
-            className="w-full h-[320px] sm:h-[470px] object-cover broadsheet-photo"
+            src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1600&q=80"
+            alt="Source code engine and production build system"
+            className="w-full h-[320px] sm:h-[470px] object-cover filter grayscale contrast-150 brightness-90 broadsheet-photo"
           />
         </div>
-        <div className="border-b border-[#181410] pb-2 pt-1 flex flex-col sm:flex-row items-center justify-between text-xs font-serif uppercase tracking-[0.2em] text-[#181410] gap-2">
-          <div>Fig. 01 &mdash; The studio floor &amp; production workstation, photographed on press day</div>
+        <div className="border-b border-[#181410] pb-2 pt-1 flex flex-col sm:flex-row items-center justify-between text-xs font-serif uppercase tracking-[0.2em] text-[#181410] gap-2 font-bold">
+          <div>Fig. 01 &mdash; The source code engine &amp; production build system, photographed on press day</div>
           <div className="italic font-normal">Silver gelatin print, MMXXVI</div>
         </div>
       </div>
