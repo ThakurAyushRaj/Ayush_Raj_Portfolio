@@ -1,101 +1,89 @@
 "use client";
 
-import { useState } from "react";
-
-const katakana = "アアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789@#$%&*";
+import { personalInfo } from "@/lib/data";
+import { ArrowRight, MapPin, Mail, Github, Linkedin, Briefcase } from "lucide-react";
 
 export default function Hero() {
-  const [heroText1, setHeroText1] = useState("SERGIO AYALA");
-  const [heroText2, setHeroText2] = useState("// ART DIRECTOR");
-
-  const triggerGlitch = (text: string, setText: (val: string) => void) => {
-    let iteration = 0;
-    const interval = setInterval(() => {
-      setText(
-        text
-          .split("")
-          .map((char, index) => {
-            if (index < iteration) return text[index];
-            return katakana[Math.floor(Math.random() * katakana.length)];
-          })
-          .join("")
-      );
-      if (iteration >= text.length) clearInterval(interval);
-      iteration += 1 / 2;
-    }, 30);
-  };
-
   return (
-    <section id="hero" className="relative min-h-[92vh] flex flex-col justify-center px-4 md:px-12 py-16 cyber-grid overflow-hidden border-b border-[#2A2A38]">
-      <div className="max-w-6xl mx-auto w-full z-10 space-y-6">
-        {/* Header Telemetry */}
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#2A2A38]/60 pb-3">
-          <div className="flex items-center gap-2 text-xs text-[#E4002B] font-mono tracking-widest uppercase">
-            <span className="w-2 h-2 bg-[#E4002B] animate-ping"></span>
-            <span>// ARCHIVAL IDENTIFIER: ART DIRECTOR & CREATIVE DEVELOPER</span>
-          </div>
-          <div className="text-xs text-slate-500 font-mono tracking-widest">
-            「 セルヒオ・アヤラ // サイバーパンク GUI 」
-          </div>
+    <section id="hero" className="pt-28 pb-16 md:pt-36 md:pb-24 px-4 md:px-8 max-w-6xl mx-auto">
+      <div className="space-y-8">
+        {/* Status pill */}
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-medium">
+          <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+          <span>{personalInfo.company} — {personalInfo.title}</span>
         </div>
 
-        {/* High-Impact Typography Titles with Character Swap Glitch */}
-        <div className="space-y-1">
-          <h1
-            onMouseEnter={() => triggerGlitch("SERGIO AYALA", setHeroText1)}
-            onMouseLeave={() => setHeroText1("SERGIO AYALA")}
-            className="font-syne font-black text-5xl sm:text-7xl md:text-9xl tracking-tighter uppercase leading-none glitch-hover cursor-default select-none text-white"
-          >
-            {heroText1}
+        {/* Hero Title & Headline */}
+        <div className="space-y-4 max-w-4xl">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold text-white tracking-tight leading-tight">
+            Hi, I'm <span className="text-blue-500">{personalInfo.name}</span>.
           </h1>
-          <h2
-            onMouseEnter={() => triggerGlitch("// ART DIRECTOR", setHeroText2)}
-            onMouseLeave={() => setHeroText2("// ART DIRECTOR")}
-            className="font-syne font-extrabold text-3xl sm:text-5xl md:text-7xl tracking-tight text-[#E4002B] uppercase leading-none glitch-hover cursor-default select-none"
-          >
-            {heroText2}
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-300">
+            {personalInfo.tagline}
           </h2>
         </div>
 
-        {/* Hero Paragraph & Panel */}
-        <div className="grid md:grid-cols-3 gap-6 pt-4 items-start">
-          <div className="md:col-span-2 space-y-4">
-            <p className="text-sm md:text-base text-slate-300 font-mono leading-relaxed max-w-2xl border-l-2 border-[#E4002B] pl-4">
-              Building 80s/90s retro-anime, industrial cyberpunk, and high-impact digital experiences. Merging aggressive typography, GPU-accelerated motion shaders, and full-stack system architecture into award-winning web products.
-            </p>
-            
-            <div className="flex flex-wrap items-center gap-4 pt-2 font-mono">
-              <a href="#work" className="hud-box px-6 py-3 text-xs uppercase font-bold tracking-widest text-white hover:bg-[#E4002B] hover:text-white transition-all flex items-center gap-2 group">
-                <span>[ EXPLORE EXHIBITS ]</span>
-                <span class="group-hover:translate-x-1 transition-transform">→</span>
-              </a>
-              <a href="#contact" className="px-6 py-3 text-xs uppercase font-bold tracking-widest text-slate-400 border border-[#2A2A38] hover:border-white hover:text-white transition-all">
-                [ TRANSMIT MESSAGE ]
-              </a>
-            </div>
-          </div>
+        {/* Description */}
+        <p className="text-base sm:text-lg text-gray-400 max-w-3xl leading-relaxed">
+          {personalInfo.about}
+        </p>
 
-          <div className="hud-box p-4 space-y-3 text-xs font-mono text-slate-300">
-            <div className="flex justify-between border-b border-[#2A2A38] pb-1">
-              <span className="text-[#A0A0B0]">SUBJECT:</span>
-              <span className="text-white font-bold">AYUSH RAJ / SERGIO</span>
-            </div>
-            <div className="flex justify-between border-b border-[#2A2A38] pb-1">
-              <span className="text-[#A0A0B0]">FRAMEWORK:</span>
-              <span className="text-[#00F0FF] font-bold">NEXT.JS / GSAP / TAILWIND</span>
-            </div>
-            <div className="flex justify-between border-b border-[#2A2A38] pb-1">
-              <span className="text-[#A0A0B0]">GRAPHICS CORE:</span>
-              <span className="text-[#00FF66] font-bold">CANVAS / CHROMATIC 60FPS</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-[#A0A0B0]">DEPLOYMENT:</span>
-              <span className="text-[#E4002B] font-bold">VERIFIED OPERATIONAL</span>
-            </div>
+        {/* Info Highlights */}
+        <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400 pt-2">
+          <div className="flex items-center gap-2">
+            <MapPin size={16} className="text-blue-400" />
+            <span>{personalInfo.location}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Briefcase size={16} className="text-blue-400" />
+            <span>SDE at <a href={personalInfo.companyUrl} target="_blank" rel="noopener noreferrer" className="text-gray-200 underline hover:text-blue-400">{personalInfo.company}</a></span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Mail size={16} className="text-blue-400" />
+            <a href={`mailto:${personalInfo.email}`} className="hover:text-blue-400 transition-colors">
+              {personalInfo.email}
+            </a>
           </div>
         </div>
 
+        {/* CTA Actions */}
+        <div className="flex flex-wrap items-center gap-4 pt-4">
+          <a
+            href="#projects"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all shadow-lg shadow-blue-600/20"
+          >
+            <span>View Featured Work</span>
+            <ArrowRight size={16} />
+          </a>
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-[#232E42] bg-[#131B2A] hover:bg-[#1C263B] text-gray-200 font-semibold text-sm transition-all"
+          >
+            Get In Touch
+          </a>
+          <div className="flex items-center gap-3 pl-2">
+            <a
+              href={personalInfo.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 rounded-lg border border-[#232E42] bg-[#131B2A] text-gray-400 hover:text-white hover:border-blue-500/40 transition-all"
+              aria-label="GitHub Profile"
+            >
+              <Github size={18} />
+            </a>
+            <a
+              href={personalInfo.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 rounded-lg border border-[#232E42] bg-[#131B2A] text-gray-400 hover:text-white hover:border-blue-500/40 transition-all"
+              aria-label="LinkedIn Profile"
+            >
+              <Linkedin size={18} />
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );
 }
+

@@ -1,45 +1,51 @@
 "use client";
 
 import { education } from "@/lib/data";
+import { GraduationCap, Calendar, MapPin } from "lucide-react";
 
 export default function Education() {
   return (
-    <section id="education" className="bg-paper text-ink py-16 border-b-2 border-ink">
-      <div className="max-w-[1400px] mx-auto px-4 md:px-8">
-        
-        {/* Section Header */}
-        <div className="flex justify-between items-center py-4 font-gothic text-xs tracking-widest uppercase text-ink-soft border-y-2 border-ink mb-12">
-          <div>EDUCATION & CREDENTIALS</div>
-          <div>ACADEMIC DOSSIER</div>
+    <section id="education" className="py-20 px-4 md:px-8 max-w-6xl mx-auto border-t border-[#232E42]">
+      <div className="space-y-12">
+        {/* Section Heading */}
+        <div className="space-y-2">
+          <div className="inline-flex items-center gap-2 text-blue-400 text-xs font-semibold uppercase tracking-wider">
+            <GraduationCap size={14} />
+            <span>Education</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+            Academic Background & Qualifications
+          </h2>
         </div>
 
-        {/* List of Education items */}
-        <div className="border-2 border-ink bg-paper-bright divide-y divide-ink">
+        {/* Education List */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {education.map((item) => (
-            <div
-              key={item.id}
-              className="p-6 md:p-8 hover:bg-paper-warm transition-colors duration-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
-            >
-              <div>
-                <span className="font-mono text-xs font-bold text-stamp uppercase tracking-widest block mb-1">
-                  {item.period}
-                </span>
-                <h3 className="font-serif text-2xl font-normal text-ink">
+            <div key={item.id} className="clean-card p-6 flex flex-col justify-between space-y-4">
+              <div className="space-y-3">
+                <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded border border-blue-500/20">
+                  <Calendar size={12} />
+                  <span>{item.period}</span>
+                </div>
+                
+                <h3 className="text-lg font-bold text-white leading-snug">
                   {item.degree}
                 </h3>
-                <p className="font-serif italic text-sm text-ink-soft mt-1">
-                  {item.institution} · {item.location}
+                
+                <p className="text-sm font-medium text-gray-300">
+                  {item.institution}
                 </p>
               </div>
 
-              <span className="font-mono text-[10px] uppercase font-bold tracking-widest border border-ink px-3 py-1 bg-paper/80">
-                VERIFIED CREDENTIAL
-              </span>
+              <div className="flex items-center gap-1.5 text-xs text-gray-400 pt-3 border-t border-[#232E42]">
+                <MapPin size={14} className="text-gray-400" />
+                <span>{item.location}</span>
+              </div>
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );
 }
+

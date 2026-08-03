@@ -1,53 +1,95 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { Menu, X, Code2 } from "lucide-react";
+import { personalInfo } from "@/lib/data";
 
 export default function Navbar() {
-  const [clock, setClock] = useState("00:00:00 UTC");
-  const [sfxOn, setSfxOn] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const update = () => {
-      const now = new Date();
-      setClock(now.toUTCString().slice(17, 25) + " UTC");
-    };
-    update();
-    const timer = setInterval(update, 1000);
-    return () => clearInterval(timer);
-  }, []);
+  const navLinks = [
+    { name: "About", href: "#about" },
+    { name: "Experience", href: "#experience" },
+    { name: "Projects", href: "#projects" },
+    { name: "Skills", href: "#skills" },
+    { name: "Education", href: "#education" },
+    { name: "Contact", href: "#contact" },
+  ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[80] bg-[#070709]/90 backdrop-blur-md border-b border-[#2A2A38] px-4 md:px-8 py-3 flex items-center justify-between text-xs font-mono">
-      {/* Brand */}
-      <div className="flex items-center gap-3">
-        <a href="#hero" className="font-syne font-extrabold text-sm tracking-wider text-white hover:text-[#E4002B] transition-colors flex items-center gap-2">
-          <span className="w-2 h-2 bg-[#E4002B]"></span>
-          SERGIO AYALA <span className="text-[#A0A0B0] font-mono font-normal text-xs">// AYUSH RAJ</span>
+    <header className="fixed top-0 left-0 right-0 z-50 glass-nav">
+      <div className="max-w-6xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
+        {/* Brand Logo */}
+        <a href="#hero" className="flex items-center gap-2.5 group">
+          <div className="w-8 h-8 rounded-lg bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-all">
+            <Code2 size={18} />
+          </div>
+          <span className="font-bold text-lg text-white group-hover:text-blue-400 transition-colors">
+            {personalInfo.name}
+          </span>
         </a>
-        <span className="hidden md:inline-block text-[10px] bg-[#E4002B]/10 text-[#E4002B] px-2 py-0.5 border border-[#E4002B]/30">
-          80S ANIME HUD
-        </span>
+
+        {/* Desktop Navigation Links */}
+        <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              className="hover:text-blue-400 transition-colors"
+            >
+              {link.name}
+            </a>
+          ))}
+        </nav>
+
+        {/* CTA Button & Mobile Toggle */}
+        <div className="flex items-center gap-4">
+          <a
+            href={personalInfo.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex px-4 py-1.5 text-xs font-semibold text-blue-400 border border-blue-500/30 rounded-full hover:bg-blue-600 hover:text-white transition-all"
+          >
+            GitHub Profile
+          </a>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden text-gray-400 hover:text-white p-2"
+            aria-label="Toggle Navigation Menu"
+          >
+            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
       </div>
 
-      {/* Navigation Links */}
-      <nav className="hidden md:flex items-center gap-6 text-[11px] uppercase tracking-widest text-slate-400">
-        <a href="#hero" className="hover:text-[#E4002B] transition-colors font-bold text-white">// 01.HERO</a>
-        <a href="#work" className="hover:text-[#E4002B] transition-colors">// 02.WORKS</a>
-        <a href="#specs" className="hover:text-[#E4002B] transition-colors">// 03.SPECS</a>
-        <a href="#contact" className="hover:text-[#E4002B] transition-colors">// 04.CONTACT</a>
-      </nav>
-
-      {/* Status Bar Controls */}
-      <div className="flex items-center gap-4">
-        <div className="hidden sm:block text-[11px] text-[#A0A0B0] font-mono">{clock}</div>
-        <button
-          onClick={() => setSfxOn(!sfxOn)}
-          className="flex items-center gap-1.5 text-[10px] uppercase border border-[#2A2A38] px-2.5 py-1 text-slate-300 hover:border-[#E4002B] hover:text-[#E4002B] transition-all"
-        >
-          <span className={`w-1.5 h-1.5 rounded-full ${sfxOn ? "bg-[#00FF66]" : "bg-red-500"}`}></span>
-          <span>SFX: {sfxOn ? "ON" : "OFF"}</span>
-        </button>
-      </div>
+      {/* Mobile Menu Dropdown */}
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-[#0B0F17]/95 border-b border-[#232E42] px-6 py-4 space-y-3">
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-gray-300 hover:text-blue-400 py-1 text-base font-medium"
+            >
+              {link.name}
+            </a>
+          ))}
+          <div className="pt-2">
+            <a
+              href={personalInfo.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full text-center py-2 text-sm font-semibold text-blue-400 border border-blue-500/30 rounded-lg hover:bg-blue-600 hover:text-white transition-all"
+            >
+              GitHub Profile
+            </a>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
+

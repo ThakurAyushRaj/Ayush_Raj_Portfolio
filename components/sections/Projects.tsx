@@ -2,108 +2,174 @@
 
 import { useState } from "react";
 import { projects, CaseFile } from "@/lib/data";
+import { FolderGit2, Github, ExternalLink, X, Calendar, CheckCircle2 } from "lucide-react";
 
 export default function Projects() {
-  const [activeModal, setActiveModal] = useState<CaseFile | null>(null);
+  const [selectedProject, setSelectedProject] = useState<CaseFile | null>(null);
 
   return (
-    <section id="work" className="py-20 px-4 md:px-12 border-b border-[#2A2A38] bg-[#09090D] font-mono">
-      <div className="max-w-7xl mx-auto space-y-10">
-        
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#2A2A38] pb-6">
-          <div>
-            <div className="text-xs text-[#E4002B] tracking-widest uppercase mb-1">// EXHIBIT CATALOGUE [{projects.length.toString().padStart(2, '0')}]</div>
-            <h2 className="font-syne font-extrabold text-3xl md:text-5xl uppercase tracking-tight text-white">
-              SELECTED WORKS & ARCHIVES
-            </h2>
+    <section id="projects" className="py-20 px-4 md:px-8 max-w-6xl mx-auto border-t border-[#232E42]">
+      <div className="space-y-12">
+        {/* Section Heading */}
+        <div className="space-y-2">
+          <div className="inline-flex items-center gap-2 text-blue-400 text-xs font-semibold uppercase tracking-wider">
+            <FolderGit2 size={14} />
+            <span>Featured Work</span>
           </div>
-          <div className="text-xs text-[#A0A0B0] max-w-xs">
-            [ FILTER: ALL PRODUCTION APPS ] // CLICK CARD TO LOAD EXHIBIT DATA
-          </div>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+            Production Applications & Systems
+          </h2>
+          <p className="text-gray-400 text-sm sm:text-base max-w-2xl">
+            A showcase of full-stack web applications, mobile tools, and automated backend systems built with modern engineering standards.
+          </p>
         </div>
 
-        {/* Project Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((proj) => (
-            <article
-              key={proj.id}
-              onClick={() => setActiveModal(proj)}
-              className="hud-box img-glitch-container group cursor-pointer p-4 flex flex-col justify-between space-y-4"
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {projects.map((project) => (
+            <div
+              key={project.id}
+              className="clean-card p-6 flex flex-col justify-between space-y-6 group"
             >
-              <div className="relative aspect-video bg-[#070709] overflow-hidden border border-[#2A2A38]">
-                <img
-                  src={proj.imagePlaceholder}
-                  alt={proj.title}
-                  className="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
-                />
-                <div className="absolute top-2 left-2 bg-[#070709]/90 text-[#E4002B] text-[10px] px-2 py-0.5 border border-[#E4002B]/40">
-                  [PRJ_{proj.id.toString().padStart(2, '0')} // {proj.client.toUpperCase()}]
-                </div>
-                <div className="absolute bottom-2 right-2 bg-[#070709]/90 text-[#00FF66] text-[10px] px-2 py-0.5 border border-[#00FF66]/40">
-                  {proj.status.toUpperCase()}
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <h3 className="font-syne font-bold text-xl text-white group-hover:text-[#E4002B] transition-colors flex items-center justify-between">
-                  <span>{proj.title.toUpperCase()}</span>
-                  <span className="text-xs text-[#A0A0B0]">©2026</span>
-                </h3>
-                <p className="text-xs text-slate-300 line-clamp-2">
-                  {proj.description}
-                </p>
-              </div>
-
-              <div className="flex flex-wrap gap-1.5 pt-2 border-t border-[#2A2A38]/60 text-[10px] text-[#A0A0B0]">
-                {proj.tech.map((t, idx) => (
-                  <span key={idx} className="bg-[#1F1F28] px-2 py-0.5 border border-[#2A2A38]">
-                    {t}
+              <div className="space-y-4">
+                {/* Header info */}
+                <div className="flex items-center justify-between gap-2 text-xs text-gray-400">
+                  <span className="font-semibold text-blue-400">{project.scope}</span>
+                  <span className="flex items-center gap-1">
+                    <Calendar size={12} />
+                    {project.date}
                   </span>
-                ))}
+                </div>
+
+                {/* Title & Headline */}
+                <div>
+                  <h3 className="text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-sm font-medium text-gray-300 mt-1">
+                    {project.headline}
+                  </p>
+                </div>
+
+                {/* Description */}
+                <p className="text-sm text-gray-400 leading-relaxed">
+                  {project.description}
+                </p>
+
+                {/* Tech Badges */}
+                <div className="flex flex-wrap gap-2 pt-2">
+                  {project.tech.map((t, idx) => (
+                    <span
+                      key={idx}
+                      className="px-2.5 py-1 rounded bg-[#1C263B] text-blue-300 text-xs font-medium border border-blue-500/20"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </article>
+
+              {/* Action Buttons */}
+              <div className="flex items-center justify-between pt-4 border-t border-[#232E42]">
+                <button
+                  onClick={() => setSelectedProject(project)}
+                  className="text-xs font-semibold text-gray-300 hover:text-white flex items-center gap-1.5 transition-colors"
+                >
+                  <span>View Project Details</span>
+                  <ExternalLink size={14} />
+                </button>
+
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#131B2A] hover:bg-blue-600 text-gray-300 hover:text-white text-xs font-semibold border border-[#232E42] transition-all"
+                >
+                  <Github size={14} />
+                  <span>GitHub Repository</span>
+                </a>
+              </div>
+            </div>
           ))}
         </div>
-
       </div>
 
-      {/* EXHIBIT MODAL / DRAWER */}
-      {activeModal && (
-        <div className="fixed inset-0 bg-[#070709]/95 z-[300] flex items-center justify-center p-4 backdrop-blur-md">
-          <div className="hud-box max-w-2xl w-full p-6 md:p-8 space-y-6 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between border-b border-[#2A2A38] pb-3">
-              <div className="text-xs text-[#E4002B] tracking-widest">// EXHIBIT DETAIL DUMP</div>
-              <button onClick={() => setActiveModal(null)} className="text-xs text-[#A0A0B0] hover:text-white uppercase">[ CLOSE ESC ]</button>
+      {/* Project Details Modal */}
+      {selectedProject && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+          <div className="clean-card max-w-3xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto bg-[#0B0F17] border border-[#232E42]">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between border-b border-[#232E42] pb-4">
+              <div>
+                <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider">
+                  {selectedProject.scope}
+                </span>
+                <h3 className="text-2xl font-bold text-white mt-1">{selectedProject.title}</h3>
+              </div>
+              <button
+                onClick={() => setSelectedProject(null)}
+                className="p-2 text-gray-400 hover:text-white hover:bg-[#131B2A] rounded-lg transition-colors"
+                aria-label="Close modal"
+              >
+                <X size={20} />
+              </button>
             </div>
 
-            <div className="space-y-2">
-              <h3 className="font-syne font-extrabold text-2xl md:text-3xl text-white">{activeModal.title}</h3>
-              <p className="text-xs text-slate-300 leading-relaxed">{activeModal.description}</p>
+            {/* Subtitle / Overview */}
+            <p className="text-gray-300 text-base leading-relaxed">{selectedProject.subtitle}</p>
+
+            {/* Story Paragraphs */}
+            <div className="space-y-3">
+              <h4 className="text-sm font-bold text-white uppercase tracking-wider">Project Story & Architecture</h4>
+              {selectedProject.storyParagraphs.map((para, idx) => (
+                <p key={idx} className="text-sm text-gray-400 leading-relaxed">
+                  {para}
+                </p>
+              ))}
             </div>
 
-            <div className="space-y-2">
-              <div className="text-xs text-[#A0A0B0]">// TECH STACK</div>
-              <div className="flex flex-wrap gap-2 text-xs">
-                {activeModal.tech.map((t, idx) => (
-                  <span key={idx} className="bg-[#1F1F28] px-3 py-1 border border-[#2A2A38] text-white">
-                    {t}
-                  </span>
+            {/* Tech Stack breakdown */}
+            <div className="space-y-3">
+              <h4 className="text-sm font-bold text-white uppercase tracking-wider">Tech Stack Breakdown</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {selectedProject.techStack.map((item, idx) => (
+                  <div key={idx} className="p-3 rounded bg-[#131B2A] border border-[#232E42]">
+                    <div className="text-xs font-bold text-blue-400">{item.name}</div>
+                    <div className="text-xs text-gray-300 mt-0.5">{item.role}</div>
+                  </div>
                 ))}
               </div>
             </div>
 
-            <div className="pt-4 border-t border-[#2A2A38] flex justify-between items-center">
+            {/* Key Findings / Metrics */}
+            <div className="space-y-3">
+              <h4 className="text-sm font-bold text-white uppercase tracking-wider">Key Metrics & Highlights</h4>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {selectedProject.keyFindings.map((finding, idx) => (
+                  <div key={idx} className="p-3 rounded bg-[#131B2A] border border-[#232E42] text-center">
+                    <div className="text-xs text-gray-400">{finding.label}</div>
+                    <div className="text-sm font-bold text-white mt-1">{finding.value}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Modal Actions */}
+            <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-[#232E42]">
               <a
-                href={activeModal.github}
+                href={selectedProject.github}
                 target="_blank"
-                rel="noreferrer"
-                className="hud-box px-6 py-2.5 text-xs font-mono uppercase text-white hover:bg-[#E4002B] transition-all"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all"
               >
-                [ OPEN GITHUB REPOSITORY → ]
+                <Github size={16} />
+                <span>View Source Code on GitHub</span>
               </a>
-              <button onClick={() => setActiveModal(null)} className="text-xs text-slate-400 hover:text-white">
-                [ RETURN TO ARCHIVE ]
+              <button
+                onClick={() => setSelectedProject(null)}
+                className="px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors"
+              >
+                Close
               </button>
             </div>
           </div>
@@ -112,3 +178,4 @@ export default function Projects() {
     </section>
   );
 }
+
