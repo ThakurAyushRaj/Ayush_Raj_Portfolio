@@ -1,12 +1,80 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { personalInfo, stats } from "@/lib/data";
-import { Code2, Server, Smartphone, Cloud } from "lucide-react";
+import { stats } from "@/lib/data";
+import { Code2, Server, Smartphone, Cloud, FileText, CheckCircle2, Briefcase, Database, Layers, Cpu, ShieldCheck, Zap } from "lucide-react";
 import { fadeUp, staggerContainer } from "@/lib/motion";
+import { InteractiveFolder } from "@/components/ui/InteractiveFolder";
 
 export default function About() {
   const highlightIcons = [Code2, Server, Smartphone, Cloud];
+
+  const folderConfigs = [
+    {
+      color: "#0F172A",
+      label: "SHIPPED",
+      infoTitle: "Production Apps",
+      description: "1+ Live Systems — Powering real estate CRM & healthcare EMR workflows",
+      infoDetails: [
+        "CRM Platform — Lead management, agent assignment & analytics",
+        "EMR System — Patient records, appointment scheduling & prescriptions",
+        "Enterprise ERP — Operations, inventory control & financial tracking"
+      ],
+      items: [
+        <FileText key="1" className="w-5 h-5 text-amber-600" />,
+        <CheckCircle2 key="2" className="w-5 h-5 text-emerald-600" />,
+        <Briefcase key="3" className="w-5 h-5 text-blue-600" />,
+      ]
+    },
+    {
+      color: "#1E40AF",
+      label: "MERN",
+      infoTitle: "Full-Stack Experience",
+      description: "MERN & MEAN Stack — MongoDB, Express, React, Node.js, Angular",
+      infoDetails: [
+        "React & TypeScript — Type-safe interactive dashboard UIs",
+        "Node.js & Express — High performance RESTful microservices",
+        "MongoDB & MySQL — Relational & NoSQL database schemas"
+      ],
+      items: [
+        <Code2 key="1" className="w-5 h-5 text-sky-500" />,
+        <Server key="2" className="w-5 h-5 text-emerald-500" />,
+        <Database key="3" className="w-5 h-5 text-amber-500" />,
+      ]
+    },
+    {
+      color: "#D97706",
+      label: "MOBILE",
+      infoTitle: "Mobile Frameworks",
+      description: "React Native & Flutter — Native cross-platform mobile app development",
+      infoDetails: [
+        "React Native — Google Auth, FCM push notifications & offline storage",
+        "Flutter — Dart powered responsive mobile user interfaces",
+        "Cross-Platform — Single codebase shipping to iOS & Android"
+      ],
+      items: [
+        <Smartphone key="1" className="w-5 h-5 text-purple-600" />,
+        <Layers key="2" className="w-5 h-5 text-cyan-600" />,
+        <Cpu key="3" className="w-5 h-5 text-orange-600" />,
+      ]
+    },
+    {
+      color: "#FF3000",
+      label: "CLOUD",
+      infoTitle: "Cloud Focus",
+      description: "AWS Cloud Services — Scalable cloud deployment & backend focus",
+      infoDetails: [
+        "AWS S3 & CloudFront — Asset storage & global content distribution",
+        "AWS Lambda — Serverless function execution & API triggers",
+        "DevOps & Security — OAuth 2.0, CORS & Rate Limiting"
+      ],
+      items: [
+        <Cloud key="1" className="w-5 h-5 text-pink-600" />,
+        <ShieldCheck key="2" className="w-5 h-5 text-indigo-600" />,
+        <Zap key="3" className="w-5 h-5 text-amber-500" />,
+      ]
+    }
+  ];
 
   return (
     <section id="about" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#E2E8F0]">
@@ -40,27 +108,45 @@ export default function About() {
             </p>
           </motion.div>
 
-          {/* Highlights Grid (2x2) with Dark Contrast cards in between! */}
+          {/* Highlights Grid (2x2) with Interactive Folder Integration */}
           <div className="lg:col-span-5 grid grid-cols-2 gap-4">
             {stats.map((stat, idx) => {
               const Icon = highlightIcons[idx % highlightIcons.length];
               const isDark = idx % 2 === 1; // Alternating dark black-blue cards!
+              const folderConfig = folderConfigs[idx % folderConfigs.length];
+
               return (
                 <motion.div
                   key={idx}
                   variants={fadeUp}
                   whileHover={{ y: -4, scale: 1.02 }}
-                  className={`p-5 rounded-2xl space-y-2 flex flex-col justify-between transition-all shadow-md ${
+                  className={`p-5 rounded-2xl space-y-3 flex flex-col justify-between transition-all shadow-md relative group/card ${
                     isDark
                       ? "bg-[#0F172A] text-[#F9F6F0] border border-[#0F172A]"
                       : "bg-[#FFFFFF] text-[#0F172A] border border-[#E2E8F0] hover:border-[#0F172A]/40"
                   }`}
                 >
-                  <div className={`p-2.5 rounded-xl w-fit ${
-                    isDark ? "bg-[#1E293B] text-[#D97706]" : "bg-[#F1F5F9] text-[#1E40AF]"
-                  }`}>
-                    <Icon size={20} />
+                  <div className="flex items-center justify-between">
+                    <div className={`p-2.5 rounded-xl w-fit ${
+                      isDark ? "bg-[#1E293B] text-[#D97706]" : "bg-[#F1F5F9] text-[#1E40AF]"
+                    }`}>
+                      <Icon size={20} />
+                    </div>
+
+                    {/* InteractiveFolder inside stat card */}
+                    <div className="relative flex-shrink-0 -mr-2 -mt-2">
+                      <InteractiveFolder
+                        size={0.55}
+                        color={folderConfig.color}
+                        label={folderConfig.label}
+                        infoTitle={folderConfig.infoTitle}
+                        description={folderConfig.description}
+                        infoDetails={folderConfig.infoDetails}
+                        items={folderConfig.items}
+                      />
+                    </div>
                   </div>
+
                   <div>
                     <div className={`text-2xl sm:text-3xl font-extrabold tracking-tight ${isDark ? "text-[#F9F6F0]" : "text-[#0F172A]"}`}>{stat.value}</div>
                     <div className={`text-xs font-semibold mt-0.5 ${isDark ? "text-[#CBD5E1]" : "text-[#475569]"}`}>{stat.label}</div>
@@ -75,3 +161,4 @@ export default function About() {
     </section>
   );
 }
+
