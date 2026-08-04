@@ -4,6 +4,7 @@ import { Download, Search, Clock, Volume2, VolumeX } from "lucide-react";
 import { motion } from "framer-motion";
 import TextScramble from "@/components/ui/TextScramble";
 import Magnetic from "@/components/ui/Magnetic";
+import PressSeal from "@/components/ui/PressSeal";
 import { audioHaptic } from "@/components/ui/AudioHaptic";
 
 interface BroadsheetHeaderProps {
@@ -73,8 +74,10 @@ export default function BroadsheetHeader({ onOpenCommandPalette }: BroadsheetHea
         <div className="flex items-center gap-4">
           <TextScramble text="LONDON • PATNA • GREATER NOIDA" />
           
-          {/* Sound Synthesizer Haptic Toggle */}
-          <button
+          {/* Sound Synthesizer Haptic Toggle with Zoom Out on Hover */}
+          <motion.button
+            whileHover={{ scale: 0.94 }}
+            whileTap={{ scale: 0.9 }}
             onClick={handleToggleSound}
             data-cursor-label="AUDIO"
             className="px-2 py-0.5 border border-[#181410] bg-[#181410]/5 hover:bg-[#181410] hover:text-[#f4f1ea] transition-all flex items-center gap-1 font-bold cursor-pointer text-[10px]"
@@ -82,7 +85,7 @@ export default function BroadsheetHeader({ onOpenCommandPalette }: BroadsheetHea
           >
             {soundActive ? <Volume2 size={11} className="text-[#c5a059]" /> : <VolumeX size={11} />}
             <span>AUDIO: {soundActive ? "ON" : "MUTED"}</span>
-          </button>
+          </motion.button>
 
           {timeStr && (
             <span className="hidden md:inline-flex items-center gap-1 text-[#c5a059] bg-[#181410] px-2 py-0.5 font-bold">
@@ -93,40 +96,53 @@ export default function BroadsheetHeader({ onOpenCommandPalette }: BroadsheetHea
         </div>
       </div>
 
-      {/* ─── 2. SERIF MASTHEAD NAMEPLATE ─── */}
+      {/* ─── 2. SERIF MASTHEAD NAMEPLATE WITH PRESS SEAL ON TOP LEFT ─── */}
       <motion.div
         initial={{ opacity: 0, y: -15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="py-6 sm:py-9 px-4 text-center broadsheet-double-rule"
+        className="py-6 sm:py-9 px-4 text-center broadsheet-double-rule relative flex items-center justify-center"
       >
-        <a href="#hero" className="inline-block group" data-cursor-label="MASTHEAD">
-          <h1 className="font-radley font-bold text-4xl sm:text-7xl lg:text-[96px] tracking-[0.045em] uppercase text-[#181410] leading-none transition-transform group-hover:scale-[1.01]">
+        {/* Floating Rotating Press Seal Emblem Logo on Top Left of Main Name Heading */}
+        <div className="hidden lg:block absolute left-6 xl:left-12 top-1/2 -translate-y-1/2 z-20">
+          <PressSeal />
+        </div>
+
+        <motion.a
+          whileHover={{ scale: 0.97 }}
+          href="#hero"
+          className="inline-block group"
+          data-cursor-label="MASTHEAD"
+        >
+          <h1 className="font-radley font-bold text-4xl sm:text-7xl lg:text-[96px] tracking-[0.045em] uppercase text-[#181410] leading-none transition-transform">
             <TextScramble text={personalInfo.name} />
           </h1>
           <div className="text-[11px] font-serif uppercase tracking-[0.3em] text-[#181410] font-bold mt-2 flex items-center justify-center gap-2">
             <TextScramble text="THE CHRONICLE OF SOFTWARE ENGINEERING & ART DIRECTION" />
           </div>
-        </a>
+        </motion.a>
       </motion.div>
 
-      {/* ─── 3. RULES-ROW NAVIGATION ─── */}
+      {/* ─── 3. RULES-ROW NAVIGATION WITH ZOOM OUT ON HOVER ─── */}
       <nav className="border-b border-[#181410] py-3 px-4 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs font-serif uppercase tracking-[0.22em] text-[#181410] font-semibold">
         {navLinks.map((link) => (
-          <a
+          <motion.a
             key={link.name}
+            whileHover={{ scale: 0.94 }}
             href={link.href}
             data-cursor-label="NAV"
             onClick={() => audioHaptic.playClick()}
-            className="hover:underline underline-offset-4 decoration-1 decoration-[#181410] transition-all hover:text-[#c5a059]"
+            className="hover:underline underline-offset-4 decoration-1 decoration-[#181410] transition-all hover:text-[#c5a059] cursor-pointer"
           >
             <TextScramble text={link.name} />
-          </a>
+          </motion.a>
         ))}
 
         {onOpenCommandPalette && (
           <Magnetic strength={0.3}>
-            <button
+            <motion.button
+              whileHover={{ scale: 0.94 }}
+              whileTap={{ scale: 0.9 }}
               onClick={() => {
                 audioHaptic.playClick();
                 onOpenCommandPalette();
@@ -138,22 +154,24 @@ export default function BroadsheetHeader({ onOpenCommandPalette }: BroadsheetHea
               <Search size={12} />
               <span>NAV</span>
               <kbd className="px-1 text-[9px] bg-[#181410]/10 border border-[#181410]/40 rounded font-mono">⌘K</kbd>
-            </button>
+            </motion.button>
           </Magnetic>
         )}
 
         <Magnetic strength={0.35}>
-          <a
+          <motion.a
+            whileHover={{ scale: 0.94 }}
+            whileTap={{ scale: 0.9 }}
             href={personalInfo.resume}
             download="Ayush_Raj_CV.docx"
             data-cursor-label="CV (.DOCX)"
             onClick={() => audioHaptic.playClick()}
-            className="px-3 py-1 bg-[#181410] text-[#f4f1ea] hover:bg-[#302922] transition-all hover:scale-105 inline-flex items-center gap-1.5 font-bold border border-[#181410] cursor-pointer shadow-md"
+            className="px-3 py-1 bg-[#181410] text-[#f4f1ea] hover:bg-[#302922] transition-all inline-flex items-center gap-1.5 font-bold border border-[#181410] cursor-pointer shadow-md"
             title="Download Ayush Raj CV (.docx)"
           >
             <Download size={13} />
             <span>DOWNLOAD CV (DOCX)</span>
-          </a>
+          </motion.a>
         </Magnetic>
       </nav>
 

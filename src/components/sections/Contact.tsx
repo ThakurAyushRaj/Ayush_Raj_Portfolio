@@ -30,7 +30,7 @@ export default function Contact() {
             <TextScramble text="04 // TRANSMISSION & COMMISSIONS" />
           </span>
           <h2 className="font-anton text-4xl sm:text-5xl uppercase tracking-tight text-[#181410] mt-1 font-black">
-            <InkDrawUnderline color="#c5a059">
+            <InkDrawUnderline color="#181410">
               <TextScramble text="SUBMIT THE BRIEF" as="span" />
             </InkDrawUnderline>
           </h2>
@@ -40,7 +40,7 @@ export default function Contact() {
         </div>
       </motion.div>
 
-      {/* ─── HANGING NAIL COMMISSION CARD (OBSIDIAN GOLD THEME) ─── */}
+      {/* ─── HANGING NAIL COMMISSION CARD (MONOCHROMATIC BLACK & WHITE) ─── */}
       <motion.div
         initial={{ opacity: 0, scale: 0.96 }}
         whileInView={{ opacity: 1, scale: 1 }}
@@ -49,70 +49,70 @@ export default function Contact() {
         className="max-w-[800px] mx-auto"
       >
         <HangingNailCard
-          cardTheme="obsidian"
-          className="py-12 px-6 sm:px-14 text-center space-y-8"
+          cardTheme="cream"
+          className="py-12 px-6 sm:px-14 text-center space-y-8 bg-[#090807] text-[#ffffff] border-2 border-white shadow-2xl"
         >
           <div className="space-y-3 relative z-10">
-            <div className="text-xs font-serif uppercase tracking-[0.25em] font-semibold text-[#c5a059]">
+            <div className="text-xs font-serif uppercase tracking-[0.25em] font-semibold text-white">
               <TextScramble text="✦ NOW ACCEPTING AUTUMN & WINTER COMMISSIONS ✦" />
             </div>
 
-            <h3 className="font-anton text-4xl sm:text-6xl uppercase tracking-tight text-[#f4f1ea] leading-none">
+            <h3 className="font-anton text-4xl sm:text-6xl uppercase tracking-tight text-white leading-none font-black">
               <TextScramble text="PUT YOUR BRAND ABOVE THE FOLD" as="span" />
             </h3>
 
-            <p className="font-serif italic text-base sm:text-lg text-[#d2c9b8] max-w-xl mx-auto leading-relaxed pt-1">
+            <p className="font-serif italic text-base sm:text-lg text-stone-200 max-w-xl mx-auto leading-relaxed pt-1">
               &ldquo;Engagements are accepted on a limited quarterly basis to ensure broadsheet quality execution. Direct responses dispatched within 24 hours.&rdquo;
             </p>
           </div>
 
-          {/* ─── DARK INK FORM ─── */}
+          {/* ─── MONOCHROMATIC BLACK & WHITE FORM ─── */}
           <form onSubmit={handleSubmit} className="space-y-4 text-left max-w-xl mx-auto relative z-10 pt-2">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1">
-                <label className="text-xs font-serif uppercase tracking-[0.2em] font-bold text-[#c5a059]">
+                <label className="text-xs font-serif uppercase tracking-[0.2em] font-bold text-white">
                   Correspondent Name
                 </label>
                 <input
                   type="text"
                   required
                   placeholder="E.G. ALEX MORGAN"
-                  className="w-full bg-black/60 border border-[#c5a059]/60 rounded-none px-4 py-3 text-xs font-serif uppercase text-[#f4f1ea] placeholder:text-[#d2c9b8]/40 focus:outline-none focus:border-[#e5c178] focus:bg-black/90 transition-all focus:ring-1 focus:ring-[#e5c178]"
+                  className="w-full bg-black border border-white/60 rounded-none px-4 py-3 text-xs font-serif uppercase text-white placeholder:text-stone-400 focus:outline-none focus:border-white focus:bg-black transition-all focus:ring-1 focus:ring-white"
                 />
               </div>
               <div className="space-y-1">
-                <label className="text-xs font-serif uppercase tracking-[0.2em] font-bold text-[#c5a059]">
+                <label className="text-xs font-serif uppercase tracking-[0.2em] font-bold text-white">
                   Dispatch Email
                 </label>
                 <input
                   type="email"
                   required
                   placeholder="ALEX@COMPANY.COM"
-                  className="w-full bg-black/60 border border-[#c5a059]/60 rounded-none px-4 py-3 text-xs font-serif uppercase text-[#f4f1ea] placeholder:text-[#d2c9b8]/40 focus:outline-none focus:border-[#e5c178] focus:bg-black/90 transition-all focus:ring-1 focus:ring-[#e5c178]"
+                  className="w-full bg-black border border-white/60 rounded-none px-4 py-3 text-xs font-serif uppercase text-white placeholder:text-stone-400 focus:outline-none focus:border-white focus:bg-black transition-all focus:ring-1 focus:ring-white"
                 />
               </div>
             </div>
 
             <div className="space-y-1">
-              <label className="text-xs font-serif uppercase tracking-[0.2em] font-bold text-[#c5a059]">
+              <label className="text-xs font-serif uppercase tracking-[0.2em] font-bold text-white">
                 Commission Brief &amp; Scope
               </label>
               <textarea
                 rows={4}
                 required
                 placeholder="OUTLINE YOUR PRODUCT OR SYSTEM REQUIREMENTS..."
-                className="w-full bg-black/60 border border-[#c5a059]/60 rounded-none px-4 py-3 text-xs font-serif uppercase text-[#f4f1ea] placeholder:text-[#d2c9b8]/40 focus:outline-none focus:border-[#e5c178] focus:bg-black/90 transition-all focus:ring-1 focus:ring-[#e5c178]"
+                className="w-full bg-black border border-white/60 rounded-none px-4 py-3 text-xs font-serif uppercase text-white placeholder:text-stone-400 focus:outline-none focus:border-white focus:bg-black transition-all focus:ring-1 focus:ring-white"
               ></textarea>
             </div>
 
-            {/* SOLID METALLIC GOLD / DARK BUTTON WITH MAGNETIC PULL */}
+            {/* SOLID WHITE BUTTON WITH MAGNETIC PULL & ZOOM OUT ON HOVER */}
             <Magnetic strength={0.3} className="w-full">
               <motion.button
                 type="submit"
                 data-cursor-label="SUBMIT"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full py-4 px-8 bg-[#c5a059] hover:bg-[#e5c178] text-[#181410] font-serif text-xs uppercase tracking-[0.22em] font-bold rounded-none border border-[#c5a059] cursor-pointer shadow-lg flex items-center justify-center gap-2"
+                whileHover={{ scale: 0.95 }}
+                whileTap={{ scale: 0.9 }}
+                className="w-full py-4 px-8 bg-white hover:bg-stone-200 text-black font-serif text-xs uppercase tracking-[0.22em] font-black rounded-none border border-white cursor-pointer shadow-xl flex items-center justify-center gap-2"
               >
                 <Send size={14} />
                 <span>SUBMIT THE BRIEF &rarr;</span>
@@ -126,7 +126,7 @@ export default function Contact() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="p-3 border border-[#c5a059] bg-[#c5a059] text-[#181410] text-xs font-serif uppercase tracking-[0.2em] font-bold relative z-10 flex items-center justify-center gap-2"
+                className="p-3 border border-white bg-white text-black text-xs font-serif uppercase tracking-[0.2em] font-bold relative z-10 flex items-center justify-center gap-2"
               >
                 <CheckCircle2 size={16} />
                 <span>TRANSMISSION RECEIVED &bull; WE SHALL RESPOND ON PRESS DAY</span>
@@ -138,29 +138,29 @@ export default function Contact() {
 
       {/* ─── DIRECT DISPATCH DETAILS ROW ─── */}
       <div className="max-w-4xl mx-auto border-t border-[#181410] pt-8 grid grid-cols-1 sm:grid-cols-4 gap-6 text-center text-xs font-serif uppercase tracking-[0.2em]">
-        <motion.div whileHover={{ y: -3 }} className="space-y-1">
+        <motion.div whileHover={{ scale: 0.94 }} className="space-y-1">
           <div className="text-[#524b42] flex items-center justify-center gap-1">
-            <Mail size={12} className="text-[#c5a059]" />
+            <Mail size={12} className="text-[#181410]" />
             <span>DIRECT EMAIL</span>
           </div>
-          <a href={`mailto:${personalInfo.email}`} data-cursor-label="EMAIL" className="font-bold hover:underline">
+          <a href={`mailto:${personalInfo.email}`} data-cursor-label="EMAIL" className="font-bold hover:underline text-[#181410]">
             {personalInfo.email}
           </a>
         </motion.div>
 
-        <motion.div whileHover={{ y: -3 }} className="space-y-1">
+        <motion.div whileHover={{ scale: 0.94 }} className="space-y-1">
           <div className="text-[#524b42] flex items-center justify-center gap-1">
-            <Phone size={12} className="text-[#c5a059]" />
+            <Phone size={12} className="text-[#181410]" />
             <span>TELEGRAPH</span>
           </div>
-          <a href={`tel:${personalInfo.phone.replace(/\s+/g, '')}`} data-cursor-label="PHONE" className="font-bold hover:underline">
+          <a href={`tel:${personalInfo.phone.replace(/\s+/g, '')}`} data-cursor-label="PHONE" className="font-bold hover:underline text-[#181410]">
             {personalInfo.phone}
           </a>
         </motion.div>
 
-        <motion.div whileHover={{ y: -3 }} className="space-y-1">
+        <motion.div whileHover={{ scale: 0.94 }} className="space-y-1">
           <div className="text-[#524b42] flex items-center justify-center gap-1">
-            <Download size={12} className="text-[#c5a059]" />
+            <Download size={12} className="text-[#181410]" />
             <span>CURRICULUM VITAE</span>
           </div>
           <a
@@ -173,12 +173,12 @@ export default function Contact() {
           </a>
         </motion.div>
 
-        <motion.div whileHover={{ y: -3 }} className="space-y-1">
+        <motion.div whileHover={{ scale: 0.94 }} className="space-y-1">
           <div className="text-[#524b42] flex items-center justify-center gap-1">
-            <MapPin size={12} className="text-[#c5a059]" />
+            <MapPin size={12} className="text-[#181410]" />
             <span>HEADQUARTERS</span>
           </div>
-          <div className="font-bold">{personalInfo.location}</div>
+          <div className="font-bold text-[#181410]">{personalInfo.location}</div>
         </motion.div>
       </div>
     </section>

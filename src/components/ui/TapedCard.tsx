@@ -27,13 +27,13 @@ export default function TapedCard({
       initial={{ rotate: initialRotate }}
       whileHover={{
         rotate: 0,
-        y: -8,
-        scale: 1.025,
+        y: -4,
+        scale: 0.95,
         boxShadow: "0 25px 50px -10px rgba(0, 0, 0, 0.4), 0 0 25px rgba(197, 160, 89, 0.25)",
       }}
       transition={{ type: "spring", stiffness: 350, damping: 22, mass: 0.4 }}
       data-cursor-label={dataCursorLabel}
-      className={`relative group transition-all duration-300 ${className}`}
+      className={`relative group transition-all duration-300 cursor-pointer ${className}`}
     >
       {/* ─── REALISTIC SCOTCH TAPE OVERLAYS WITH CONTRASTING COLOURS ─── */}
       {tapePosition === "top-corners" && (

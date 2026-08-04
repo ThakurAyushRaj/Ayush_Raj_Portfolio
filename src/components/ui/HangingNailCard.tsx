@@ -26,9 +26,9 @@ export default function HangingNailCard({
 
   const themeStyles = {
     obsidian: "bg-[#181410] text-[#f4f1ea] border-2 border-[#c5a059]",
-    navy: "bg-[#0f172a] text-[#f8fafc] border-2 border-[#38bdf8]",
+    navy: "bg-[#0d1b2a] text-[#f8fafc] border-2 border-[#38bdf8]",
     emerald: "bg-[#064e3b] text-[#ecfdf5] border-2 border-[#34d399]",
-    burgundy: "bg-[#451a03] text-[#fff7ed] border-2 border-[#fb923c]",
+    burgundy: "bg-[#3b1219] text-[#fff7ed] border-2 border-[#fb923c]",
     cream: "bg-[#faf7f2] text-[#181410] border-2 border-[#181410]",
   };
 
@@ -196,7 +196,7 @@ export default function HangingNailCard({
         </svg>
       </div>
 
-      {/* ─── HANGING CARD (CLEAN CARD SURFACE WITHOUT HOLES) ─── */}
+      {/* ─── HANGING CARD WITH ZOOM OUT ON HOVER (SCALE: 0.95) ─── */}
       <motion.div
         ref={cardRef}
         onClick={onClick}
@@ -210,11 +210,11 @@ export default function HangingNailCard({
             ? `${-rotateY * 1.5}px ${20 + rotateX * 1.5}px 40px -5px rgba(0, 0, 0, 0.55), 0 0 25px rgba(197, 160, 89, 0.25)`
             : "0px 15px 30px -5px rgba(0, 0, 0, 0.35)",
         }}
-        whileHover={{ scale: 1.025 }}
+        whileHover={{ scale: 0.95 }}
         transition={{ type: "spring", stiffness: 350, damping: 22, mass: 0.4 }}
         data-cursor-label={dataCursorLabel}
         style={{ transformStyle: "preserve-3d", transformOrigin: "top center" }}
-        className={`relative transition-colors duration-300 rounded-none overflow-hidden ${themeStyles[cardTheme]} ${className}`}
+        className={`relative transition-colors duration-300 rounded-none overflow-hidden cursor-pointer ${themeStyles[cardTheme]} ${className}`}
       >
         {/* Dynamic Surface Glare Reflection Sheen */}
         <div

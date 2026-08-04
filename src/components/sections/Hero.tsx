@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
 import InkDrawUnderline from "@/components/ui/InkDrawUnderline";
 import TextScramble from "@/components/ui/TextScramble";
-import PressSeal from "@/components/ui/PressSeal";
 import HangingNailCard from "@/components/ui/HangingNailCard";
 import TapedCard from "@/components/ui/TapedCard";
 import Magnetic from "@/components/ui/Magnetic";
@@ -31,7 +30,7 @@ export default function Hero() {
       label: "PRODUCTION APPS",
       sub: "CRM, EMR & MOBILE SUITES",
       icon: Server,
-      cardBg: "bg-[#0f172a] text-[#f8fafc] border-2 border-[#38bdf8]",
+      cardBg: "bg-[#0d1b2a] text-[#f8fafc] border-2 border-[#38bdf8]",
       tapeColor: "cyan" as const,
       accentText: "text-[#38bdf8]",
       rotate: 1.1,
@@ -53,7 +52,7 @@ export default function Hero() {
       label: "TYPE SAFETY",
       sub: "REACT, TYPESCRIPT & NODE",
       icon: Layers,
-      cardBg: "bg-[#451a03] text-[#fff7ed] border-2 border-[#fb923c]",
+      cardBg: "bg-[#3b1219] text-[#fff7ed] border-2 border-[#fb923c]",
       tapeColor: "coral" as const,
       accentText: "text-[#fb923c]",
       rotate: 1.3,
@@ -68,11 +67,6 @@ export default function Hero() {
       variants={staggerContainer}
       className="py-10 px-4 sm:px-8 max-w-7xl mx-auto space-y-12 text-[#181410] relative"
     >
-      {/* Floating Rotating Press Seal Emblem */}
-      <div className="hidden lg:block absolute right-8 top-12 z-20">
-        <PressSeal />
-      </div>
-
       {/* ─── KICKER & CV DOWNLOAD ACTION BAR ─── */}
       <motion.div
         variants={fadeUp}
@@ -86,7 +80,9 @@ export default function Hero() {
         <div className="flex items-center gap-3">
           <RubberStamp text="VERIFIED SDE" color="gold" rotate={-4} />
           <Magnetic strength={0.3}>
-            <a
+            <motion.a
+              whileHover={{ scale: 0.94 }}
+              whileTap={{ scale: 0.9 }}
               href={personalInfo.resume}
               download="Ayush_Raj_CV.docx"
               data-cursor-label="CV (.DOCX)"
@@ -94,13 +90,13 @@ export default function Hero() {
             >
               <Download size={14} />
               <span>DOWNLOAD CV (.DOCX)</span>
-            </a>
+            </motion.a>
           </Magnetic>
         </div>
       </motion.div>
 
       {/* ─── HUGE ANTON HEADLINE (~88px) WITH TEXT SCRAMBLE CIPHER ANIMATION ─── */}
-      <div className="text-center space-y-3 pt-2">
+      <div className="text-center space-y-3 pt-2 relative z-10">
         <div className="font-anton text-5xl sm:text-7xl lg:text-[88px] uppercase tracking-tight text-[#181410] leading-[0.96] max-w-5xl mx-auto font-black justify-center">
           <InkDrawUnderline color="#c5a059">
             <TextScramble text="DESIGN & CODE" as="span" />
@@ -135,7 +131,7 @@ export default function Hero() {
         </HangingNailCard>
       </motion.div>
 
-      {/* ─── TAPED STATS CARDS WITH VIBRANT CONTRASTING SCOTCH TAPE STRIPS ─── */}
+      {/* ─── TAPED STATS CARDS WITH ZOOM OUT ON HOVER ─── */}
       <motion.div
         variants={fadeUp}
         className="grid grid-cols-2 lg:grid-cols-4 gap-6 py-4"
@@ -154,12 +150,12 @@ export default function Hero() {
               <div className="space-y-2 relative z-10 flex flex-col justify-between h-full">
                 <div className={`flex items-center justify-between text-xs font-serif font-bold uppercase tracking-wider border-b border-white/20 pb-2 ${stat.accentText}`}>
                   <TextScramble text={stat.label} />
-                  <motion.div whileHover={{ rotate: 15, scale: 1.2 }}>
-                    <Icon size={18} className="group-hover:scale-110 transition-transform" />
+                  <motion.div whileHover={{ rotate: 15, scale: 0.9 }}>
+                    <Icon size={18} className="transition-transform" />
                   </motion.div>
                 </div>
 
-                <div className={`font-anton text-3xl sm:text-4xl pt-2 tracking-tight group-hover:scale-105 transition-transform origin-left font-black ${stat.accentText}`}>
+                <div className={`font-anton text-3xl sm:text-4xl pt-2 tracking-tight origin-left font-black ${stat.accentText}`}>
                   <AnimatedCounter to={stat.value} suffix={stat.suffix} />
                 </div>
 
