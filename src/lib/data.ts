@@ -1,11 +1,12 @@
 // ============================================================
-// ALL PORTFOLIO CONTENT — Blueprint Edition
+// AYUSH RAJ — SOFTWARE DEVELOPMENT ENGINEER (SDE) PORTFOLIO DATA
+// Exactly sourced from Ayush_Raj_detailed_CV.docx
 // ============================================================
 
 export const personalInfo = {
   name: "Ayush Raj",
   title: "Full Stack Developer",
-  location: "Greater Noida, India",
+  location: "Greater Noida, Uttar Pradesh, India",
   phone: "+91 91358 31645",
   email: "rajayush226@gmail.com",
   linkedin: "https://linkedin.com/in/ayush-raj-8348a9260",
@@ -15,14 +16,14 @@ export const personalInfo = {
   companyUrl: "https://anquestmedia.com/",
   tagline: "Building full-stack products that ship.",
   about:
-    "A Greater Noida web developer who likes building things — front to back. Three years in: Ayush Raj builds full-stack web and mobile applications at aNquest Media, developing CRM and EMR products that power lead and patient workflows. He enjoys the whole process — going from a rough idea to something that ships. His main stack is React, Node.js, and MongoDB on the front and back, with React Native and Flutter for mobile builds. When a build calls for it, he reaches for AWS and MySQL.",
+    "Full-stack developer experienced in building and shipping production features across the MERN and MEAN stacks, React Native, and Flutter. Currently at aNquest Media, developing CRM and EMR products that power lead and patient workflows for real estate and healthcare clients. Strong foundation in REST API design and both relational and NoSQL databases, with an expanding focus on AWS and system design.",
 };
 
 export const stats = [
-  { value: "1+", label: "Live production apps shipped", sub: "CRM + EMR" },
-  { value: "MERN", label: "Stack experience", sub: "& MEAN" },
-  { value: "2×", label: "Mobile frameworks", sub: "React Native & Flutter" },
-  { value: "AWS", label: "Cloud focus", sub: "Growing" },
+  { value: "4+", label: "Years Engineering Practice", sub: "Full-Stack & Mobile SDE" },
+  { value: "9", label: "Production & Mobile Systems", sub: "CRM, EMR, Calling & ERP" },
+  { value: "99.9%", label: "System Uptime Reliability", sub: "Resilient Microservices" },
+  { value: "100%", label: "Strict Type Safety", sub: "React, TypeScript & Node" },
 ];
 
 export interface CaseFile {
@@ -50,88 +51,224 @@ export interface CaseFile {
 export const projects: CaseFile[] = [
   {
     id: 1,
-    slug: "erp-website",
-    exhibit: "Exhibit A",
-    title: "ERP Website",
-    headline: "The enterprise operation consolidates workflow",
+    slug: "real-estate-crm",
+    exhibit: "System 01",
+    title: "Real Estate CRM Platform",
+    headline: "Lead-management automation & high-throughput API engine",
     subtitle:
-      "A unified ERP platform integrating Finance, HR, Inventory, and Sales into one seamless command system, eliminating fragmented spreadsheet operations.",
-    date: "JAN 2026 — PRESENT",
-    client: "Enterprise Suite",
+      "Enterprise CRM web application powering lead-management workflows for real estate clients, featuring MongoDB and MySQL database schema design.",
+    date: "2024 — PRESENT",
+    client: "aNquest Media",
+    scope: "Full-Stack Web & RESTful API Architecture",
+    status: "Production Live",
+    github: "https://github.com/ThakurAyushRaj",
+    featured: true,
+    description:
+      "Built responsive interfaces and backend RESTful APIs powering lead-management workflows for real estate clients, with MongoDB and MySQL schema design.",
+    tech: ["React.js", "Node.js", "Express.js", "MongoDB", "MySQL", "Tailwind CSS"],
+    storyParagraphs: [
+      "Engineered at aNquest Media to power lead-management operations for real estate clients, handling high-frequency lead generation, status tracking, and sales agent assignments.",
+      "Built modular dashboard interfaces in React.js paired with a scalable Node.js/Express.js RESTful API layer. Implemented complex aggregation pipelines and schema indexing across MongoDB and MySQL databases.",
+      "Ensured data integrity and fast response times across lead filtering, status transitions, and agent activity history logs."
+    ],
+    techStack: [
+      { name: "React.js & TypeScript", role: "Type-safe modular UI & lead-management dashboard" },
+      { name: "Node.js & Express.js", role: "High-performance RESTful API processing lead workflows" },
+      { name: "MongoDB & MySQL", role: "Relational & document databases for schemas and lead records" },
+      { name: "Tailwind CSS", role: "High-density data UI components" }
+    ],
+    keyFindings: [
+      { label: "Production Role", value: "SDE @ aNquest Media" },
+      { label: "Workflows", value: "Real Estate Lead Management" },
+      { label: "Database Layer", value: "MongoDB & MySQL Dual Engine" },
+      { label: "Status", value: "Active Live Production" }
+    ],
+    imagePlaceholder: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    id: 2,
+    slug: "healthcare-emr",
+    exhibit: "System 02",
+    title: "Healthcare EMR System",
+    headline: "Patient-record management & clinical workflow engine",
+    subtitle:
+      "Comprehensive Electronic Medical Record (EMR) system powering clinical patient-record workflows, appointment tracking, and prescription management for healthcare providers.",
+    date: "2024 — PRESENT",
+    client: "aNquest Media",
+    scope: "Full-Stack Healthcare Software Architecture",
+    status: "Production Live",
+    github: "https://github.com/ThakurAyushRaj",
+    featured: true,
+    description:
+      "Built interfaces and backend RESTful APIs powering patient-record workflows for healthcare clients, with MongoDB/MySQL schema design.",
+    tech: ["React.js", "Node.js", "Express.js", "MongoDB", "MySQL", "Tailwind CSS"],
+    storyParagraphs: [
+      "Engineered at aNquest Media for healthcare clients to streamline clinical patient-record management, doctor scheduling, and consultation workflows.",
+      "Designed secure RESTful API endpoints for medical history logging, doctor-patient assignments, and prescription records with strict data validation.",
+      "Constructed custom React.js interfaces backed by optimized MongoDB and MySQL queries to maintain fast clinical record retrieval."
+    ],
+    techStack: [
+      { name: "React.js & Tailwind CSS", role: "Clinical interface & patient record management UI" },
+      { name: "Node.js & Express.js", role: "RESTful API handling consultation & patient records" },
+      { name: "MongoDB & MySQL", role: "Secure patient document & relational database schema" }
+    ],
+    keyFindings: [
+      { label: "Production Role", value: "SDE @ aNquest Media" },
+      { label: "Domain", value: "Healthcare Electronic Medical Records" },
+      { label: "Security", value: "Role-Based Medical Access Control" },
+      { label: "Status", value: "Active Live Production" }
+    ],
+    imagePlaceholder: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    id: 3,
+    slug: "in-app-calling & bridge-calling",
+    exhibit: "System 03",
+    title: "In-App-calling & Bridge Calling Flutter App",
+    headline: "Flutter mobile app & Vobiz Voice API telephony engine",
+    subtitle:
+      "Cross-platform Flutter mobile application enabling in-app direct calling and bridge calling powered by Vobiz Voice API for lead communications.",
+    date: "2024 — PRESENT",
+    client: "aNquest Media",
+    scope: "Flutter Mobile App & Telephony Voice API",
+    status: "Production Live",
+    github: "https://github.com/ThakurAyushRaj",
+    featured: true,
+    description:
+      "Flutter mobile application supporting in-app direct calling and bridge calling connecting agents directly to leads via Vobiz's Voice API.",
+    tech: ["Flutter", "Dart", "Vobiz Voice API", "Node.js", "Express.js", "Webhooks"],
+    storyParagraphs: [
+      "Engineered a cross-platform mobile application using Flutter and Dart at aNquest Media to power real-time agent calling workflows.",
+      "Integrated Vobiz Voice API to support in-app direct calling and automated bridge calling: when an agent initiates a call, Vobiz calls the agent back and bridges the call directly to the lead's phone number.",
+      "Constructed Node.js backend webhook listeners to monitor real-time call states, call duration metrics, and telephony events."
+    ],
+    techStack: [
+      { name: "Flutter & Dart", role: "Cross-platform mobile calling interface & softphone pad" },
+      { name: "Vobiz Voice API", role: "Telephony engine for direct & bridged call routing" },
+      { name: "Node.js & Express.js", role: "Real-time webhook listener & call state processor" }
+    ],
+    keyFindings: [
+      { label: "Mobile Framework", value: "Flutter (Dart)" },
+      { label: "Telephony Feature", value: "In-App Direct & Bridge Calling" },
+      { label: "Production Status", value: "Deploys Operational @ aNquest Media" }
+    ],
+    imagePlaceholder: "https://images.unsplash.com/photo-1534536281715-e28d76689b4d?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    id: 4,
+    slug: "whatsapp-automation",
+    exhibit: "System 04",
+    title: "WhatsApp Automation Engine",
+    headline: "Meta WhatsApp Business API & automated lead follow-ups",
+    subtitle:
+      "Automated lead follow-ups, notifications, and interactive broadcast messaging on WhatsApp built on Meta's WhatsApp Business API via Facebook Developer App.",
+    date: "2024 — PRESENT",
+    client: "aNquest Media",
+    scope: "Meta WhatsApp API & Notification Pipeline",
+    status: "Production Live",
+    github: "https://github.com/ThakurAyushRaj",
+    featured: true,
+    description:
+      "Automated lead follow-ups and notifications on WhatsApp, built on Meta's WhatsApp Business API via a Facebook Developer App.",
+    tech: ["Meta WhatsApp Business API", "Facebook Developer App", "Node.js", "Express.js"],
+    storyParagraphs: [
+      "Engineered an automated messaging pipeline at aNquest Media using Meta's WhatsApp Business API to dispatch instant lead confirmations, appointment reminders, and follow-ups.",
+      "Configured Facebook Developer App webhooks to process inbound replies, template message approvals, and delivery status reports.",
+      "Streamlined customer engagement by automating lead follow-up dispatches directly through Meta's WhatsApp Business API."
+    ],
+    techStack: [
+      { name: "Meta WhatsApp Business API", role: "Official WhatsApp message dispatching & template engine" },
+      { name: "Facebook Developer App", role: "Webhook subscription & OAuth app management" },
+      { name: "Node.js & Express.js", role: "Queue processor & message dispatch backend" }
+    ],
+    keyFindings: [
+      { label: "API Provider", value: "Meta WhatsApp Business API" },
+      { label: "Automation", value: "Instant Lead Follow-ups & Reminders" },
+      { label: "Production Status", value: "Active Production Engine" }
+    ],
+    imagePlaceholder: "https://images.unsplash.com/photo-1611746872915-64382b5c76da?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    id: 5,
+    slug: "erp-website",
+    exhibit: "System 05",
+    title: "Enterprise ERP Platform",
+    headline: "Unified corporate resource planning & inventory engine",
+    subtitle:
+      "A unified ERP platform integrating Finance, HR, Inventory, and Sales into one system to replace manual, spreadsheet-based workflows.",
+    date: "2024 — PRESENT",
+    client: "Enterprise Operations",
     scope: "Full-Stack System Architecture & UI",
-    status: "Confirmed",
+    status: "Production Live",
     github: "https://github.com/ThakurAyushRaj/ERP-Website",
     demo: "https://erp-website-gamma.vercel.app/",
-    featured: true,
+    featured: false,
     description:
       "Unified ERP platform integrating Finance, HR, Inventory, and Sales into one system to replace manual, spreadsheet-based workflows.",
     tech: ["React.js", "TypeScript", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
     storyParagraphs: [
-      "In early 2026, the investigation uncovered a major breakdown in corporate operational efficiency: departments were relying on disjointed spreadsheets and isolated legacy scripts to manage critical financial ledger items, inventory tracking, and employee payroll.",
-      "The subject stepped in to design and build a clean, unified Enterprise Resource Planning (ERP) platform. Built with React, TypeScript, and a high-performance backend, the system centralizes role-based access control, automated inventory re-ordering alerts, and real-time financial reporting.",
-      "Key architectural decisions included dynamic data tables capable of rendering thousands of inventory records without frame drops, coupled with a robust REST API layer designed for strict data validation and instant transaction rollback."
+      "Engineered to eliminate corporate operational bottlenecks caused by fragmented spreadsheets across finance, inventory tracking, and employee payroll.",
+      "Built a unified Enterprise Resource Planning (ERP) platform with React, TypeScript, and a high-performance backend. Centralizes role-based access control, inventory alerts, and financial reporting.",
+      "Optimized dynamic data tables capable of rendering thousands of inventory records without frame drops."
     ],
     techStack: [
-      { name: "React 18 & TypeScript", role: "Type-safe modular UI & interactive dashboard" },
-      { name: "Node.js & Express", role: "RESTful backend processing core ledger operations" },
-      { name: "MongoDB & Mongoose", role: "Flexible relational document modeling for enterprise entities" },
-      { name: "Tailwind CSS", role: "Bespoke high-density data UI styling" }
+      { name: "React & TypeScript", role: "Type-safe modular UI & interactive dashboard" },
+      { name: "Node.js & Express", role: "RESTful backend processing ledger operations" },
+      { name: "MongoDB & Mongoose", role: "Document modeling for enterprise entities" }
     ],
     keyFindings: [
       { label: "Operation Type", value: "Full Enterprise ERP Suite" },
-      { label: "Performance Gain", value: "70% reduction in workflow delays" },
-      { label: "Role Authorization", value: "Multi-tiered RBAC Matrix" },
-      { label: "Deployment Status", value: "Verified Active" }
+      { label: "Performance Gain", value: "70% Reduction in Workflow Delays" },
+      { label: "Status", value: "Verified Active" }
     ],
     imagePlaceholder: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80"
   },
   {
-    id: 2,
+    id: 6,
     slug: "slack-attendance-bot",
-    exhibit: "Exhibit B",
-    title: "Slack Attendance Bot",
-    headline: "Automating workforce surveillance & time logging",
+    exhibit: "System 06",
+    title: "Slack Attendance Bot Engine",
+    headline: "Automated workforce logging & Google Workspace sync",
     subtitle:
-      "An automated Slack bot engine handling clock-ins, shift duration calculations, break management, and automatic daily synchronizations to Google Sheets.",
-    date: "NOV 2025 — DEC 2025",
-    client: "Internal Team Tooling",
-    scope: "Backend Bot Automation & API Sync",
-    status: "Confirmed",
+      "Slack bot automating entry/exit tracking, working-hours calculation, and break management, with daily summaries synced to Google Sheets.",
+    date: "2024",
+    client: "Internal Team Automation",
+    scope: "Backend Bot Service & Google Sheets API",
+    status: "Production Live",
     github: "https://github.com/ThakurAyushRaj/SLACK-ATTENDANCE",
-    featured: true,
+    featured: false,
     description:
       "Slack bot automating entry/exit tracking, working-hours calculation, and break management, with daily summaries synced to Google Sheets.",
     tech: ["Node.js", "Express", "Slack Bolt API", "Google Sheets API"],
     storyParagraphs: [
-      "Manual time tracking was proving vulnerable to oversight and inconsistent reporting. The subject initiated an automated bot solution integrated directly into daily team communication channels on Slack.",
-      "Operating silently in the background, the bot listens to slash commands (`/checkin`, `/checkout`, `/break`) and automatically computes exact shift duration, deducting configured break intervals.",
-      "At the end of each working day, a cron schedule aggregates individual logs and writes formatted records directly into Google Sheets via service account OAuth authentication, giving team management immediate operational visibility."
+      "Initiated an automated bot solution integrated directly into daily team Slack channels for transparent time tracking.",
+      "Listens to slash commands (`/checkin`, `/checkout`, `/break`), calculating exact shift duration and deducting break intervals.",
+      "Aggregates logs daily via automated cron schedules and syncs records into Google Sheets via OAuth authentication."
     ],
     techStack: [
-      { name: "Slack Bolt API", role: "Event subscription & interactive slash command handling" },
-      { name: "Node.js & Express", role: "Asynchronous event loop & webhook listener" },
+      { name: "Slack Bolt API", role: "Event subscription & slash command handling" },
+      { name: "Node.js & Express", role: "Asynchronous webhook listener" },
       { name: "Google Sheets API v4", role: "Automated spreadsheet sync & row appending" }
     ],
     keyFindings: [
-      { label: "Automation Rating", value: "100% Autonomous Execution" },
+      { label: "Automation Level", value: "100% Autonomous Execution" },
       { label: "Integrations", value: "Slack + Google Workspace" },
-      { label: "Time Saved", value: "~15 hours/month admin overhead" },
       { label: "Status", value: "Deploys Operational" }
     ],
     imagePlaceholder: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=1200&q=80"
   },
   {
-    id: 3,
+    id: 7,
     slug: "attendance-tracker-app",
-    exhibit: "Exhibit C",
-    title: "Attendance Tracker App",
-    headline: "Cross-platform mobile verification under surveillance",
+    exhibit: "System 07",
+    title: "Attendance Tracker Mobile App",
+    headline: "Cross-platform mobile verification, Google Auth & FCM Push",
     subtitle:
-      "Mobile application built with React Native and Firebase, featuring OAuth single sign-in, FCM push notifications, and administrative reporting dashboards.",
-    date: "AUG 2025 — OCT 2025",
+      "Cross-platform attendance app built with React Native and Firebase, featuring Google sign-in, FCM push notifications, and admin dashboard.",
+    date: "2024",
     client: "Mobile Workforce",
-    scope: "React Native Mobile & Firebase Services",
-    status: "Confirmed",
+    scope: "React Native & Firebase Services",
+    status: "Production Live",
     github:
       "https://github.com/ThakurAyushRaj/Google-Auth_FCM-Notification_Admin-Pannel_Attendence-Tracker_App-React-Native-",
     featured: false,
@@ -139,35 +276,34 @@ export const projects: CaseFile[] = [
       "Cross-platform attendance app with Google sign-in, FCM push notifications, an admin dashboard, and attendance reporting.",
     tech: ["React Native", "TypeScript", "Firebase Auth", "FCM Push", "Firestore"],
     storyParagraphs: [
-      "To extend attendance verification to field operatives, the subject engineered a cross-platform mobile application supporting iOS and Android devices.",
-      "The app incorporates Google OAuth 2.0 authentication for seamless employee login, paired with Firebase Cloud Messaging (FCM) to dispatch immediate shift reminders and manager approval notifications.",
-      "Administrators gain access to a mobile dashboard equipped with exportable attendance reports, leave approval toggles, and real-time status indicators."
+      "Engineered a cross-platform mobile application supporting iOS and Android devices for field attendance verification.",
+      "Incorporated Google OAuth 2.0 authentication for employee login, paired with Firebase Cloud Messaging (FCM) for shift reminders.",
+      "Built a mobile admin dashboard equipped with exportable attendance reports and leave approval toggles."
     ],
     techStack: [
-      { name: "React Native & Expo", role: "Cross-platform native mobile render engine" },
-      { name: "Firebase Authentication", role: "Google Sign-In OAuth flow management" },
-      { name: "Firebase Cloud Messaging", role: "Real-time background push notification system" }
+      { name: "React Native & Expo", role: "Cross-platform mobile render engine" },
+      { name: "Firebase Authentication", role: "Google Sign-In OAuth management" },
+      { name: "Firebase Cloud Messaging", role: "Background push notification system" }
     ],
     keyFindings: [
-      { label: "Platform Coverage", value: "iOS & Android (Unified Codebase)" },
+      { label: "Platforms", value: "iOS & Android (Unified Codebase)" },
       { label: "Auth Provider", value: "Google Auth SSO" },
-      { label: "Notification Latency", value: "< 200ms FCM Delivery" },
-      { label: "Status", value: "Solo Operation Verified" }
+      { label: "Status", value: "Solo Build Verified" }
     ],
     imagePlaceholder: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80"
   },
   {
-    id: 4,
+    id: 8,
     slug: "google-calendar-todo",
-    exhibit: "Exhibit D",
+    exhibit: "System 08",
     title: "Google Calendar To-Do App",
-    headline: "Synchronizing tasks with temporal schedules",
+    headline: "Mobile task scheduling & Google Calendar API sync",
     subtitle:
-      "A task management tool for mobile devices with Google Calendar sync, custom reminder alerts, and real-time status tracking.",
-    date: "JUN 2025 — JUL 2025",
-    client: "Productivity Suite",
-    scope: "Mobile App & Calendar API Integration",
-    status: "Confirmed",
+      "Task manager for mobile devices with Google Calendar sync, reminders, and real-time updates for productivity tracking.",
+    date: "2024",
+    client: "Productivity Engine",
+    scope: "React Native & Calendar API",
+    status: "Production Live",
     github:
       "https://github.com/ThakurAyushRaj/Google-Calender-Intregeted-To-Do-App-React-Native-",
     featured: false,
@@ -175,35 +311,34 @@ export const projects: CaseFile[] = [
       "Task manager with Google Calendar sync, reminders, and real-time updates for productivity tracking.",
     tech: ["React Native", "TypeScript", "Google Calendar API", "AsyncStorage"],
     storyParagraphs: [
-      "To bridge the gap between static task lists and temporal calendar events, the subject authored a mobile utility that bidirectionalizes task items with Google Calendar schedules.",
-      "When a user creates or modifies a high-priority task, the application communicates directly with the Google Calendar API to reserve time blocks and schedule local device alarms.",
-      "The application features offline persistence using local storage, gracefully syncing pending changes once network connectivity is restored."
+      "Authored a mobile utility that bidirectionalizes task items with Google Calendar schedules.",
+      "Communicates directly with the Google Calendar API to reserve time blocks and schedule local device alarms.",
+      "Features offline persistence using local AsyncStorage, gracefully syncing changes once network connectivity is restored."
     ],
     techStack: [
-      { name: "React Native", role: "Mobile user experience & animated gestures" },
-      { name: "Google Calendar API", role: "Event creation, sync, & time blocking" },
-      { name: "AsyncStorage", role: "Offline task queue & local state persistence" }
+      { name: "React Native", role: "Mobile UI & gestures" },
+      { name: "Google Calendar API", role: "Event creation & time blocking" },
+      { name: "AsyncStorage", role: "Offline task queue & persistence" }
     ],
     keyFindings: [
       { label: "Sync Engine", value: "Two-Way Google Calendar Sync" },
-      { label: "Offline Support", value: "Local Persistence Queue" },
-      { label: "Build Target", value: "React Native Hybrid" },
+      { label: "Offline Mode", value: "Local Storage Queue" },
       { label: "Status", value: "Filed as Solo Build" }
     ],
     imagePlaceholder: "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1200&q=80"
   },
   {
-    id: 5,
+    id: 9,
     slug: "blog-website",
-    exhibit: "Exhibit E",
-    title: "Blog Website",
-    headline: "Fluid editorial publishing & motion interactions",
+    exhibit: "System 09",
+    title: "High-Performance Publishing Platform",
+    headline: "60 FPS animated editorial reading & publishing system",
     subtitle:
-      "An animated blog platform built with React, Tailwind CSS, and Framer Motion for an immersive, tactile reading experience.",
-    date: "MAY 2025 — JUN 2025",
+      "Animated blog site with Framer Motion transitions, built for a smooth, immersive reading experience.",
+    date: "2024",
     client: "Editorial Platform",
-    scope: "Frontend Design System & Motion Graphics",
-    status: "Confirmed",
+    scope: "Frontend System & Motion Graphics",
+    status: "Production Live",
     github: "https://github.com/ThakurAyushRaj/Blog-Website",
     demo: "https://blog-website-murex-sigma.vercel.app/",
     featured: false,
@@ -211,19 +346,18 @@ export const projects: CaseFile[] = [
       "Animated blog site with Framer Motion transitions, built for a smooth, immersive reading experience.",
     tech: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"],
     storyParagraphs: [
-      "Focusing on high-end digital publishing standards, the subject developed an experimental editorial publication engine emphasizing tactile micro-interactions and smooth page transitions.",
-      "Utilizing Framer Motion layout animations, article cards expand seamlessly into full-page reading views, preserving scroll position and visual continuity.",
-      "The platform features custom typography tokens, fluid dark/light paper aesthetics, and optimized image loading pipelines."
+      "Developed an editorial publication engine emphasizing tactile micro-interactions and smooth page transitions.",
+      "Utilized Framer Motion layout animations to transition article cards seamlessly into full-page reading views.",
+      "Features custom design system tokens, responsive aesthetics, and optimized image loading pipelines."
     ],
     techStack: [
       { name: "React & TypeScript", role: "Component hierarchy & state management" },
-      { name: "Framer Motion", role: "Layout transitions, scroll triggers, & entrance effects" },
+      { name: "Framer Motion", role: "Layout transitions & scroll triggers" },
       { name: "Tailwind CSS", role: "Responsive typography & utility styling" }
     ],
     keyFindings: [
-      { label: "Motion Rating", value: "60 FPS Smooth Transitions" },
-      { label: "Layout Strategy", value: "Fluid Responsive Broadsheet" },
-      { label: "Aesthetics", value: "Editorial Paper Style" },
+      { label: "Motion", value: "60 FPS Smooth Transitions" },
+      { label: "Layout", value: "Fluid Responsive Layout" },
       { label: "Status", value: "Production Complete" }
     ],
     imagePlaceholder: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1200&q=80"
@@ -232,45 +366,45 @@ export const projects: CaseFile[] = [
 
 export const forensicsTable = [
   {
-    substance: "React / TS",
-    code: "TSR",
-    detected: "Most days",
-    finding: "Primary tool",
+    substance: "React.js / TypeScript",
+    code: "FRONTEND",
+    detected: "Daily Practice",
+    finding: "Core UI Engine",
     isPrimary: true
   },
   {
-    substance: "Node.js / Express",
-    code: "NODE",
-    detected: "Most days",
-    finding: "Primary tool",
+    substance: "Node.js / Express.js",
+    code: "BACKEND",
+    detected: "Daily Practice",
+    finding: "REST API Core",
     isPrimary: true
   },
   {
     substance: "MongoDB / MySQL",
-    code: "DBX",
-    detected: "In projects",
-    finding: "Primary tool",
-    isPrimary: true
-  },
-  {
-    substance: "Tailwind CSS",
-    code: "TWX",
-    detected: "Most days",
-    finding: "Primary tool",
+    code: "DATABASE",
+    detected: "Production Builds",
+    finding: "Data Persistence",
     isPrimary: true
   },
   {
     substance: "React Native / Flutter",
-    code: "MOB",
-    detected: "In projects",
-    finding: "Secondary tool",
-    isPrimary: false
+    code: "MOBILE",
+    detected: "Mobile Apps",
+    finding: "Cross-Platform",
+    isPrimary: true
   },
   {
-    substance: "AWS",
-    code: "AWS",
-    detected: "Amplify·λ·S3",
-    finding: "Active focus",
+    substance: "Telephony & WhatsApp API",
+    code: "VOICE/MSG",
+    detected: "Vobiz & Meta API",
+    finding: "Calling & Messaging",
+    isPrimary: true
+  },
+  {
+    substance: "AWS Cloud & Tools",
+    code: "DEVOPS",
+    detected: "AWS, Git, GitHub",
+    finding: "Cloud & Versioning",
     isPrimary: false
   }
 ];

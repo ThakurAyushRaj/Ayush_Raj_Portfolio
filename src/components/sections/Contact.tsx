@@ -27,7 +27,7 @@ export default function Contact() {
       >
         <div>
           <span className="text-xs font-serif uppercase tracking-[0.25em] text-[#524b42] font-semibold">
-            <TextScramble text="04 // TRANSMISSION & COMMISSIONS" />
+            <TextScramble text="06 // TRANSMISSION & COMMISSIONS" />
           </span>
           <h2 className="font-anton text-4xl sm:text-5xl uppercase tracking-tight text-[#181410] mt-1 font-black">
             <InkDrawUnderline color="#181410">
@@ -40,7 +40,7 @@ export default function Contact() {
         </div>
       </motion.div>
 
-      {/* ─── HANGING NAIL COMMISSION CARD (MONOCHROMATIC BLACK & WHITE) ─── */}
+      {/* ─── HANGING NAIL COMMISSION CARD (HIGH CONTRAST OBSIDIAN BLACK & WHITE) ─── */}
       <motion.div
         initial={{ opacity: 0, scale: 0.96 }}
         whileInView={{ opacity: 1, scale: 1 }}
@@ -49,59 +49,60 @@ export default function Contact() {
         className="max-w-[800px] mx-auto"
       >
         <HangingNailCard
-          cardTheme="cream"
+          cardTheme="obsidian"
+          dataCursorLabel="BRIEF"
           className="py-12 px-6 sm:px-14 text-center space-y-8 bg-[#090807] text-[#ffffff] border-2 border-white shadow-2xl"
         >
           <div className="space-y-3 relative z-10">
-            <div className="text-xs font-serif uppercase tracking-[0.25em] font-semibold text-white">
+            <div className="text-xs font-serif uppercase tracking-[0.25em] font-bold text-[#c5a059]">
               <TextScramble text="✦ NOW ACCEPTING AUTUMN & WINTER COMMISSIONS ✦" />
             </div>
 
             <h3 className="font-anton text-4xl sm:text-6xl uppercase tracking-tight text-white leading-none font-black">
-              <TextScramble text="PUT YOUR BRAND ABOVE THE FOLD" as="span" />
+              <TextScramble text="SUBMIT YOUR PROJECT BRIEF" as="span" />
             </h3>
 
-            <p className="font-serif italic text-base sm:text-lg text-stone-200 max-w-xl mx-auto leading-relaxed pt-1">
-              &ldquo;Engagements are accepted on a limited quarterly basis to ensure broadsheet quality execution. Direct responses dispatched within 24 hours.&rdquo;
+            <p className="font-serif italic text-base sm:text-lg text-stone-300 max-w-xl mx-auto leading-relaxed pt-1">
+              &ldquo;Direct engineering engagements accepted for web platforms, mobile applications, and API architecture. Direct responses dispatched within 24 hours.&rdquo;
             </p>
           </div>
 
-          {/* ─── MONOCHROMATIC BLACK & WHITE FORM ─── */}
+          {/* ─── MONOCHROMATIC HIGH-CONTRAST FORM ─── */}
           <form onSubmit={handleSubmit} className="space-y-4 text-left max-w-xl mx-auto relative z-10 pt-2">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1">
-                <label className="text-xs font-serif uppercase tracking-[0.2em] font-bold text-white">
+                <label className="text-xs font-serif uppercase tracking-[0.2em] font-bold text-[#c5a059]">
                   Correspondent Name
                 </label>
                 <input
                   type="text"
                   required
                   placeholder="E.G. ALEX MORGAN"
-                  className="w-full bg-black border border-white/60 rounded-none px-4 py-3 text-xs font-serif uppercase text-white placeholder:text-stone-400 focus:outline-none focus:border-white focus:bg-black transition-all focus:ring-1 focus:ring-white"
+                  className="w-full bg-black border border-white/60 rounded-none px-4 py-3 text-xs font-serif uppercase text-white placeholder:text-stone-500 focus:outline-none focus:border-[#c5a059] focus:bg-black transition-all focus:ring-1 focus:ring-[#c5a059]"
                 />
               </div>
               <div className="space-y-1">
-                <label className="text-xs font-serif uppercase tracking-[0.2em] font-bold text-white">
+                <label className="text-xs font-serif uppercase tracking-[0.2em] font-bold text-[#c5a059]">
                   Dispatch Email
                 </label>
                 <input
                   type="email"
                   required
                   placeholder="ALEX@COMPANY.COM"
-                  className="w-full bg-black border border-white/60 rounded-none px-4 py-3 text-xs font-serif uppercase text-white placeholder:text-stone-400 focus:outline-none focus:border-white focus:bg-black transition-all focus:ring-1 focus:ring-white"
+                  className="w-full bg-black border border-white/60 rounded-none px-4 py-3 text-xs font-serif uppercase text-white placeholder:text-stone-500 focus:outline-none focus:border-[#c5a059] focus:bg-black transition-all focus:ring-1 focus:ring-[#c5a059]"
                 />
               </div>
             </div>
 
             <div className="space-y-1">
-              <label className="text-xs font-serif uppercase tracking-[0.2em] font-bold text-white">
+              <label className="text-xs font-serif uppercase tracking-[0.2em] font-bold text-[#c5a059]">
                 Commission Brief &amp; Scope
               </label>
               <textarea
                 rows={4}
                 required
                 placeholder="OUTLINE YOUR PRODUCT OR SYSTEM REQUIREMENTS..."
-                className="w-full bg-black border border-white/60 rounded-none px-4 py-3 text-xs font-serif uppercase text-white placeholder:text-stone-400 focus:outline-none focus:border-white focus:bg-black transition-all focus:ring-1 focus:ring-white"
+                className="w-full bg-black border border-white/60 rounded-none px-4 py-3 text-xs font-serif uppercase text-white placeholder:text-stone-500 focus:outline-none focus:border-[#c5a059] focus:bg-black transition-all focus:ring-1 focus:ring-[#c5a059]"
               ></textarea>
             </div>
 
@@ -112,7 +113,7 @@ export default function Contact() {
                 data-cursor-label="SUBMIT"
                 whileHover={{ scale: 0.95 }}
                 whileTap={{ scale: 0.9 }}
-                className="w-full py-4 px-8 bg-white hover:bg-stone-200 text-black font-serif text-xs uppercase tracking-[0.22em] font-black rounded-none border border-white cursor-pointer shadow-xl flex items-center justify-center gap-2"
+                className="w-full py-4 px-8 bg-white hover:bg-[#c5a059] text-black hover:text-black font-serif text-xs uppercase tracking-[0.22em] font-black rounded-none border border-white cursor-pointer shadow-xl flex items-center justify-center gap-2 transition-colors"
               >
                 <Send size={14} />
                 <span>SUBMIT THE BRIEF &rarr;</span>
@@ -151,7 +152,7 @@ export default function Contact() {
         <motion.div whileHover={{ scale: 0.94 }} className="space-y-1">
           <div className="text-[#524b42] flex items-center justify-center gap-1">
             <Phone size={12} className="text-[#181410]" />
-            <span>TELEGRAPH</span>
+            <span>PHONE</span>
           </div>
           <a href={`tel:${personalInfo.phone.replace(/\s+/g, '')}`} data-cursor-label="PHONE" className="font-bold hover:underline text-[#181410]">
             {personalInfo.phone}
@@ -176,7 +177,7 @@ export default function Contact() {
         <motion.div whileHover={{ scale: 0.94 }} className="space-y-1">
           <div className="text-[#524b42] flex items-center justify-center gap-1">
             <MapPin size={12} className="text-[#181410]" />
-            <span>HEADQUARTERS</span>
+            <span>ADDRESS</span>
           </div>
           <div className="font-bold text-[#181410]">{personalInfo.location}</div>
         </motion.div>

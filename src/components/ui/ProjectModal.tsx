@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, Github, Calendar, CheckCircle2 } from "lucide-react";
+import { X, ExternalLink, Github, CheckCircle2 } from "lucide-react";
 import { CaseFile } from "@/lib/data";
 
 interface ProjectModalProps {
@@ -70,11 +70,6 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 {project.subtitle}
               </p>
               <div className="flex flex-wrap items-center gap-4 text-xs tracking-wider uppercase pt-2 font-bold text-[#524b42]">
-                <span className="flex items-center gap-1">
-                  <Calendar size={13} className="text-[#c5a059]" />
-                  {project.date}
-                </span>
-                <span>•</span>
                 <span>CLIENT: {project.client}</span>
                 <span>•</span>
                 <span className="text-[#c5a059] bg-[#181410] px-2 py-0.5">

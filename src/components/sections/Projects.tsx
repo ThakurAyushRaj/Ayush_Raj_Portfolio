@@ -19,17 +19,9 @@ export default function Projects() {
     { id: "BOTS", label: "AUTOMATION & BOTS" },
   ];
 
-  const images = [
-    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80",
-  ];
-
-  const romanNumerals = ["I", "II", "III", "IV", "V", "VI"];
+  const romanNumerals = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
   const themes: Array<"navy" | "emerald" | "burgundy" | "obsidian"> = ["navy", "emerald", "burgundy", "obsidian"];
-  const stampLabels = ["PRODUCTION SDE", "ENTERPRISE ERP", "NATIVE MOBILE", "SLACK BOT API", "FULL-STACK MERN"];
+  const stampLabels = ["REAL ESTATE CRM", "HEALTHCARE EMR", "FLUTTER CALLING", "WHATSAPP API", "ENTERPRISE ERP", "SLACK BOT API", "MOBILE WORKFORCE", "CALENDAR SYNC", "PUBLISHING PLATFORM"];
 
   const filteredProjects = projects.filter((project) => {
     if (selectedCategory === "ALL") return true;
@@ -38,12 +30,16 @@ export default function Projects() {
         project.tech.includes("React.js") ||
         project.tech.includes("React") ||
         project.slug.includes("erp") ||
+        project.slug.includes("crm") ||
+        project.slug.includes("emr") ||
         project.slug.includes("blog")
       );
     }
     if (selectedCategory === "MOBILE") {
       return (
         project.tech.includes("React Native") ||
+        project.tech.includes("Flutter") ||
+        project.slug.includes("calling") ||
         project.slug.includes("app") ||
         project.slug.includes("todo")
       );
@@ -51,42 +47,45 @@ export default function Projects() {
     if (selectedCategory === "BOTS") {
       return (
         project.tech.includes("Slack Bolt API") ||
-        project.slug.includes("slack")
+        project.tech.includes("Meta WhatsApp Business API") ||
+        project.slug.includes("slack") ||
+        project.slug.includes("whatsapp")
       );
     }
     return true;
   });
 
   return (
-    <section id="projects" className="py-16 px-4 sm:px-8 max-w-7xl mx-auto border-t border-[#181410] text-[#181410]">
+    <section id="projects" className="py-20 px-4 sm:px-8 max-w-7xl mx-auto border-t-2 border-[#181410] text-[#181410]">
       {/* Modal Dialog */}
       <ProjectModal project={activeProject} onClose={() => setActiveProject(null)} />
 
-      {/* ─── SECTION HEADER ─── */}
+      {/* ─── PROMINENT HIGH-VISIBILITY SECTION HEADER ─── */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="border-b border-[#181410] pb-4 mb-8 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-2"
+        className="border-b-2 border-[#181410] pb-6 mb-10 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4"
       >
         <div>
-          <span className="text-xs font-serif uppercase tracking-[0.25em] text-[#181410] font-bold">
-            <TextScramble text="03 // PORTFOLIO ARCHIVES & LIVE DEMOS" />
+          <span className="text-sm font-serif uppercase tracking-[0.3em] text-[#c5a059] font-black flex items-center gap-2">
+            <span className="w-2.5 h-2.5 bg-[#c5a059] inline-block animate-pulse" />
+            <TextScramble text="03 // PORTFOLIO ARCHIVES & LIVE PRODUCTION PROJECTS" />
           </span>
-          <h2 className="font-anton text-4xl sm:text-5xl uppercase tracking-tight text-[#181410] mt-1 font-black">
+          <h2 className="font-anton text-5xl sm:text-7xl uppercase tracking-tight text-[#181410] mt-2 font-black leading-none">
             <InkDrawUnderline color="#c5a059">
-              <TextScramble text="FROM THE PORTFOLIO PAGES" as="span" />
+              <TextScramble text="FEATURED PROJECTS & SYSTEMS" as="span" />
             </InkDrawUnderline>
           </h2>
         </div>
-        <div className="text-xs font-serif uppercase tracking-[0.2em] text-[#181410] font-semibold">
-          <TextScramble text="SELECTED EDITIONS, MMXIX — PRESENT" />
+        <div className="text-xs sm:text-sm font-serif uppercase tracking-[0.25em] text-[#181410] font-black bg-[#181410]/5 px-3 py-1.5 border border-[#181410]">
+          <TextScramble text="SELECTED SYSTEMS (9 UNIQUE DISPATCHES)" />
         </div>
       </motion.div>
 
       {/* ─── INTERACTIVE CATEGORY FILTER TABS ─── */}
-      <div className="flex flex-wrap items-center gap-3 mb-10 pb-2 border-b border-[#181410]/20">
+      <div className="flex flex-wrap items-center gap-3 mb-12 pb-3 border-b border-[#181410]/30">
         {categories.map((cat) => {
           const isActive = selectedCategory === cat.id;
           return (
@@ -94,9 +93,9 @@ export default function Projects() {
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
               data-cursor-label="FILTER"
-              className={`relative px-4 py-2 text-xs font-serif uppercase tracking-[0.2em] font-bold transition-all cursor-pointer border ${
+              className={`relative px-5 py-2.5 text-xs font-serif uppercase tracking-[0.2em] font-bold transition-all cursor-pointer border ${
                 isActive
-                  ? "bg-[#181410] text-[#f4f1ea] border-[#c5a059] shadow-md"
+                  ? "bg-[#181410] text-[#f4f1ea] border-[#c5a059] shadow-lg"
                   : "bg-transparent text-[#181410] border-[#181410]/40 hover:border-[#181410] hover:bg-[#181410]/5"
               }`}
             >
@@ -113,7 +112,7 @@ export default function Projects() {
         })}
       </div>
 
-      {/* ─── HANGING NAIL WALL EXHIBIT GRID WITH VIBRANT CONTRASTING COLORS ─── */}
+      {/* ─── HANGING NAIL WALL EXHIBIT GRID WITH DEDICATED UNIQUE IMAGES ─── */}
       <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
         <AnimatePresence>
           {filteredProjects.map((project, idx) => {
@@ -133,13 +132,13 @@ export default function Projects() {
                   className="p-6 h-full flex flex-col justify-between"
                 >
                   <div className="space-y-4 relative z-10">
-                    {/* Photo Frame & Rubber Stamp */}
+                    {/* Unique Photo Frame & Rubber Stamp */}
                     <div
                       onClick={() => setActiveProject(project)}
                       className="border border-white/20 p-1 bg-black/60 overflow-hidden cursor-pointer relative group/photo"
                     >
                       <img
-                        src={images[idx % images.length]}
+                        src={project.imagePlaceholder}
                         alt={project.title}
                         className="w-full h-[220px] sm:h-[260px] object-cover broadsheet-photo filter grayscale contrast-125 group-hover/photo:scale-108 transition-transform duration-700"
                       />
@@ -152,15 +151,12 @@ export default function Projects() {
                       </div>
                     </div>
 
-                    {/* Title & Date */}
+                    {/* Title */}
                     <div className="space-y-2 border-t border-white/20 pt-3">
-                      <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-serif">
+                      <div className="flex items-center justify-between gap-2 text-xs font-serif">
                         <span className="uppercase tracking-[0.2em] font-black text-sm flex items-center gap-1.5">
                           <span>✦</span>
                           <TextScramble text={`PLATE ${romanNumerals[idx] || idx + 1} — ${project.title}`} as="span" />
-                        </span>
-                        <span className="italic text-[11px] font-semibold bg-black/60 px-2 py-0.5 border border-white/20">
-                          {project.date}
                         </span>
                       </div>
 

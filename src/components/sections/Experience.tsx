@@ -6,18 +6,18 @@ import TextScramble from "@/components/ui/TextScramble";
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-16 px-4 sm:px-8 max-w-7xl mx-auto border-t border-[#181410] text-[#181410]">
+    <section id="experience" className="py-16 px-4 sm:px-8 max-w-7xl mx-auto border-t-2 border-[#181410] text-[#181410]">
       {/* ─── SECTION HEADER ─── */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="border-b border-[#181410] pb-4 mb-10 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-2"
+        className="border-b-2 border-[#181410] pb-4 mb-10 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-2"
       >
         <div>
-          <span className="text-xs font-serif uppercase tracking-[0.25em] text-[#524b42] font-semibold">
-            <TextScramble text="05 // CAREER & CHRONICLE" />
+          <span className="text-xs font-serif uppercase tracking-[0.25em] text-[#c5a059] font-black">
+            <TextScramble text="01 // CAREER & CHRONICLE" />
           </span>
           <h2 className="font-anton text-4xl sm:text-5xl uppercase tracking-tight text-[#181410] mt-1 font-black">
             <InkDrawUnderline color="#181410">
@@ -25,7 +25,7 @@ export default function Experience() {
             </InkDrawUnderline>
           </h2>
         </div>
-        <div className="text-xs font-serif uppercase tracking-[0.2em] text-[#524b42]">
+        <div className="text-xs font-serif uppercase tracking-[0.2em] text-[#181410] font-black bg-[#181410]/5 px-3 py-1.5 border border-[#181410]">
           <TextScramble text="SDE DISPATCHES & TIMELINE" />
         </div>
       </motion.div>

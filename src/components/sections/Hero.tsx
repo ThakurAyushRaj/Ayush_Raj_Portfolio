@@ -16,7 +16,7 @@ export default function Hero() {
     {
       value: 4,
       suffix: "+ YRS",
-      label: "PRODUCTION PRESS",
+      label: "PRODUCTION PRACTICE",
       sub: "FULL-STACK SDE EXPERIENCE",
       icon: Code2,
       cardBg: "bg-[#181410] text-[#f4f1ea] border-2 border-[#c5a059]",
@@ -25,10 +25,10 @@ export default function Hero() {
       rotate: -1.2,
     },
     {
-      value: 10,
-      suffix: "+",
+      value: 9,
+      suffix: "",
       label: "PRODUCTION APPS",
-      sub: "CRM, EMR & MOBILE SUITES",
+      sub: "CRM, EMR, CALLING & MOBILE",
       icon: Server,
       cardBg: "bg-[#0d1b2a] text-[#f8fafc] border-2 border-[#38bdf8]",
       tapeColor: "cyan" as const,
@@ -74,7 +74,7 @@ export default function Hero() {
       >
         <span className="text-xs font-serif uppercase tracking-[0.25em] text-[#181410] font-bold flex items-center gap-2">
           <Sparkles size={14} className="text-[#c5a059] animate-pulse" />
-          <TextScramble text="DISCIPLINES: FULL-STACK ENGINEERING • MERN / MEAN • MOBILE ARCHITECTURE" />
+          <TextScramble text="SPECIALIZING IN FULL-STACK MERN/MEAN & MOBILE SYSTEMS ARCHITECTURE" />
         </span>
 
         <div className="flex items-center gap-3">
@@ -95,20 +95,20 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      {/* ─── HUGE ANTON HEADLINE (~88px) WITH TEXT SCRAMBLE CIPHER ANIMATION ─── */}
-      <div className="text-center space-y-3 pt-2 relative z-10">
-        <div className="font-anton text-5xl sm:text-7xl lg:text-[88px] uppercase tracking-tight text-[#181410] leading-[0.96] max-w-5xl mx-auto font-black justify-center">
+      {/* ─── CLEAR, RELATABLE & INFORMATIVE SDE HEADLINE ─── */}
+      <div className="text-center space-y-4 pt-2 relative z-10">
+        <div className="font-anton text-5xl sm:text-7xl lg:text-[84px] uppercase tracking-tight text-[#181410] leading-[0.96] max-w-5xl mx-auto font-black justify-center">
           <InkDrawUnderline color="#c5a059">
-            <TextScramble text="DESIGN & CODE" as="span" />
+            <TextScramble text="BUILDING FULL-STACK" as="span" />
           </InkDrawUnderline>{" "}
-          <TextScramble text="WORTH THE FRONT PAGE" as="span" />
+          <TextScramble text="PRODUCTS THAT SHIP" as="span" />
         </div>
 
         <motion.div
           variants={fadeUp}
-          className="text-sm sm:text-base font-serif italic text-[#181410] font-semibold pt-2 max-w-2xl mx-auto"
+          className="text-base sm:text-lg font-serif italic text-[#181410] font-semibold pt-1 max-w-3xl mx-auto leading-relaxed"
         >
-          Engineering scalable web, mobile &amp; enterprise platforms for real estate and healthcare workflows.
+          Software Development Engineer specializing in enterprise CRM &amp; EMR platforms, high-throughput REST APIs, React Native &amp; Flutter mobile applications.
         </motion.div>
       </div>
 
@@ -119,7 +119,7 @@ export default function Hero() {
             Hi, I&apos;m <strong>{personalInfo.name}</strong>, a Software Development Engineer at {personalInfo.company} dedicated to crafting robust digital products, high-throughput microservices, and elegant web &amp; mobile interfaces. With deep expertise across modern MERN/MEAN architectures, React Native, and Flutter, I engineer software built to endure.
           </div>
           <div className="broadsheet-justify text-base sm:text-lg leading-relaxed font-serif pt-6 md:pt-0 md:pl-8">
-            From architecture to production rollout, every system is constructed with strict performance standards, clean component hierarchies, and resilient backend design. Whether designing complex healthcare EMR platforms or high-volume real estate CRM engines, quality is set in ink.
+            From architecture to production rollout, every system is constructed with strict performance standards, clean component hierarchies, and resilient backend design. Whether designing complex healthcare EMR platforms or high-volume real estate CRM engines, quality is engineered to last.
           </div>
         </div>
       </motion.div>
