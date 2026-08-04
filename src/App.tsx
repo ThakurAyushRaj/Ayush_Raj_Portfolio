@@ -8,6 +8,7 @@ import {
   ScrollProgress,
   CommandPalette,
   QuickNav,
+  SectionIndicator,
 } from "@/components/ui";
 import { HomePage, CaseFilePage } from "@/pages";
 
@@ -20,6 +21,7 @@ export default function App() {
         <MinimalBroadsheetBackground className="bg-[#f4f1ea] text-[#181410] font-serif selection:bg-[#181410] selection:text-[#f4f1ea] relative overflow-x-hidden min-h-screen flex flex-col antialiased">
           <ScrollProgress />
           <CustomCursor />
+          <SectionIndicator />
           <CommandPalette
             isOpen={isCommandPaletteOpen}
             onClose={() => setIsCommandPaletteOpen(false)}

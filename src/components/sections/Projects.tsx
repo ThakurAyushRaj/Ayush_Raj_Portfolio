@@ -3,9 +3,10 @@ import { projects, CaseFile } from "@/lib/data";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, Eye, Github } from "lucide-react";
 import ProjectModal from "@/components/ui/ProjectModal";
-import TiltCard from "@/components/ui/TiltCard";
+import HangingNailCard from "@/components/ui/HangingNailCard";
 import InkDrawUnderline from "@/components/ui/InkDrawUnderline";
 import TextScramble from "@/components/ui/TextScramble";
+import RubberStamp from "@/components/ui/RubberStamp";
 
 export default function Projects() {
   const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
@@ -27,6 +28,8 @@ export default function Projects() {
   ];
 
   const romanNumerals = ["I", "II", "III", "IV", "V", "VI"];
+  const themes: Array<"navy" | "emerald" | "burgundy" | "obsidian"> = ["navy", "emerald", "burgundy", "obsidian"];
+  const stampLabels = ["PRODUCTION SDE", "ENTERPRISE ERP", "NATIVE MOBILE", "SLACK BOT API", "FULL-STACK MERN"];
 
   const filteredProjects = projects.filter((project) => {
     if (selectedCategory === "ALL") return true;
@@ -82,7 +85,7 @@ export default function Projects() {
         </div>
       </motion.div>
 
-      {/* ─── INTERACTIVE CATEGORY FILTER TABS WITH LAYOUT ANIMATION ─── */}
+      {/* ─── INTERACTIVE CATEGORY FILTER TABS ─── */}
       <div className="flex flex-wrap items-center gap-3 mb-10 pb-2 border-b border-[#181410]/20">
         {categories.map((cat) => {
           const isActive = selectedCategory === cat.id;
@@ -93,7 +96,7 @@ export default function Projects() {
               data-cursor-label="FILTER"
               className={`relative px-4 py-2 text-xs font-serif uppercase tracking-[0.2em] font-bold transition-all cursor-pointer border ${
                 isActive
-                  ? "bg-[#181410] text-[#f4f1ea] border-[#c5a059]"
+                  ? "bg-[#181410] text-[#f4f1ea] border-[#c5a059] shadow-md"
                   : "bg-transparent text-[#181410] border-[#181410]/40 hover:border-[#181410] hover:bg-[#181410]/5"
               }`}
             >
@@ -110,36 +113,39 @@ export default function Projects() {
         })}
       </div>
 
-      {/* ─── BALANCED 2-COLUMN BROADSHEET GRID WITH 3D TILT CARDS ─── */}
-      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+      {/* ─── HANGING NAIL WALL EXHIBIT GRID WITH VIBRANT CONTRASTING COLORS ─── */}
+      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
         <AnimatePresence>
-          {filteredProjects.map((project, idx) => (
-            <motion.div
-              layout
-              key={project.id || idx}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.4 }}
-            >
-              <TiltCard tiltAmount={8} scaleAmount={1.015}>
-                <div
-                  data-cursor-label="INSPECT"
-                  className="relative group overflow-hidden border-2 border-[#c5a059] p-5 bg-[#181410] text-[#f4f1ea] flex flex-col justify-between space-y-4 shadow-xl transition-all duration-300 hover:border-[#e5c178] hover:shadow-2xl h-full"
+          {filteredProjects.map((project, idx) => {
+            const cardTheme = themes[idx % themes.length];
+            return (
+              <motion.div
+                layout
+                key={project.id || idx}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.4 }}
+              >
+                <HangingNailCard
+                  cardTheme={cardTheme}
+                  dataCursorLabel="INSPECT"
+                  className="p-6 h-full flex flex-col justify-between"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 pointer-events-none" />
-
                   <div className="space-y-4 relative z-10">
-                    {/* Photo Frame */}
+                    {/* Photo Frame & Rubber Stamp */}
                     <div
                       onClick={() => setActiveProject(project)}
-                      className="border border-[#c5a059]/40 p-1 bg-black/40 overflow-hidden cursor-pointer relative group/photo"
+                      className="border border-white/20 p-1 bg-black/60 overflow-hidden cursor-pointer relative group/photo"
                     >
                       <img
                         src={images[idx % images.length]}
                         alt={project.title}
-                        className="w-full h-[220px] sm:h-[260px] object-cover broadsheet-photo filter grayscale contrast-125 group-hover/photo:scale-105 transition-transform duration-700"
+                        className="w-full h-[220px] sm:h-[260px] object-cover broadsheet-photo filter grayscale contrast-125 group-hover/photo:scale-108 transition-transform duration-700"
                       />
+                      <div className="absolute top-3 right-3 z-20">
+                        <RubberStamp text={stampLabels[idx % stampLabels.length]} color={idx % 2 === 0 ? "gold" : "emerald"} rotate={4} />
+                      </div>
                       <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/photo:opacity-100 transition-opacity flex items-center justify-center gap-2 text-xs font-serif uppercase tracking-widest text-[#e5c178] font-bold">
                         <Eye size={16} />
                         <span>INSPECT FULL DISPATCH</span>
@@ -147,30 +153,31 @@ export default function Projects() {
                     </div>
 
                     {/* Title & Date */}
-                    <div className="space-y-2 border-t border-[#c5a059]/30 pt-3">
+                    <div className="space-y-2 border-t border-white/20 pt-3">
                       <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-serif">
-                        <span className="uppercase tracking-[0.2em] font-black text-[#c5a059] text-sm">
+                        <span className="uppercase tracking-[0.2em] font-black text-sm flex items-center gap-1.5">
+                          <span>✦</span>
                           <TextScramble text={`PLATE ${romanNumerals[idx] || idx + 1} — ${project.title}`} as="span" />
                         </span>
-                        <span className="italic text-[#d2c9b8] text-[11px] font-semibold">
+                        <span className="italic text-[11px] font-semibold bg-black/60 px-2 py-0.5 border border-white/20">
                           {project.date}
                         </span>
                       </div>
 
-                      <p className="broadsheet-justify text-sm font-serif text-[#d2c9b8] leading-relaxed">
+                      <p className="broadsheet-justify text-sm font-serif leading-relaxed opacity-90">
                         {project.subtitle || project.description}
                       </p>
                     </div>
                   </div>
 
                   {/* Tech Badges & Action Links Row */}
-                  <div className="pt-4 border-t border-[#c5a059]/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs font-serif relative z-10">
+                  <div className="pt-4 border-t border-white/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs font-serif relative z-10">
                     <div className="flex flex-wrap gap-1.5">
                       {project.tech.map((t, tIdx) => (
                         <motion.span
                           key={tIdx}
                           whileHover={{ scale: 1.1, y: -2 }}
-                          className="px-2 py-0.5 border border-[#c5a059]/50 text-[10px] font-serif uppercase tracking-widest text-[#e5c178] bg-black/50 font-bold"
+                          className="px-2 py-0.5 border border-white/30 text-[10px] font-serif uppercase tracking-widest bg-black/80 font-bold"
                         >
                           {t}
                         </motion.span>
@@ -181,7 +188,7 @@ export default function Projects() {
                       <button
                         onClick={() => setActiveProject(project)}
                         data-cursor-label="VIEW"
-                        className="px-2.5 py-1 bg-[#181410] text-[#c5a059] border border-[#c5a059] hover:bg-[#c5a059] hover:text-[#181410] transition-all flex items-center gap-1 font-bold cursor-pointer"
+                        className="px-3 py-1 bg-black text-[#c5a059] border border-[#c5a059] hover:bg-[#c5a059] hover:text-[#181410] transition-all flex items-center gap-1.5 font-bold cursor-pointer"
                       >
                         <Eye size={12} />
                         <span>INSPECT</span>
@@ -193,7 +200,7 @@ export default function Projects() {
                           target="_blank"
                           rel="noopener noreferrer"
                           data-cursor-label="DEMO"
-                          className="px-2.5 py-1 bg-[#c5a059] text-[#181410] hover:bg-[#e5c178] transition-all hover:scale-105 border border-[#c5a059] font-black flex items-center gap-1 cursor-pointer"
+                          className="px-3 py-1 bg-[#c5a059] text-[#181410] hover:bg-white transition-all hover:scale-105 border border-[#c5a059] font-black flex items-center gap-1.5 cursor-pointer shadow-md"
                         >
                           <ExternalLink size={12} />
                           <span>DEMO</span>
@@ -205,17 +212,17 @@ export default function Projects() {
                         target="_blank"
                         rel="noopener noreferrer"
                         data-cursor-label="CODE"
-                        className="text-[#c5a059] hover:text-[#e5c178] hover:underline flex items-center gap-1 cursor-pointer"
+                        className="hover:underline flex items-center gap-1 cursor-pointer pl-1 font-bold"
                       >
                         <Github size={12} />
                         <span>CODE</span>
                       </a>
                     </div>
                   </div>
-                </div>
-              </TiltCard>
-            </motion.div>
-          ))}
+                </HangingNailCard>
+              </motion.div>
+            );
+          })}
         </AnimatePresence>
       </motion.div>
     </section>

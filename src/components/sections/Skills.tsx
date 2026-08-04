@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
-import TiltCard from "@/components/ui/TiltCard";
+import HangingNailCard from "@/components/ui/HangingNailCard";
 import InkDrawUnderline from "@/components/ui/InkDrawUnderline";
 import TextScramble from "@/components/ui/TextScramble";
+import InteractiveTechOrbit from "@/components/ui/InteractiveTechOrbit";
 
 export default function Skills() {
   const desks = [
@@ -17,7 +18,10 @@ export default function Skills() {
         { name: "Tailwind CSS", level: 90 },
         { name: "Next.js / Vite", level: 85 },
       ],
-      isDark: true,
+      theme: "navy" as const,
+      accentText: "text-[#38bdf8]",
+      borderAccent: "border-[#38bdf8]/40",
+      bgBar: "bg-[#38bdf8]",
       link: "#projects"
     },
     {
@@ -32,7 +36,10 @@ export default function Skills() {
         { name: "MongoDB & SQL", level: 88 },
         { name: "AWS Cloud Services", level: 75 },
       ],
-      isDark: false,
+      theme: "emerald" as const,
+      accentText: "text-[#34d399]",
+      borderAccent: "border-[#34d399]/40",
+      bgBar: "bg-[#34d399]",
       link: "#projects"
     },
     {
@@ -47,7 +54,10 @@ export default function Skills() {
         { name: "Flutter & Dart", level: 82 },
         { name: "Firebase & Push FCM", level: 88 },
       ],
-      isDark: true,
+      theme: "burgundy" as const,
+      accentText: "text-[#fb923c]",
+      borderAccent: "border-[#fb923c]/40",
+      bgBar: "bg-[#fb923c]",
       link: "#projects"
     }
   ];
@@ -77,7 +87,10 @@ export default function Skills() {
         </div>
       </motion.div>
 
-      {/* ─── THREE COLUMNS WITH 3D TILT CARDS ─── */}
+      {/* ─── CREATIVE INTERACTIVE TECH MATRIX LABORATORY ─── */}
+      <InteractiveTechOrbit />
+
+      {/* ─── THREE COLUMNS WITH HANGING NAIL CARDS (VIBRANT CONTRASTING COLOUR THEMES) ─── */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {desks.map((desk, idx) => (
           <motion.div
@@ -87,109 +100,84 @@ export default function Skills() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: idx * 0.15 }}
           >
-            <TiltCard tiltAmount={12} scaleAmount={1.02}>
-              <div
-                data-cursor-label="DESK"
-                className={`relative group overflow-hidden p-6 border flex flex-col justify-between space-y-6 transition-all duration-300 h-full ${
-                  desk.isDark
-                    ? "bg-[#181410] text-[#f4f1ea] border-[#c5a059] shadow-2xl hover:border-[#e5c178]"
-                    : "bg-[#f4f1ea] text-[#181410] border-[#181410] shadow-md hover:border-[#c5a059]"
-                }`}
-              >
-                {/* Shimmer Light Sheen */}
-                {desk.isDark && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 pointer-events-none" />
-                )}
+            <HangingNailCard
+              cardTheme={desk.theme}
+              dataCursorLabel="DESK"
+              className="p-6 h-full flex flex-col justify-between"
+            >
+              <div className="space-y-4 relative z-10">
+                <div className={`text-xs font-serif uppercase tracking-[0.2em] font-bold border-b pb-2 flex items-center justify-between ${desk.borderAccent} ${desk.accentText}`}>
+                  <TextScramble text={desk.number} />
+                  <span className="text-base group-hover:rotate-45 transition-transform">
+                    {idx === 0 ? "✦" : idx === 1 ? "❦" : "❖"}
+                  </span>
+                </div>
 
-                <div className="space-y-4 relative z-10">
-                  <div className={`text-xs font-serif uppercase tracking-[0.2em] font-bold border-b pb-2 flex items-center justify-between ${
-                    desk.isDark ? "border-[#c5a059]/40 text-[#c5a059]" : "border-[#181410] text-[#524b42]"
-                  }`}>
-                    <TextScramble text={desk.number} />
-                    <span className="text-base">{idx === 0 ? "✦" : idx === 1 ? "❦" : "❖"}</span>
-                  </div>
+                <h3 className="font-anton text-2xl uppercase tracking-tight leading-snug">
+                  <TextScramble text={desk.title} as="span" />
+                </h3>
 
-                  <h3 className={`font-anton text-2xl uppercase tracking-tight leading-snug ${
-                    desk.isDark ? "text-[#f4f1ea]" : "text-[#181410]"
-                  }`}>
-                    <TextScramble text={desk.title} as="span" />
-                  </h3>
+                <p className="broadsheet-justify text-sm font-serif leading-relaxed opacity-90">
+                  {desk.body}
+                </p>
 
-                  <p className={`broadsheet-justify text-sm font-serif leading-relaxed ${
-                    desk.isDark ? "text-[#d2c9b8]" : "text-[#181410]"
-                  }`}>
-                    {desk.body}
-                  </p>
-
-                  {/* Inset Photo */}
-                  <div className={`border p-1 overflow-hidden ${
-                    desk.isDark ? "border-[#c5a059]/40 bg-black/40" : "border-[#181410] bg-[#181410]/5"
-                  }`}>
-                    <img
-                      src={desk.image}
-                      alt={desk.caption}
-                      className="w-full h-[170px] object-cover broadsheet-photo filter grayscale contrast-125 group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className={`text-[11px] font-serif italic text-center pt-1 ${
-                      desk.isDark ? "text-[#c5a059]" : "text-[#524b42]"
-                    }`}>
-                      {desk.caption}
-                    </div>
-                  </div>
-
-                  {/* Animated Progress Bars */}
-                  <div className="space-y-2 pt-1">
-                    {desk.skillLevels.map((s, sIdx) => (
-                      <div key={sIdx} className="space-y-1 text-xs font-serif">
-                        <div className="flex justify-between font-semibold">
-                          <span className={desk.isDark ? "text-[#d2c9b8]" : "text-[#181410]"}>{s.name}</span>
-                          <span className={desk.isDark ? "text-[#c5a059]" : "text-[#524b42]"}>{s.level}%</span>
-                        </div>
-                        <div className={`h-1.5 w-full ${desk.isDark ? "bg-white/10" : "bg-[#181410]/10"}`}>
-                          <motion.div
-                            initial={{ width: 0 }}
-                            whileInView={{ width: `${s.level}%` }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 1, delay: 0.2 + sIdx * 0.1, ease: "easeOut" }}
-                            className={`h-full ${desk.isDark ? "bg-[#c5a059]" : "bg-[#181410]"}`}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Skills Badges */}
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {desk.skills.map((skill, sIdx) => (
-                      <motion.span
-                        key={sIdx}
-                        whileHover={{ scale: 1.1, y: -2 }}
-                        className={`px-2 py-0.5 border text-[11px] font-serif uppercase tracking-widest ${
-                          desk.isDark
-                            ? "bg-black/40 border-[#c5a059]/50 text-[#e5c178]"
-                            : "bg-white/50 border-[#181410] text-[#181410]"
-                        }`}
-                      >
-                        {skill}
-                      </motion.span>
-                    ))}
+                {/* Photo Frame inside Hanging Desk Poster */}
+                <div className="border border-white/20 p-1 bg-black/40 overflow-hidden relative">
+                  <img
+                    src={desk.image}
+                    alt={desk.caption}
+                    className="w-full h-[170px] object-cover broadsheet-photo filter grayscale contrast-125 group-hover:scale-108 transition-transform duration-700"
+                  />
+                  <div className={`text-[11px] font-serif italic text-center pt-1 ${desk.accentText}`}>
+                    {desk.caption}
                   </div>
                 </div>
 
-                <div className={`pt-4 border-t relative z-10 ${
-                  desk.isDark ? "border-[#c5a059]/40" : "border-[#181410]"
-                }`}>
-                  <a
-                    href={desk.link}
-                    className={`inline-block text-xs font-serif uppercase tracking-[0.22em] font-bold hover:underline underline-offset-4 ${
-                      desk.isDark ? "text-[#c5a059] hover:text-[#e5c178]" : "text-[#181410]"
-                    }`}
-                  >
-                    READ THE CASE FILES &rarr;
-                  </a>
+                {/* Animated Progress Bars */}
+                <div className="space-y-2.5 pt-1">
+                  {desk.skillLevels.map((s, sIdx) => (
+                    <div key={sIdx} className="space-y-1 text-xs font-serif">
+                      <div className="flex justify-between font-semibold">
+                        <span>{s.name}</span>
+                        <span className={`font-bold ${desk.accentText}`}>{s.level}%</span>
+                      </div>
+                      <div className="h-2 w-full p-0.5 border border-white/20 bg-black/80">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${s.level}%` }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 1.2, delay: 0.2 + sIdx * 0.1, ease: "easeOut" }}
+                          className={`h-full ${desk.bgBar}`}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Skills Badges */}
+                <div className="flex flex-wrap gap-2 pt-2">
+                  {desk.skills.map((skill, sIdx) => (
+                    <motion.span
+                      key={sIdx}
+                      whileHover={{ scale: 1.1, y: -2 }}
+                      className={`px-2.5 py-1 border text-[11px] font-serif uppercase tracking-widest font-bold bg-black/60 ${desk.borderAccent} ${desk.accentText}`}
+                    >
+                      {skill}
+                    </motion.span>
+                  ))}
                 </div>
               </div>
-            </TiltCard>
+
+              <div className={`pt-4 border-t relative z-10 ${desk.borderAccent}`}>
+                <a
+                  href={desk.link}
+                  className={`inline-flex items-center gap-1.5 text-xs font-serif uppercase tracking-[0.22em] font-bold ${desk.accentText} hover:underline`}
+                >
+                  <span>READ THE CASE FILES</span>
+                  <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
+                </a>
+              </div>
+            </HangingNailCard>
           </motion.div>
         ))}
       </div>

@@ -1,6 +1,6 @@
 import { experiences } from "@/lib/data";
 import { motion } from "framer-motion";
-import TiltCard from "@/components/ui/TiltCard";
+import HangingNailCard from "@/components/ui/HangingNailCard";
 import InkDrawUnderline from "@/components/ui/InkDrawUnderline";
 import TextScramble from "@/components/ui/TextScramble";
 
@@ -20,7 +20,7 @@ export default function Experience() {
             <TextScramble text="05 // CAREER & CHRONICLE" />
           </span>
           <h2 className="font-anton text-4xl sm:text-5xl uppercase tracking-tight text-[#181410] mt-1 font-black">
-            <InkDrawUnderline color="#c5a059">
+            <InkDrawUnderline color="#181410">
               <TextScramble text="PROFESSIONAL RECORD" as="span" />
             </InkDrawUnderline>
           </h2>
@@ -30,61 +30,79 @@ export default function Experience() {
         </div>
       </motion.div>
 
-      {/* ─── CHRONICLE LIST WITH DARK INK CARDS & 3D TILT ─── */}
-      <div className="space-y-8">
-        {experiences.map((exp, idx) => (
-          <motion.div
-            key={exp.id}
-            initial={{ opacity: 0, x: idx % 2 === 0 ? -30 : 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: idx * 0.15 }}
-          >
-            <TiltCard tiltAmount={6} scaleAmount={1.01}>
-              <div
-                data-cursor-label="ROLE"
-                className={`relative group overflow-hidden p-6 sm:p-8 border space-y-4 transition-all duration-300 ${
-                  idx === 0
-                    ? "bg-[#181410] text-[#f4f1ea] border-[#c5a059] shadow-2xl hover:border-[#e5c178]"
-                    : "bg-[#181410]/95 text-[#f4f1ea] border-[#181410] shadow-xl hover:border-[#c5a059]"
+      {/* ─── CHRONICLE LIST: 1ST CARD WHITE, 2ND CARD BLACK ─── */}
+      <div className="space-y-10">
+        {experiences.map((exp, idx) => {
+          const isWhite = idx % 2 === 0; // 1st card (idx 0) is WHITE, 2nd card (idx 1) is BLACK
+          return (
+            <motion.div
+              key={exp.id}
+              initial={{ opacity: 0, x: idx % 2 === 0 ? -30 : 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: idx * 0.15 }}
+            >
+              <HangingNailCard
+                cardTheme={isWhite ? "cream" : "obsidian"}
+                dataCursorLabel="ROLE"
+                className={`p-6 sm:p-8 space-y-4 border-2 ${
+                  isWhite
+                    ? "bg-[#FAF7F2] text-[#181410] border-[#181410] shadow-xl"
+                    : "bg-[#090807] text-[#ffffff] border-white shadow-2xl"
                 }`}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 pointer-events-none" />
-
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#c5a059]/40 pb-3 relative z-10">
+                <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b pb-3 relative z-10 ${
+                  isWhite ? "border-[#181410]/20" : "border-white/30"
+                }`}>
                   <div>
-                    <span className="text-[11px] font-serif uppercase tracking-[0.2em] font-bold text-[#c5a059]">
+                    <span className={`text-[11px] font-serif uppercase tracking-[0.2em] font-bold ${
+                      isWhite ? "text-[#524b42]" : "text-stone-300"
+                    }`}>
                       [{exp.type}]
                     </span>
-                    <h3 className="font-anton text-2xl uppercase tracking-tight text-[#f4f1ea] mt-0.5">
+                    <h3 className={`font-anton text-2xl uppercase tracking-tight mt-0.5 font-black ${
+                      isWhite ? "text-[#181410]" : "text-white"
+                    }`}>
                       <TextScramble text={exp.role} as="span" />
                     </h3>
-                    <div className="text-sm font-serif font-bold text-[#e5c178]">
-                      {exp.company} &bull; <span className="font-normal italic text-[#d2c9b8]">{exp.location}</span>
+                    <div className={`text-sm font-serif font-bold ${
+                      isWhite ? "text-[#181410]" : "text-white"
+                    }`}>
+                      {exp.company} &bull; <span className={`font-normal italic ${
+                        isWhite ? "text-[#524b42]" : "text-stone-300"
+                      }`}>{exp.location}</span>
                     </div>
                   </div>
 
-                  <div className="text-xs font-serif uppercase tracking-[0.2em] font-bold text-[#c5a059] bg-[#c5a059]/10 px-3 py-1 border border-[#c5a059]/40 shrink-0">
+                  <div className={`text-xs font-serif uppercase tracking-[0.2em] font-bold px-3 py-1.5 border shrink-0 ${
+                    isWhite
+                      ? "text-[#181410] bg-white border-[#181410]"
+                      : "text-white bg-black border-white/60"
+                  }`}>
                     {exp.period}
                   </div>
                 </div>
 
-                <ul className="space-y-2 text-sm font-serif leading-relaxed text-[#d2c9b8] relative z-10">
+                <ul className={`space-y-2.5 text-sm font-serif leading-relaxed relative z-10 ${
+                  isWhite ? "text-[#181410]" : "text-stone-200"
+                }`}>
                   {exp.bullets.map((bullet, bIdx) => (
                     <motion.li
                       key={bIdx}
-                      whileHover={{ x: 4 }}
+                      whileHover={{ x: 6 }}
                       className="flex items-start gap-2.5 transition-transform"
                     >
-                      <span className="font-bold text-xs text-[#c5a059] select-none">▸</span>
+                      <span className={`font-bold text-xs select-none pt-0.5 ${
+                        isWhite ? "text-[#181410]" : "text-white"
+                      }`}>▸</span>
                       <span className="broadsheet-justify">{bullet}</span>
                     </motion.li>
                   ))}
                 </ul>
-              </div>
-            </TiltCard>
-          </motion.div>
-        ))}
+              </HangingNailCard>
+            </motion.div>
+          );
+        })}
       </div>
     </section>
   );

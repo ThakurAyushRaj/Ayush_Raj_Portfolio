@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { personalInfo } from "@/lib/data";
-import { Download, Search, Clock } from "lucide-react";
+import { Download, Search, Clock, Volume2, VolumeX } from "lucide-react";
 import { motion } from "framer-motion";
 import TextScramble from "@/components/ui/TextScramble";
+import Magnetic from "@/components/ui/Magnetic";
+import { audioHaptic } from "@/components/ui/AudioHaptic";
 
 interface BroadsheetHeaderProps {
   onOpenCommandPalette?: () => void;
@@ -10,6 +12,7 @@ interface BroadsheetHeaderProps {
 
 export default function BroadsheetHeader({ onOpenCommandPalette }: BroadsheetHeaderProps) {
   const [timeStr, setTimeStr] = useState<string>("");
+  const [soundActive, setSoundActive] = useState<boolean>(false);
 
   useEffect(() => {
     const updateTime = () => {
@@ -27,6 +30,11 @@ export default function BroadsheetHeader({ onOpenCommandPalette }: BroadsheetHea
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
   }, []);
+
+  const handleToggleSound = () => {
+    const active = audioHaptic.toggleSound();
+    setSoundActive(active);
+  };
 
   const navLinks = [
     { name: "The Work", href: "#projects" },
@@ -64,6 +72,18 @@ export default function BroadsheetHeader({ onOpenCommandPalette }: BroadsheetHea
         <span className="text-sm font-bold opacity-80 select-none">❦</span>
         <div className="flex items-center gap-4">
           <TextScramble text="LONDON • PATNA • GREATER NOIDA" />
+          
+          {/* Sound Synthesizer Haptic Toggle */}
+          <button
+            onClick={handleToggleSound}
+            data-cursor-label="AUDIO"
+            className="px-2 py-0.5 border border-[#181410] bg-[#181410]/5 hover:bg-[#181410] hover:text-[#f4f1ea] transition-all flex items-center gap-1 font-bold cursor-pointer text-[10px]"
+            title="Toggle Mechanical Typewriter Audio Click"
+          >
+            {soundActive ? <Volume2 size={11} className="text-[#c5a059]" /> : <VolumeX size={11} />}
+            <span>AUDIO: {soundActive ? "ON" : "MUTED"}</span>
+          </button>
+
           {timeStr && (
             <span className="hidden md:inline-flex items-center gap-1 text-[#c5a059] bg-[#181410] px-2 py-0.5 font-bold">
               <Clock size={10} />
@@ -97,6 +117,7 @@ export default function BroadsheetHeader({ onOpenCommandPalette }: BroadsheetHea
             key={link.name}
             href={link.href}
             data-cursor-label="NAV"
+            onClick={() => audioHaptic.playClick()}
             className="hover:underline underline-offset-4 decoration-1 decoration-[#181410] transition-all hover:text-[#c5a059]"
           >
             <TextScramble text={link.name} />
@@ -104,28 +125,36 @@ export default function BroadsheetHeader({ onOpenCommandPalette }: BroadsheetHea
         ))}
 
         {onOpenCommandPalette && (
-          <button
-            onClick={onOpenCommandPalette}
-            data-cursor-label="SEARCH"
-            className="px-2.5 py-1 bg-[#181410]/5 border border-[#181410] hover:bg-[#181410] hover:text-[#f4f1ea] transition-all flex items-center gap-1.5 text-[11px] font-bold cursor-pointer"
-            title="Open Command Palette (Ctrl+K)"
-          >
-            <Search size={12} />
-            <span>NAV</span>
-            <kbd className="px-1 text-[9px] bg-[#181410]/10 border border-[#181410]/40 rounded font-mono">⌘K</kbd>
-          </button>
+          <Magnetic strength={0.3}>
+            <button
+              onClick={() => {
+                audioHaptic.playClick();
+                onOpenCommandPalette();
+              }}
+              data-cursor-label="SEARCH"
+              className="px-2.5 py-1 bg-[#181410]/5 border border-[#181410] hover:bg-[#181410] hover:text-[#f4f1ea] transition-all flex items-center gap-1.5 text-[11px] font-bold cursor-pointer shadow-sm"
+              title="Open Command Palette (Ctrl+K)"
+            >
+              <Search size={12} />
+              <span>NAV</span>
+              <kbd className="px-1 text-[9px] bg-[#181410]/10 border border-[#181410]/40 rounded font-mono">⌘K</kbd>
+            </button>
+          </Magnetic>
         )}
 
-        <a
-          href={personalInfo.resume}
-          download="Ayush_Raj_CV.docx"
-          data-cursor-label="CV (.DOCX)"
-          className="px-3 py-1 bg-[#181410] text-[#f4f1ea] hover:bg-[#302922] transition-all hover:scale-105 inline-flex items-center gap-1.5 font-bold border border-[#181410] cursor-pointer"
-          title="Download Ayush Raj CV (.docx)"
-        >
-          <Download size={13} />
-          <span>DOWNLOAD CV (DOCX)</span>
-        </a>
+        <Magnetic strength={0.35}>
+          <a
+            href={personalInfo.resume}
+            download="Ayush_Raj_CV.docx"
+            data-cursor-label="CV (.DOCX)"
+            onClick={() => audioHaptic.playClick()}
+            className="px-3 py-1 bg-[#181410] text-[#f4f1ea] hover:bg-[#302922] transition-all hover:scale-105 inline-flex items-center gap-1.5 font-bold border border-[#181410] cursor-pointer shadow-md"
+            title="Download Ayush Raj CV (.docx)"
+          >
+            <Download size={13} />
+            <span>DOWNLOAD CV (DOCX)</span>
+          </a>
+        </Magnetic>
       </nav>
 
       {/* ─── 4. THREE-UP DATELINE ROW ─── */}
