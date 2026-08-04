@@ -4,4 +4,13 @@ export { InteractiveFolder } from "./InteractiveFolder";
 export { ReactiveNodeBackground } from "./ReactiveNodeBackground";
 export { MinimalBroadsheetBackground } from "./MinimalBroadsheetBackground";
 export { IlluminatedName } from "./IlluminatedName";
-
+export { default as AnimatedCounter } from "./AnimatedCounter";
+export { default as ScrollProgress } from "./ScrollProgress";
+export { default as ProjectModal } from "./ProjectModal";
+export { default as ScrollText } from "./ScrollText";
+export { default as SectionReveal } from "./SectionReveal";
+export { default as QuickNav } from "./QuickNav";
+export { default as TiltCard } from "./TiltCard";
+export { default as InkDrawUnderline } from "./InkDrawUnderline";
+export { default as TextScramble } from "./TextScramble";
+export { default as PressSeal } from "./PressSeal";

@@ -5,6 +5,15 @@ interface MinimalBroadsheetBackgroundProps {
   className?: string;
 }
 
+interface Particle {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  size: number;
+  alpha: number;
+}
+
 export function MinimalBroadsheetBackground({ children, className = "" }: MinimalBroadsheetBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: -1000, y: -1000, targetX: -1000, targetY: -1000 });
@@ -25,6 +34,16 @@ export function MinimalBroadsheetBackground({ children, className = "" }: Minima
     };
     handleResize();
     window.addEventListener("resize", handleResize);
+
+    // Create subtle ambient blueprint particles
+    const particles: Particle[] = Array.from({ length: 30 }, () => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: (Math.random() - 0.5) * 0.4,
+      size: Math.random() * 2 + 1,
+      alpha: Math.random() * 0.4 + 0.1,
+    }));
 
     const handleMouseMove = (e: MouseEvent) => {
       mouseRef.current.targetX = e.clientX;
@@ -48,7 +67,6 @@ export function MinimalBroadsheetBackground({ children, className = "" }: Minima
     window.addEventListener("mousemove", handleMouseMove);
 
     const render = () => {
-      // Lerp mouse position for liquid smooth movement
       mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.18;
       mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.18;
 
@@ -58,33 +76,55 @@ export function MinimalBroadsheetBackground({ children, className = "" }: Minima
 
       ctx.clearRect(0, 0, width, height);
 
-      // Only draw blueprint projection lines if mouse is inside viewport and not over a button
-      if (mx > 0 && my > 0 && !isHoveringButtonRef.current) {
-        // ─── 1. FULL-SCREEN HORIZONTAL & VERTICAL BLUEPRINT PROJECTION LINES ───
+      // Render floating blueprint particles
+      particles.forEach((p) => {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        if (p.y > height) p.y = 0;
+
         ctx.beginPath();
-        // Full horizontal axis line
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(197, 160, 89, ${p.alpha})`;
+        ctx.fill();
+
+        // Connect particle to mouse if within distance
+        const dx = mx - p.x;
+        const dy = my - p.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 120 && !isHoveringButtonRef.current) {
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(mx, my);
+          ctx.strokeStyle = `rgba(197, 160, 89, ${(1 - dist / 120) * 0.25})`;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        }
+      });
+
+      // Only draw drafting blueprint projection lines if mouse is inside viewport
+      if (mx > 0 && my > 0 && !isHoveringButtonRef.current) {
+        ctx.beginPath();
         ctx.moveTo(0, Math.round(my));
         ctx.lineTo(width, Math.round(my));
-
-        // Full vertical axis line
         ctx.moveTo(Math.round(mx), 0);
         ctx.lineTo(Math.round(mx), height);
-
         ctx.strokeStyle = "rgba(24, 20, 16, 0.12)";
         ctx.lineWidth = 1;
-        ctx.setLineDash([4, 4]); // Dashed architectural drafting line
+        ctx.setLineDash([4, 4]);
         ctx.stroke();
-        ctx.setLineDash([]); // Reset dash
+        ctx.setLineDash([]);
 
-        // ─── 2. DRAFTING COMPASS CIRCLES & CROSSHAIR AURA ───
-        // Inner compass ring
+        // Compass rings
         ctx.beginPath();
         ctx.arc(mx, my, 28, 0, Math.PI * 2);
         ctx.strokeStyle = "rgba(197, 160, 89, 0.4)";
         ctx.lineWidth = 1;
         ctx.stroke();
 
-        // Outer compass ring
         ctx.beginPath();
         ctx.arc(mx, my, 55, 0, Math.PI * 2);
         ctx.strokeStyle = "rgba(24, 20, 16, 0.15)";
@@ -93,33 +133,7 @@ export function MinimalBroadsheetBackground({ children, className = "" }: Minima
         ctx.stroke();
         ctx.setLineDash([]);
 
-        // 4 Corner drafting tick marks
-        const tickLength = 8;
-        ctx.strokeStyle = "rgba(197, 160, 89, 0.7)";
-        ctx.lineWidth = 1.2;
-
-        // Top tick
-        ctx.beginPath();
-        ctx.moveTo(mx, my - 28);
-        ctx.lineTo(mx, my - 28 - tickLength);
-        ctx.stroke();
-        // Bottom tick
-        ctx.beginPath();
-        ctx.moveTo(mx, my + 28);
-        ctx.lineTo(mx, my + 28 + tickLength);
-        ctx.stroke();
-        // Left tick
-        ctx.beginPath();
-        ctx.moveTo(mx - 28, my);
-        ctx.lineTo(mx - 28 - tickLength, my);
-        ctx.stroke();
-        // Right tick
-        ctx.beginPath();
-        ctx.moveTo(mx + 28, my);
-        ctx.lineTo(mx + 28 + tickLength, my);
-        ctx.stroke();
-
-        // ─── 3. ARCHITECTURAL COORDINATE BADGE ───
+        // Coordinate Badge
         const coordText = `X:${Math.round(mx)} • Y:${Math.round(my)}`;
         ctx.font = "bold 9px 'JetBrains Mono', monospace";
         const textMetrics = ctx.measureText(coordText);
@@ -129,16 +143,13 @@ export function MinimalBroadsheetBackground({ children, className = "" }: Minima
         const badgeX = mx + 16;
         const badgeY = my - 24;
 
-        // Badge background box
         ctx.fillStyle = "rgba(24, 20, 16, 0.9)";
         ctx.fillRect(badgeX, badgeY, badgeW, badgeH);
 
-        // Badge border
         ctx.strokeStyle = "rgba(197, 160, 89, 0.8)";
         ctx.lineWidth = 1;
         ctx.strokeRect(badgeX, badgeY, badgeW, badgeH);
 
-        // Badge text
         ctx.fillStyle = "#e5c178";
         ctx.fillText(coordText, badgeX + padding, badgeY + 11);
       }
@@ -157,10 +168,7 @@ export function MinimalBroadsheetBackground({ children, className = "" }: Minima
 
   return (
     <div className={`relative ${className}`}>
-      {/* Content Container */}
       <div className="relative z-10">{children}</div>
-
-      {/* Blueprint Canvas Overlay */}
       <canvas
         ref={canvasRef}
         className="fixed inset-0 pointer-events-none z-20"

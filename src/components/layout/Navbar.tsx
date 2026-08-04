@@ -1,5 +1,9 @@
 import BroadsheetHeader from "./BroadsheetHeader";
 
-export default function Navbar() {
-  return <BroadsheetHeader />;
+interface NavbarProps {
+  onOpenCommandPalette?: () => void;
+}
+
+export default function Navbar({ onOpenCommandPalette }: NavbarProps) {
+  return <BroadsheetHeader onOpenCommandPalette={onOpenCommandPalette} />;
 }

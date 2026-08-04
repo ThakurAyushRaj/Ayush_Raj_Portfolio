@@ -106,6 +106,12 @@ body {
 .animate-aurora-slow-3 { animation: aurora-3 29s ease-in-out infinite; }
 .animate-aurora-slow-4 { animation: aurora-4 38s ease-in-out infinite; }
 
+/* ─── MARQUEE TICKER ANIMATION ──────────────────────────── */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
 /* ─── GLOBAL BROAD SHEET PAPER GRAIN OVERLAY ───────────────── */
 body::before,
 .broadsheet-grain::before {
