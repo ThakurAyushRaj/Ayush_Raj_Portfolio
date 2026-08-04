@@ -40,6 +40,7 @@ export interface CaseFile {
   github: string;
   demo?: string;
   featured: boolean;
+  isCompanyProject?: boolean;
   description: string;
   tech: string[];
   storyParagraphs: string[];
@@ -60,8 +61,9 @@ export const projects: CaseFile[] = [
     date: "2024 — PRESENT",
     client: "aNquest Media",
     scope: "Full-Stack Web & RESTful API Architecture",
-    status: "Production Live",
-    github: "https://github.com/ThakurAyushRaj",
+    status: "Company Production Live",
+    github: "",
+    isCompanyProject: true,
     featured: true,
     description:
       "Built responsive interfaces and backend RESTful APIs powering lead-management workflows for real estate clients, with MongoDB and MySQL schema design.",
@@ -81,7 +83,7 @@ export const projects: CaseFile[] = [
       { label: "Production Role", value: "SDE @ aNquest Media" },
       { label: "Workflows", value: "Real Estate Lead Management" },
       { label: "Database Layer", value: "MongoDB & MySQL Dual Engine" },
-      { label: "Status", value: "Active Live Production" }
+      { label: "Project Type", value: "Company Proprietary Build" }
     ],
     imagePlaceholder: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80"
   },
@@ -96,8 +98,9 @@ export const projects: CaseFile[] = [
     date: "2024 — PRESENT",
     client: "aNquest Media",
     scope: "Full-Stack Healthcare Software Architecture",
-    status: "Production Live",
-    github: "https://github.com/ThakurAyushRaj",
+    status: "Company Production Live",
+    github: "",
+    isCompanyProject: true,
     featured: true,
     description:
       "Built interfaces and backend RESTful APIs powering patient-record workflows for healthcare clients, with MongoDB/MySQL schema design.",
@@ -116,23 +119,24 @@ export const projects: CaseFile[] = [
       { label: "Production Role", value: "SDE @ aNquest Media" },
       { label: "Domain", value: "Healthcare Electronic Medical Records" },
       { label: "Security", value: "Role-Based Medical Access Control" },
-      { label: "Status", value: "Active Live Production" }
+      { label: "Project Type", value: "Company Proprietary Build" }
     ],
     imagePlaceholder: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80"
   },
   {
     id: 3,
-    slug: "in-app-calling & bridge-calling",
+    slug: "in-app-bridge-calling",
     exhibit: "System 03",
-    title: "In-App-calling & Bridge Calling Flutter App",
+    title: "In-App & Bridge Calling Flutter App",
     headline: "Flutter mobile app & Vobiz Voice API telephony engine",
     subtitle:
       "Cross-platform Flutter mobile application enabling in-app direct calling and bridge calling powered by Vobiz Voice API for lead communications.",
     date: "2024 — PRESENT",
     client: "aNquest Media",
     scope: "Flutter Mobile App & Telephony Voice API",
-    status: "Production Live",
-    github: "https://github.com/ThakurAyushRaj",
+    status: "Company Production Live",
+    github: "",
+    isCompanyProject: true,
     featured: true,
     description:
       "Flutter mobile application supporting in-app direct calling and bridge calling connecting agents directly to leads via Vobiz's Voice API.",
@@ -150,7 +154,8 @@ export const projects: CaseFile[] = [
     keyFindings: [
       { label: "Mobile Framework", value: "Flutter (Dart)" },
       { label: "Telephony Feature", value: "In-App Direct & Bridge Calling" },
-      { label: "Production Status", value: "Deploys Operational @ aNquest Media" }
+      { label: "Production Status", value: "Deploys Operational @ aNquest Media" },
+      { label: "Project Type", value: "Company Proprietary Build" }
     ],
     imagePlaceholder: "https://images.unsplash.com/photo-1534536281715-e28d76689b4d?auto=format&fit=crop&w=1200&q=80"
   },
@@ -165,8 +170,9 @@ export const projects: CaseFile[] = [
     date: "2024 — PRESENT",
     client: "aNquest Media",
     scope: "Meta WhatsApp API & Notification Pipeline",
-    status: "Production Live",
-    github: "https://github.com/ThakurAyushRaj",
+    status: "Company Production Live",
+    github: "",
+    isCompanyProject: true,
     featured: true,
     description:
       "Automated lead follow-ups and notifications on WhatsApp, built on Meta's WhatsApp Business API via a Facebook Developer App.",
@@ -184,14 +190,49 @@ export const projects: CaseFile[] = [
     keyFindings: [
       { label: "API Provider", value: "Meta WhatsApp Business API" },
       { label: "Automation", value: "Instant Lead Follow-ups & Reminders" },
-      { label: "Production Status", value: "Active Production Engine" }
+      { label: "Project Type", value: "Company Proprietary Build" }
     ],
     imagePlaceholder: "https://images.unsplash.com/photo-1611746872915-64382b5c76da?auto=format&fit=crop&w=1200&q=80"
   },
   {
     id: 5,
-    slug: "erp-website",
+    slug: "blog-website",
     exhibit: "System 05",
+    title: "High-Performance Publishing Platform (Blog)",
+    headline: "60 FPS animated editorial reading & publishing system",
+    subtitle:
+      "Animated blog website with Framer Motion transitions, built for a smooth, immersive reading experience.",
+    date: "2024",
+    client: "Editorial Platform",
+    scope: "Frontend System & Motion Graphics",
+    status: "Production Live",
+    github: "https://github.com/ThakurAyushRaj/Blog-Website",
+    demo: "https://blog-website-murex-sigma.vercel.app/",
+    featured: false,
+    description:
+      "Animated blog site with Framer Motion transitions, built for a smooth, immersive reading experience.",
+    tech: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    storyParagraphs: [
+      "Developed an editorial publication engine emphasizing tactile micro-interactions and smooth page transitions.",
+      "Utilized Framer Motion layout animations to transition article cards seamlessly into full-page reading views.",
+      "Features custom design system tokens, responsive aesthetics, and optimized image loading pipelines."
+    ],
+    techStack: [
+      { name: "React & TypeScript", role: "Component hierarchy & state management" },
+      { name: "Framer Motion", role: "Layout transitions & scroll triggers" },
+      { name: "Tailwind CSS", role: "Responsive typography & utility styling" }
+    ],
+    keyFindings: [
+      { label: "Motion", value: "60 FPS Smooth Transitions" },
+      { label: "Layout", value: "Fluid Responsive Layout" },
+      { label: "Status", value: "Production Complete" }
+    ],
+    imagePlaceholder: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    id: 6,
+    slug: "erp-website",
+    exhibit: "System 06",
     title: "Enterprise ERP Platform",
     headline: "Unified corporate resource planning & inventory engine",
     subtitle:
@@ -224,9 +265,9 @@ export const projects: CaseFile[] = [
     imagePlaceholder: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80"
   },
   {
-    id: 6,
+    id: 7,
     slug: "slack-attendance-bot",
-    exhibit: "System 06",
+    exhibit: "System 07",
     title: "Slack Attendance Bot Engine",
     headline: "Automated workforce logging & Google Workspace sync",
     subtitle:
@@ -258,9 +299,9 @@ export const projects: CaseFile[] = [
     imagePlaceholder: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=1200&q=80"
   },
   {
-    id: 7,
+    id: 8,
     slug: "attendance-tracker-app",
-    exhibit: "System 07",
+    exhibit: "System 08",
     title: "Attendance Tracker Mobile App",
     headline: "Cross-platform mobile verification, Google Auth & FCM Push",
     subtitle:
@@ -293,9 +334,9 @@ export const projects: CaseFile[] = [
     imagePlaceholder: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80"
   },
   {
-    id: 8,
+    id: 9,
     slug: "google-calendar-todo",
-    exhibit: "System 08",
+    exhibit: "System 09",
     title: "Google Calendar To-Do App",
     headline: "Mobile task scheduling & Google Calendar API sync",
     subtitle:
@@ -326,41 +367,6 @@ export const projects: CaseFile[] = [
       { label: "Status", value: "Filed as Solo Build" }
     ],
     imagePlaceholder: "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1200&q=80"
-  },
-  {
-    id: 9,
-    slug: "blog-website",
-    exhibit: "System 09",
-    title: "High-Performance Publishing Platform",
-    headline: "60 FPS animated editorial reading & publishing system",
-    subtitle:
-      "Animated blog site with Framer Motion transitions, built for a smooth, immersive reading experience.",
-    date: "2024",
-    client: "Editorial Platform",
-    scope: "Frontend System & Motion Graphics",
-    status: "Production Live",
-    github: "https://github.com/ThakurAyushRaj/Blog-Website",
-    demo: "https://blog-website-murex-sigma.vercel.app/",
-    featured: false,
-    description:
-      "Animated blog site with Framer Motion transitions, built for a smooth, immersive reading experience.",
-    tech: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    storyParagraphs: [
-      "Developed an editorial publication engine emphasizing tactile micro-interactions and smooth page transitions.",
-      "Utilized Framer Motion layout animations to transition article cards seamlessly into full-page reading views.",
-      "Features custom design system tokens, responsive aesthetics, and optimized image loading pipelines."
-    ],
-    techStack: [
-      { name: "React & TypeScript", role: "Component hierarchy & state management" },
-      { name: "Framer Motion", role: "Layout transitions & scroll triggers" },
-      { name: "Tailwind CSS", role: "Responsive typography & utility styling" }
-    ],
-    keyFindings: [
-      { label: "Motion", value: "60 FPS Smooth Transitions" },
-      { label: "Layout", value: "Fluid Responsive Layout" },
-      { label: "Status", value: "Production Complete" }
-    ],
-    imagePlaceholder: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1200&q=80"
   }
 ];
 

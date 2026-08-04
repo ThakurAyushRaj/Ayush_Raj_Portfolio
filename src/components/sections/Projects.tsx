@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { projects, CaseFile } from "@/lib/data";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, Eye, Github } from "lucide-react";
+import { ExternalLink, Eye, Github, Building2 } from "lucide-react";
 import ProjectModal from "@/components/ui/ProjectModal";
 import HangingNailCard from "@/components/ui/HangingNailCard";
 import InkDrawUnderline from "@/components/ui/InkDrawUnderline";
@@ -19,7 +19,6 @@ export default function Projects() {
     { id: "BOTS", label: "AUTOMATION & BOTS" },
   ];
 
-  const romanNumerals = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
   const themes: Array<"navy" | "emerald" | "burgundy" | "obsidian"> = ["navy", "emerald", "burgundy", "obsidian"];
   const stampLabels = ["REAL ESTATE CRM", "HEALTHCARE EMR", "FLUTTER CALLING", "WHATSAPP API", "ENTERPRISE ERP", "SLACK BOT API", "MOBILE WORKFORCE", "CALENDAR SYNC", "PUBLISHING PLATFORM"];
 
@@ -112,7 +111,7 @@ export default function Projects() {
         })}
       </div>
 
-      {/* ─── HANGING NAIL WALL EXHIBIT GRID WITH DEDICATED UNIQUE IMAGES ─── */}
+      {/* ─── HANGING NAIL WALL EXHIBIT GRID WITH DEDICATED COMPANY BADGES ─── */}
       <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
         <AnimatePresence>
           {filteredProjects.map((project, idx) => {
@@ -129,7 +128,7 @@ export default function Projects() {
                 <HangingNailCard
                   cardTheme={cardTheme}
                   dataCursorLabel="INSPECT"
-                  className="p-6 h-full flex flex-col justify-between"
+                  className="p-6 h-full flex flex-col justify-between space-y-5"
                 >
                   <div className="space-y-4 relative z-10">
                     {/* Unique Photo Frame & Rubber Stamp */}
@@ -151,17 +150,23 @@ export default function Projects() {
                       </div>
                     </div>
 
-                    {/* Title */}
-                    <div className="space-y-2 border-t border-white/20 pt-3">
-                      <div className="flex items-center justify-between gap-2 text-xs font-serif">
-                        <span className="uppercase tracking-[0.2em] font-black text-sm flex items-center gap-1.5">
-                          <span>✦</span>
-                          <TextScramble text={`PLATE ${romanNumerals[idx] || idx + 1} — ${project.title}`} as="span" />
+                    {/* Prominent Bold High-Contrast Title & Headline Block */}
+                    <div className="space-y-2.5 border-t border-white/20 pt-4">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-[10px] font-serif uppercase tracking-[0.25em] font-black px-2.5 py-1 bg-black/80 border border-[#c5a059] text-[#c5a059] shadow-sm">
+                          {project.exhibit || `SYSTEM 0${idx + 1}`}
+                        </span>
+                        <span className="text-[11px] font-serif uppercase tracking-widest text-stone-300 font-bold bg-black/50 px-2 py-0.5 border border-white/10">
+                          {project.client}
                         </span>
                       </div>
 
-                      <p className="broadsheet-justify text-sm font-serif leading-relaxed opacity-90">
-                        {project.subtitle || project.description}
+                      <h3 className="font-anton text-2xl sm:text-3xl uppercase tracking-tight text-white font-black leading-tight drop-shadow-lg">
+                        <TextScramble text={project.title} as="span" />
+                      </h3>
+
+                      <p className="broadsheet-justify text-sm font-serif leading-relaxed text-stone-200 opacity-95">
+                        {project.headline || project.subtitle || project.description}
                       </p>
                     </div>
                   </div>
@@ -203,16 +208,23 @@ export default function Projects() {
                         </a>
                       )}
 
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        data-cursor-label="CODE"
-                        className="hover:underline flex items-center gap-1 cursor-pointer pl-1 font-bold"
-                      >
-                        <Github size={12} />
-                        <span>CODE</span>
-                      </a>
+                      {project.github ? (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          data-cursor-label="CODE"
+                          className="hover:underline flex items-center gap-1 cursor-pointer pl-1 font-bold text-white"
+                        >
+                          <Github size={12} />
+                          <span>CODE</span>
+                        </a>
+                      ) : (
+                        <span className="px-2.5 py-1 bg-black/90 text-[#c5a059] border border-[#c5a059]/80 text-[10px] font-bold uppercase tracking-wider flex items-center gap-1">
+                          <Building2 size={11} />
+                          <span>COMPANY PROJECT</span>
+                        </span>
+                      )}
                     </div>
                   </div>
                 </HangingNailCard>

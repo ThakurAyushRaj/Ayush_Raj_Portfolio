@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, Github, CheckCircle2 } from "lucide-react";
+import { X, ExternalLink, Github, CheckCircle2, Building2 } from "lucide-react";
 import { CaseFile } from "@/lib/data";
 
 interface ProjectModalProps {
@@ -136,9 +136,13 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
           {/* Modal Footer Actions */}
           <div className="p-4 sm:p-6 border-t-2 border-[#181410] bg-[#e8e4da] flex flex-wrap items-center justify-between gap-4">
-            <div className="text-xs font-serif italic text-[#524b42] flex items-center gap-1.5">
+            <div className="text-xs font-serif italic text-[#524b42] flex items-center gap-1.5 font-semibold">
               <CheckCircle2 size={14} className="text-[#c5a059]" />
-              <span>Verified production codebase in repository</span>
+              <span>
+                {project.isCompanyProject
+                  ? "Proprietary company codebase deployed in production @ aNquest Media"
+                  : "Verified production codebase in repository"}
+              </span>
             </div>
 
             <div className="flex items-center gap-3">
@@ -153,7 +157,8 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   <span>LAUNCH LIVE DEMO</span>
                 </a>
               )}
-              {project.github && (
+
+              {project.github ? (
                 <a
                   href={project.github}
                   target="_blank"
@@ -163,6 +168,11 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   <Github size={14} />
                   <span>VIEW CODEBASE</span>
                 </a>
+              ) : (
+                <span className="px-4 py-2 bg-[#181410] text-[#c5a059] text-xs uppercase tracking-wider font-bold border border-[#c5a059] flex items-center gap-2">
+                  <Building2 size={14} />
+                  <span>COMPANY PROJECT</span>
+                </span>
               )}
             </div>
           </div>
