@@ -3,6 +3,7 @@ import { personalInfo } from "@/lib/data";
 import { Download, Search, Clock, Volume2, VolumeX } from "lucide-react";
 import { motion } from "framer-motion";
 import TextScramble from "@/components/ui/TextScramble";
+import InkDrawUnderline from "@/components/ui/InkDrawUnderline";
 import Magnetic from "@/components/ui/Magnetic";
 import PressSeal from "@/components/ui/PressSeal";
 import { audioHaptic } from "@/components/ui/AudioHaptic";
@@ -49,17 +50,17 @@ export default function BroadsheetHeader({ onOpenCommandPalette }: BroadsheetHea
       {/* ─── 0. RUNNING MARQUEE INFORMATION TICKER BANNER ─── */}
       <div className="bg-[#181410] text-[#c5a059] text-[11px] font-serif uppercase tracking-[0.25em] py-1.5 overflow-hidden border-b border-[#c5a059]/40 flex items-center relative">
         <div className="whitespace-nowrap flex gap-8 animate-[marquee_26s_linear_infinite]">
-          <span>✦ SDE AT ANQUEST MEDIA</span>
+          <span>✦ SDE PRACTICE AT ANQUEST MEDIA</span>
           <span>•</span>
-          <span>FULL-STACK MERN / MEAN & MOBILE SYSTEMS ARCHITECTURE</span>
+          <span>FULL-STACK MERN / MEAN &amp; MOBILE SYSTEMS ARCHITECTURE</span>
           <span>•</span>
-          <span>FULL STACK DEVELOPER</span>
+          <span>ACCEPTING SELECT COMMISSIONS</span>
           <span>•</span>
-          <span>✦ SDE AT ANQUEST MEDIA</span>
+          <span>✦ SDE PRACTICE AT ANQUEST MEDIA</span>
           <span>•</span>
-          <span>FULL-STACK MERN / MEAN & MOBILE SYSTEMS ARCHITECTURE</span>
+          <span>FULL-STACK MERN / MEAN &amp; MOBILE SYSTEMS ARCHITECTURE</span>
           <span>•</span>
-          <span>FULL STACK DEVELOPER</span>
+          <span>ACCEPTING SELECT COMMISSIONS</span>
           <span>•</span>
         </div>
       </div>
@@ -68,7 +69,7 @@ export default function BroadsheetHeader({ onOpenCommandPalette }: BroadsheetHea
       <div className="border-b border-[#181410] py-2 px-4 sm:px-8 flex items-center justify-between text-xs font-serif uppercase tracking-[0.2em] text-[#181410]">
         <div className="flex items-center gap-2 font-bold">
           <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
-          <TextScramble text="FULL STACK DEVELOPER" />
+          <TextScramble text="SOFTWARE DEVELOPMENT ENGINEER" />
         </div>
 
         <div className="flex items-center gap-5 text-[11px] font-semibold">
@@ -96,7 +97,7 @@ export default function BroadsheetHeader({ onOpenCommandPalette }: BroadsheetHea
         </div>
       </div>
 
-      {/* ─── 2. ELEGANT SPACIOUS MASTHEAD NAMEPLATE ─── */}
+      {/* ─── 2. ELEGANT SPACIOUS MASTHEAD NAMEPLATE WITH INK DRAW UNDERLINE ─── */}
       <div className="py-7 sm:py-10 px-4 text-center relative flex items-center justify-center border-b border-[#181410]">
         {/* Press Seal Emblem Logo on Top Left */}
         <div className="hidden lg:block absolute left-8 xl:left-14 top-1/2 -translate-y-1/2 z-20">
@@ -110,10 +111,12 @@ export default function BroadsheetHeader({ onOpenCommandPalette }: BroadsheetHea
           data-cursor-label="MASTHEAD"
         >
           <h1 className="font-radley font-bold text-5xl sm:text-7xl lg:text-[92px] tracking-[0.05em] uppercase text-[#181410] leading-none">
-            <TextScramble text={personalInfo.name} />
+            <InkDrawUnderline color="#c5a059">
+              <TextScramble text={personalInfo.name} as="span" />
+            </InkDrawUnderline>
           </h1>
-          <div className="text-xs font-serif uppercase tracking-[0.28em] text-[#181410] font-bold mt-3">
-            <TextScramble text="FULL-STACK DEVELOPER (SDE AT ANQUEST MEDIA) • MERN & MOBILE DEVELOPER" />
+          <div className="text-xs font-serif uppercase tracking-[0.28em] text-[#181410] font-bold mt-4">
+            <TextScramble text="FULL-STACK SDE • MERN & MOBILE SYSTEMS" />
           </div>
         </motion.a>
       </div>
