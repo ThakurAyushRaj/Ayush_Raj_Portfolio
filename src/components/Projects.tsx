@@ -1,32 +1,13 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { FolderGit2, Github, ExternalLink, Smartphone, ArrowRight, Bot, Layout, CheckCircle2, Folder } from 'lucide-react'
+import { FolderGit2, Github, Smartphone, ArrowRight } from 'lucide-react'
 import { PERSONAL_PROJECTS, ProjectItem } from '../data/portfolioData'
-import { FolderCard } from './ui/FolderCard'
 
 interface ProjectsProps {
   onSelectProject: (project: ProjectItem) => void
 }
 
 export const Projects: React.FC<ProjectsProps> = ({ onSelectProject }) => {
-  // Construct 3D folder card vault items dynamically using REAL portfolio data
-  const vaultProjects = PERSONAL_PROJECTS.map((proj) => {
-    const highlights = proj.highlights || []
-    return {
-      project: proj,
-      title: proj.title,
-      description: proj.description,
-      techStack: proj.technologies,
-      files: [
-        { name: highlights[0] || 'Core Architecture', tag: proj.technologies[0] || 'React' },
-        { name: highlights[1] || 'Business Workflows', tag: proj.technologies[1] || 'Node.js' },
-        { name: highlights[2] || 'Data Management', tag: proj.technologies[2] || proj.technologies[0] },
-        { name: highlights[3] || 'System Features', tag: proj.technologies[0] || 'TypeScript' },
-        { name: proj.githubUrl ? 'Source Repository' : 'System Documentation', tag: proj.githubUrl ? 'GitHub' : 'Docs' }
-      ]
-    }
-  })
-
   return (
     <section id="projects" className="py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -44,42 +25,6 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelectProject }) => {
             Exploring production applications, mobile clients, and workflow automation tools.
           </p>
         </div>
-
-        {/* 3D Interactive Project Folder Cards Vault */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-16 p-6 sm:p-10 rounded-3xl bg-zinc-900/40 dark:bg-zinc-900/40 light:bg-white border border-zinc-800/80 backdrop-blur-2xl shadow-2xl overflow-visible"
-        >
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 text-xs font-mono font-bold text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20 mb-2">
-              <Folder className="w-3.5 h-3.5" />
-              <span>Interactive 3D Deliverable Vault</span>
-            </div>
-            <h3 className="text-2xl font-bold text-zinc-100 dark:text-zinc-100 light:text-zinc-900">
-              Click Any Project Folder to Explore Deliverables
-            </h3>
-            <p className="text-xs text-zinc-400 mt-1">Click a folder card to inspect real code files & view full project details</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 justify-items-center py-10 overflow-visible max-w-5xl mx-auto">
-            {vaultProjects.map((vp, i) => (
-              <div key={vp.project.id} className="flex flex-col items-center">
-                <FolderCard
-                  id={`vault-folder-${i}`}
-                  title={vp.title}
-                  description={vp.description}
-                  techStack={vp.techStack}
-                  files={vp.files}
-                  onViewDetails={() => onSelectProject(vp.project)}
-                  onFileClick={() => onSelectProject(vp.project)}
-                />
-              </div>
-            ))}
-          </div>
-        </motion.div>
 
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
