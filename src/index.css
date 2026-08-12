@@ -2,13 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@layer base {
+  body {
+    margin: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  code, pre {
+    font-family: 'JetBrains Mono', monospace;
+  }
 }
 
 /* Force crisp rendering on 3D canvases for High-DPI and zoomed screens */
@@ -16,3 +20,564 @@ canvas {
   image-rendering: -webkit-optimize-contrast !important;
   image-rendering: crisp-edges !important;
 }
+
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #09090b;
+}
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   3D Folder Card Styles (Enlarged 2-Per-Row Layout & Ultra-Smooth)
+   ========================================================================== */
+.folder-card {
+  width: 230px;
+  height: 170px;
+  perspective: 1200px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.folder-toggle {
+  display: none;
+}
+
+/* folder open sign badge on cover */
+.folder-open-badge {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.folder-toggle:checked ~ .folder-container .folder-open-badge {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+/* folder card logics */
+.folder-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  /* Smooth decelerated easing for closing */
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.folder-toggle:checked ~ .folder-container {
+  transform: rotateX(12deg) rotateY(-6deg);
+  /* Smooth spring easing for opening */
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.folder-back {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.45));
+}
+
+.folder-front-wrapper {
+  position: absolute;
+  bottom: -7px;
+  width: 100%;
+  z-index: 90;
+  transform-origin: bottom;
+  /* Retract lid smoothly when closing */
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1) 0.05s;
+  border-radius: 14px;
+}
+
+.folder-toggle:checked ~ .folder-container .folder-front-wrapper {
+  transform: rotateX(-48deg);
+  /* Open lid immediately when clicking open */
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0s;
+}
+
+.folder-label {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  width: 36px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: 10px;
+}
+
+/* files with smooth physics */
+.file {
+  position: absolute;
+  bottom: 8px;
+  left: 9%;
+  width: 82%;
+  height: 110px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.35), 0 8px 20px rgba(0, 0, 0, 0.38);
+  /* Default closing transition: fast & smooth retraction without hanging delay */
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1) 0s, filter 0.3s ease;
+  z-index: 0;
+  will-change: transform, opacity;
+}
+
+/* Opening delays (staggered when fanning out) */
+.folder-toggle:checked ~ .folder-container .file {
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+}
+
+.folder-toggle:checked ~ .folder-container .file-1 {
+  transition-delay: 0.12s;
+}
+.folder-toggle:checked ~ .folder-container .file-2 {
+  transition-delay: 0.09s;
+}
+.folder-toggle:checked ~ .folder-container .file-3 {
+  transition-delay: 0.06s;
+}
+.folder-toggle:checked ~ .folder-container .file-4 {
+  transition-delay: 0.03s;
+}
+.folder-toggle:checked ~ .folder-container .file-5 {
+  transition-delay: 0s;
+}
+
+/* Closing delays (file 1 tucks back in first, followed by 2, 3, 4, 5) */
+.folder-toggle:not(:checked) ~ .folder-container .file-1 {
+  transition-delay: 0s;
+}
+.folder-toggle:not(:checked) ~ .folder-container .file-2 {
+  transition-delay: 0.02s;
+}
+.folder-toggle:not(:checked) ~ .folder-container .file-3 {
+  transition-delay: 0.04s;
+}
+.folder-toggle:not(:checked) ~ .folder-container .file-4 {
+  transition-delay: 0.06s;
+}
+.folder-toggle:not(:checked) ~ .folder-container .file-5 {
+  transition-delay: 0.08s;
+}
+
+.file-1 {
+  background: linear-gradient(135deg, #ff5f6d, #ffc371);
+  z-index: 25;
+}
+.file-2 {
+  background: linear-gradient(135deg, #ffc371, #f6d365);
+  z-index: 24;
+}
+.file-3 {
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  z-index: 23;
+}
+.file-4 {
+  background: linear-gradient(135deg, #00f2fe, #43e97b);
+  z-index: 22;
+}
+.file-5 {
+  background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+  z-index: 21;
+}
+
+.shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: skewX(-20deg);
+  transition: none;
+}
+
+.folder-toggle:checked ~ .folder-container .shine {
+  left: 150%;
+  transition: left 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 0.25s;
+}
+
+/* File text & tags */
+.file-text {
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  color: white;
+  padding: 14px 14px;
+  font-weight: 800;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  transform: translateY(5px);
+  /* Fast clean fade when closing */
+  transition: opacity 0.15s ease 0s, transform 0.15s ease 0s;
+}
+
+.folder-toggle:checked ~ .folder-container .file-text {
+  opacity: 1;
+  transform: translateY(0);
+  /* Delayed entrance when opening */
+  transition: opacity 0.35s ease 0.25s, transform 0.35s ease 0.25s;
+}
+
+/* active state positions when open */
+.folder-toggle:checked ~ .folder-container .file-1 {
+  transform: translateY(-92px) rotate(-10deg) translateX(-18px) translateZ(25px);
+}
+.folder-toggle:checked ~ .folder-container .file-2 {
+  transform: translateY(-72px) rotate(8deg) translateX(20px) translateZ(15px);
+}
+.folder-toggle:checked ~ .folder-container .file-3 {
+  transform: translateY(-52px) rotate(-14deg) translateX(-10px);
+}
+.folder-toggle:checked ~ .folder-container .file-4 {
+  transform: translateY(-32px) rotate(12deg) translateX(14px);
+}
+.folder-toggle:checked ~ .folder-container .file-5 {
+  transform: translateY(-12px) rotate(-4deg);
+}
+
+/* Hover Interaction when open */
+.folder-toggle:checked ~ .folder-container .file:hover {
+  cursor: pointer;
+  filter: brightness(1.12);
+}
+
+.folder-toggle:checked ~ .folder-container .file-1:hover {
+  transform: translateY(-104px) rotate(-10deg) translateX(-18px) translateZ(30px);
+}
+.folder-toggle:checked ~ .folder-container .file-2:hover {
+  transform: translateY(-84px) rotate(8deg) translateX(20px) translateZ(20px);
+}
+.folder-toggle:checked ~ .folder-container .file-3:hover {
+  transform: translateY(-64px) rotate(-14deg) translateX(-10px);
+}
+.folder-toggle:checked ~ .folder-container .file-4:hover {
+  transform: translateY(-44px) rotate(12deg) translateX(14px);
+}
+.folder-toggle:checked ~ .folder-container .file-5:hover {
+  transform: translateY(-24px) rotate(-4deg);
+}
+
+/* extra styles for file icons and tags */
+.file-icon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 16px;
+  height: 16px;
+  color: rgba(255, 255, 255, 0.55);
+  transition: color 0.3s ease;
+}
+
+.file-tag {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: rgba(255, 255, 255, 0.95);
+  font-family: "Inter", -apple-system, sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  padding: 3px 7px;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  transform: translateX(10px);
+  /* Fast clean fade when closing */
+  transition: opacity 0.15s ease 0s, transform 0.15s ease 0s;
+  pointer-events: none;
+}
+
+/* when folder is OPEN and you HOVER a file */
+.folder-toggle:checked ~ .folder-container .file:hover .file-icon {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.folder-toggle:checked ~ .folder-container .file-tag {
+  opacity: 1;
+  transform: translateX(0);
+  /* Delayed entrance when opening */
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.25s, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.25s;
+}
+
+/* ==========================================================================
+   Front File Card View Details Button (Appears when folder is OPEN)
+   ========================================================================== */
+.view-details-front-btn {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.folder-toggle:checked ~ .folder-container .view-details-front-btn {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  transition-delay: 0.2s;
+}
+
+/* ==========================================================================
+   Professional Production Systems - Uiverse.io Card by Javierrocadev
+   ========================================================================== */
+.pro-uiverse-card {
+  width: 100%;
+  min-height: 280px;
+  border-radius: 18px;
+  background: rgba(30, 27, 75, 0.25);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pro-uiverse-card:hover {
+  border-color: rgba(168, 85, 247, 0.5);
+  box-shadow: 0 20px 45px rgba(105, 13, 197, 0.3);
+  transform: translateY(-4px);
+}
+
+.pro-uiverse-card::before {
+  content: "";
+  height: 120px;
+  width: 120px;
+  position: absolute;
+  top: -40%;
+  left: -20%;
+  border-radius: 50%;
+  border: 35px solid rgba(255, 255, 255, 0.102);
+  transition: all 0.8s ease;
+  filter: blur(0.5rem);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pro-uiverse-card:hover::before {
+  width: 160px;
+  height: 160px;
+  top: -25%;
+  left: 60%;
+  filter: blur(0rem);
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+.pro-uiverse-text {
+  flex-grow: 1;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  color: aliceblue;
+  position: relative;
+  z-index: 10;
+}
+
+.pro-uiverse-subtitle {
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: rgba(240, 248, 255, 0.75);
+  line-height: 1.6;
+  margin-top: 8px;
+}
+
+.pro-uiverse-icons {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-radius: 0px 0px 18px 18px;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(15, 23, 42, 0.7);
+  position: relative;
+  z-index: 10;
+}
+
+.pro-uiverse-btn {
+  border: none;
+  width: 100%;
+  height: 44px;
+  background-color: rgba(247, 234, 234, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #f1f5f9;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pro-uiverse-btn:hover {
+  background-color: rgba(168, 85, 247, 0.3);
+  color: #ffffff;
+}
+
+.pro-uiverse-svg-icon {
+  width: 18px;
+  height: 18px;
+  stroke: #38bdf8;
+  transition: stroke 0.3s ease;
+}
+
+.pro-uiverse-btn:hover .pro-uiverse-svg-icon {
+  stroke: #ffffff;
+}
+
+/* ==========================================================================
+   Social Card - Uiverse.io by dovatgabriel
+   ========================================================================== */
+.uiverse-social-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #18181b;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  overflow: hidden;
+  height: 48px;
+  width: 200px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.uiverse-social-card svg {
+  height: 22px;
+  width: 22px;
+}
+
+.uiverse-social-card::before, 
+.uiverse-social-card::after {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+  transition: 0.25s linear;
+  z-index: 1;
+}
+
+.uiverse-social-card::before {
+  content: "";
+  left: 0;
+  justify-content: flex-end;
+  background-color: #4d60b6;
+}
+
+.uiverse-social-card::after {
+  content: "";
+  right: 0;
+  justify-content: flex-start;
+  background-color: #4453a6;
+}
+
+.uiverse-social-card:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.uiverse-social-card span {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: whitesmoke;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  opacity: 1;
+  transition: opacity 0.25s;
+  z-index: 2;
+  letter-spacing: 0.05em;
+  pointer-events: auto;
+}
+
+.uiverse-social-card:hover span {
+  opacity: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.uiverse-social-card:hover::before {
+  opacity: 0.5;
+  transform: translateY(-100%);
+}
+
+.uiverse-social-card:hover::after {
+  opacity: 0.5;
+  transform: translateY(100%);
+}
+
+.uiverse-social-card .social-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 33.33%;
+  height: 100%;
+  color: whitesmoke;
+  font-size: 20px;
+  text-decoration: none;
+  transition: opacity 0.25s ease;
+  z-index: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.uiverse-social-card:hover .social-link {
+  opacity: 1;
+  z-index: 3;
+  pointer-events: auto;
+}
+
+.uiverse-social-card .social-link svg {
+  text-shadow: 1px 1px rgba(31, 74, 121, 0.7);
+  transform: scale(1);
+}
+
+.uiverse-social-card .social-link:hover {
+  background-color: rgba(249, 244, 255, 0.25);
+  animation: bounce_613 0.4s linear;
+}
+
+@keyframes bounce_613 {
+  40% {
+    transform: scale(1.4);
+  }
+
+  60% {
+    transform: scale(0.8);
+  }
+
+  80% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+
+
